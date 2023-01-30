@@ -10,7 +10,8 @@ const Home = () => {
       <br />
       <li>
           {/* Endpoint to route to About component */}
-          <Link to="/Home">Home</Link>
+          <Link to="/">Home</Link> <br></br>
+          <Link to="/login">Login</Link>
         </li>
     </div>
   );
