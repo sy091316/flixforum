@@ -7,10 +7,8 @@ import Login from './Login/Login';
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import './Home.css';
-  
-const Home = () => {
-  const navigate = useNavigate();
-      fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=10&limit_suggestions=1', {
+
+fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=10&limit_suggestions=1', {
       "method": "GET",
       "headers": {
         'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
@@ -37,6 +35,9 @@ const Home = () => {
     .catch(err => {
       console.log(err);
     })
+
+const Home = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <h1>Home Page:</h1>
