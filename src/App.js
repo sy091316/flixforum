@@ -2,8 +2,8 @@ import logo from './logo.svg';
 import React, { useState } from "react";
 import './App.css';
 //import logo from './logo.svg';
-//import { Login } from "./Login";
-//import { Register } from "./Register";
+//import { Login } from "../Login";
+//import { Register } from "../Register";
 import { Link } from "react-router-dom";
 
 
@@ -11,8 +11,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Axios from 'axios';
 // import Home component
 import Home from "./Home";
-import  Login  from "./Login";
-import Register  from "./Register";
+import Register from './Login/Register';
+import Login from './Login/Login';
 
 
 

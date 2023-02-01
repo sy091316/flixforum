@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Axios from 'axios'
-import { Home } from "./Home";
+import { Home } from "../Home";
 import { Link } from "react-router-dom";
-import { Register } from "./Register";
-import './App.css';
+import App from "../App";
 
 
 
@@ -36,17 +35,8 @@ export const Login = (props) => {
         console.log(pass);
     }
  
-
-    
-
-   // onSubmit={handleSubmit}
-   //form action="/dashboard"
-   //method="POST"
-   //action="/Home" 
     return (
         <>
-
-    
 
     <div className="App">
         
