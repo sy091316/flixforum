@@ -46,6 +46,9 @@ export const Login = (props) => {
     return (
         <>
 
+    
+
+    <div className="App">
         
         <div className="auth-form-container">
             <h2>Login</h2>
@@ -59,6 +62,8 @@ export const Login = (props) => {
             <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
             <h1>{loginStatus}</h1>
         </div>
+    </div>
         </>
     )
 }
+export default Login;

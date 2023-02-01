@@ -2,30 +2,40 @@ import logo from './logo.svg';
 import React, { useState } from "react";
 import './App.css';
 //import logo from './logo.svg';
-import { Login } from "./Login";
-import { Register } from "./Register";
+//import { Login } from "./Login";
+//import { Register } from "./Register";
 import { Link } from "react-router-dom";
 
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Axios from 'axios'
+import Axios from 'axios';
 // import Home component
 import Home from "./Home";
+import  Login  from "./Login";
+import Register  from "./Register";
 
 
 
 function App() {
-  const [currentForm, setCurrentForm] = useState('login');
+  //const [currentForm, setCurrentForm] = useState('/login');
 
 
+  /*
   const toggleForm = (formName) => {
     setCurrentForm(formName);
-  }
+  }*/
   
   
 
     //npx kill-port 3000
   /*
+        <div className="App">
+    {
+      currentForm === "/Home" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
+      
+    }
+    
+  </div>
     <div className="App">
     {
       currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
@@ -56,15 +66,12 @@ function App() {
           with exact path "/", in component props 
           we passes the imported component*/}
           <Route exact path='/' element={<Home/>}></Route>
+          <Route exact path='/login' element={<Login/>}></Route>
+          <Route exact path='/register' element={<Register/>}></Route>
         </Routes>
       </Router>
-      <div className="App">
-    {
-      currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
-      
-    }
     
-  </div>
+
     
                   
       
