@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Axios from 'axios'
+import { Link } from "react-router-dom";
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -38,7 +39,8 @@ export const Register = (props) => {
             <button onClick = {register} type="submit">Sign Up</button>
 
         </form>
-        <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</button>
+        <Link to= "/login">Already have an account? Log In here.</Link>
+        {/*<button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</button>*/}
     </div>
     </div>
     )
