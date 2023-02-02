@@ -7,6 +7,9 @@ import Login from './Login/Login';
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import './Home.css';
+//Frontend Login Page: https://www.youtube.com/watch?v=Y-XW9m8qOis
+//Backend Login Page: https://www.youtube.com/watch?v=W-sZo6Gtx_E , https://www.youtube.com/watch?v=W8jySpfRUDY  
+
 
 fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=10&limit_suggestions=1', {
       "method": "GET",
