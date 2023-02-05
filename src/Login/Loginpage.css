@@ -47,12 +47,17 @@
     color: #000000;
   }
   
-  .link-btn {
-    background: none;
+  a:link, a:visited {
+    background-color: transparent;
     color: white;
     text-decoration: underline;
   }
-  
+  a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
   /*
   .App {
     text-align: center;
