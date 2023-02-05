@@ -28,7 +28,7 @@ export const Register = (props) => {
                 //onSubmit={handleSubmit}
 
     return (
-    <div className="App">
+    <div className="App2">
         <div className="auth-form-container">
             <h2>Register</h2>
         <form className="register-form" >

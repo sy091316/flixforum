@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Axios from 'axios'
 import { Home } from "../Home";
 import { Link } from "react-router-dom";
-import App from "../App";
+//import App from "../App";
+import "./Loginpage.css";
 
 
 
@@ -38,7 +39,7 @@ export const Login = (props) => {
     return (
         <>
 
-    <div className="App">
+    <div className="App2">
         
         <div className="auth-form-container">
             <h2>Login</h2>
@@ -49,7 +50,7 @@ export const Login = (props) => {
                 <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                 <button onClick={login} type="submit" >Log In</button>
             </form>
-            <Link to= "/register">Don't have an account? Register here.</Link>
+            <div className="link-btn"><Link to= "/register">Don't have an account? Register here.</Link> </div>
             {/*<button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>*/}
             <h1>{loginStatus}</h1>
         </div>
