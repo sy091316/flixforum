@@ -1,7 +1,6 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
-const { getDefaultNormalizer } = require("@testing-library/react");
 
 const app = express();
 
@@ -10,9 +9,10 @@ app.use(express.json());
 app.use(cors());
 
 const db = mysql.createConnection({
-    user: 'root',
-    host: 'localhost',
-    password: 'password',
+    user: 'admin',
+    host: 'flixforum-db.cdwyjlv3wddo.us-west-2.rds.amazonaws.com',
+    password: 'FlixForum',
+    port: '3306',
     database: 'LoginSystem',
 });
 
@@ -29,17 +29,14 @@ app.post("/register", (req, res) => {
             console.log(err);
         }
         res.send(result);
-        
-    
+
+
     });
 });
 
 app.post("/login", (req, res) => {
-
     const email = req.body.email;
     const password = req.body.password;
-    //const username = "hello";
-    //const password = 123;
 
 
     db.query(
@@ -51,7 +48,7 @@ app.post("/login", (req, res) => {
         } 
 
         if (result.length > 0) {
-            res.send(result);       
+            res.send(result);
         } else {
             res.send({message: "Wrong username/password combination!"});
         }

@@ -5,7 +5,7 @@ import "./Loginpage.css";
 
 
 
-export const Login = (props) => {
+export const Login = () => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
 
