@@ -50,17 +50,18 @@ app.post("/login", async (req, res) => {
             if(err) {
                 res.send({err:err});
             }
-
             if (result.length > 0) {
-                
+                if(bycrypt.compare(password, result[0].password)){
+                    res.send(result);
+                } else {
+                    res.send({message: "Wrong username/password combination!"});
+                }
             } else {
                 res.send({message: "No such username."});
             }
         });
         
-        
-        
-
+        /*
         db.query(
         'SELECT * FROM users WHERE email = ? AND password = ?', 
         [email, password], 
@@ -75,6 +76,7 @@ app.post("/login", async (req, res) => {
                 res.send({message: "Wrong username/password combination!"});
             }
         });
+        */
     } catch {
         res.status(500).send();
     }
