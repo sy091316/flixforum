@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Axios from 'axios'
 import { Link } from "react-router-dom";
 
-export const Register = (props) => {
+export const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
@@ -16,17 +16,6 @@ export const Register = (props) => {
           console.log(response);
         });
     }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(email);
-        console.log(pass);
-    }
-
-    // <label htmlFor="name">Full name</label>
-    //<input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="full Name" />
-                //onClick={register}
-                //onSubmit={handleSubmit}
 
     return (
     <div className="App2">
@@ -44,7 +33,6 @@ export const Register = (props) => {
         </form>
         <br></br>
         <Link to= "/login">Already have an account? Log In here.</Link>
-        {/*<button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</button>*/}
     </div>
     </div>
     )
