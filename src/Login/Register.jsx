@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import Axios from 'axios'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const navigate = useNavigate();
 
     const register = () => {
         Axios.post('http://localhost:3001/register', {
           username: name,  
           email: email,
           password: pass,
-        }).then((response) => {
-          console.log(response);
-        });
+        })
+        if (name !== '' && email !== '' && pass !== '') {
+            navigate('/login');
+        }
     }
 
     return (
@@ -23,11 +25,11 @@ export const Register = () => {
             <h2>Register</h2>
         <form className="register-form" >
             <label htmlFor="name">username</label>
-            <input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="username" />
+            <input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="username" required />
             <label htmlFor="email">email</label>
-            <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
+            <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" required />
             <label htmlFor="password">password</label>
-            <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+            <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" required />
             <button onClick = {register} type="submit">Sign Up</button>
 
         </form>
