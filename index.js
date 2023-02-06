@@ -18,37 +18,40 @@ const db = mysql.createConnection({
 
 app.post("/register", (req, res) => {
     const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
 
     db.query(
-    "INSERT INTO users (username, password) VALUES (?, ?)", 
-    [username, password], 
+    "INSERT INTO users (username, email, password) VALUES (?, ?, ?)", 
+    [username, email, password], 
     (err, result) => {
         if(err) {
             console.log(err);
         }
         res.send(result);
+        
+    
     });
 });
 
 app.post("/login", (req, res) => {
 
-    const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
     //const username = "hello";
     //const password = 123;
 
 
     db.query(
-    'SELECT * FROM users WHERE username = ? AND password = ?', 
-    [username, password], 
+    'SELECT * FROM users WHERE email = ? AND password = ?', 
+    [email, password], 
     (err, result) => {
         if(err) {
             res.send({err:err});
         } 
 
         if (result.length > 0) {
-            res.send(result);
+            res.send(result);       
         } else {
             res.send({message: "Wrong username/password combination!"});
         }
