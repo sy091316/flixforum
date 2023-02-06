@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
+const bycrypt = require("bcrypt");
 
 const app = express();
 
@@ -16,43 +17,69 @@ const db = mysql.createConnection({
     database: 'LoginSystem',
 });
 
-app.post("/register", (req, res) => {
-    const username = req.body.username;
-    const email = req.body.email;
-    const password = req.body.password;
+app.post("/register", async (req, res) => {
+    try {
+        const username = req.body.username;
+        const email = req.body.email;
+        const hashedPassword = await bycrypt.hash(req.body.password, 10);
 
-    db.query(
-    "INSERT INTO users (username, email, password) VALUES (?, ?, ?)", 
-    [username, email, password], 
-    (err, result) => {
-        if(err) {
-            console.log(err);
-        }
-        res.send(result);
-
-
-    });
+        db.query(
+        "INSERT INTO users (username, email, password) VALUES (?, ?, ?)", 
+        [username, email, hashedPassword], 
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+            res.status(201).send(result);
+        });
+    } catch {
+        res.status(500).send();
+    }
+    
 });
 
-app.post("/login", (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+app.post("/login", async (req, res) => {
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
 
+        db.query(
+        'SELECT * FROM users WHERE email = ?',
+        [email],
+        (err, result) => {
+            if(err) {
+                res.send({err:err});
+            }
+            if (result.length > 0) {
+                if(bycrypt.compare(password, result[0].password)){
+                    res.send(result);
+                } else {
+                    res.send({message: "Wrong username/password combination!"});
+                }
+            } else {
+                res.send({message: "No such username."});
+            }
+        });
+        
+        /*
+        db.query(
+        'SELECT * FROM users WHERE email = ? AND password = ?', 
+        [email, password], 
+        (err, result) => {
+            if(err) {
+                res.send({err:err});
+            } 
 
-    db.query(
-    'SELECT * FROM users WHERE email = ? AND password = ?', 
-    [email, password], 
-    (err, result) => {
-        if(err) {
-            res.send({err:err});
-        } 
-
-        if (result.length > 0) {
-            res.send(result);
-        } else {
-            res.send({message: "Wrong username/password combination!"});
-        }
-    });
+            if (result.length > 0) {
+                res.send(result);
+            } else {
+                res.send({message: "Wrong username/password combination!"});
+            }
+        });
+        */
+    } catch {
+        res.status(500).send();
+    }
 });
 
 app.listen(3001, () => {
