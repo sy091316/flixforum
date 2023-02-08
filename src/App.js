@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from "./Home";
 import Register from './Login/Register';
 import Login from './Login/Login';
-
+import Forum from './Forum/Forum';
 
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
           <Route exact path='/' element={<Home/>}></Route>
           <Route exact path='/login' element={<Login/>}></Route>
           <Route exact path='/register' element={<Register/>}></Route>
+          <Route exact path='/forum' element={<Forum/>}></Route>
         </Routes>
       </Router>
     </>

@@ -50,6 +50,7 @@ const Home = () => {
       <br />
           {/* Endpoint to route to About component */}
             <button type ="button" class = "btn success" onClick={() => navigate("/login")}>Log In</button>
+            <button type ="button" class = "btn info" onClick={() => navigate("/forum")}>forums</button>
     </div>
   );
 };
