@@ -13,7 +13,7 @@ import './Home.css';
  */
  
 
-
+/*
 fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=10&limit_suggestions=1', {
       "method": "GET",
       "headers": {
@@ -41,6 +41,7 @@ fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=10&limit_
     .catch(err => {
       console.log(err);
     })
+*/
 
 const Home = () => {
   const navigate = useNavigate();
