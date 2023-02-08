@@ -2,6 +2,7 @@ import React from "react";
 import Typography from '@mui/material/Typography';
 // import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
+import { CardActionArea, CardContent, CardMedia } from "@mui/material";
 // import CardContent from '@mui/material/CardContent';
 // import CardMedia from '@mui/material/CardMedia';
 // import {CardActionArea} from '@mui/material';
@@ -36,8 +37,19 @@ import Card from '@mui/material/Card';
 
 function ShowCard() {
     return(
-        <Card>
-            Hello
+        <Card sx={{maxWidth: 345}}>
+            <CardActionArea>
+                <CardMedia
+                    component="img"
+                    height="140"
+                    alt="show image"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="subtitle1">
+                        Name of Show
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
         </Card>
     )
 }
