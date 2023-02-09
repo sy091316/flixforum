@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 // importing Link from react-router-dom to navigate to 
 // different end points.
 import { Link } from "react-router-dom";
@@ -6,14 +6,16 @@ import Register  from "./Login/Register";
 import Login from './Login/Login';
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
+import CategoryContext from "./CategoryContext";
 import './Home.css';
+
 /** Citations
  * Frontend Login Page: https://www.youtube.com/watch?v=Y-XW9m8qOis
  * Backend Login Page: https://www.youtube.com/watch?v=W-sZo6Gtx_E , https://www.youtube.com/watch?v=W8jySpfRUDY 
  */
  
 
-
+/*
 fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=10&limit_suggestions=1', {
       "method": "GET",
       "headers": {
@@ -41,12 +43,18 @@ fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=10&limit_
     .catch(err => {
       console.log(err);
     })
+*/
 
 const Home = () => {
+  const {loginStatus} = useContext(CategoryContext);
+  console.log(loginStatus);
   const navigate = useNavigate();
   return (
     <div>
       <h1>Home Page:</h1>
+      {loginStatus && <h1>Logged in, bitch</h1>}
+      {!loginStatus && <h1>Not logged</h1>}
+      
       <br />
           {/* Endpoint to route to About component */}
             <button type ="button" class = "btn success" onClick={() => navigate("/login")}>Log In</button>
