@@ -3,7 +3,8 @@ import Axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import "./Forumpage.css";
 //import { Modal, Button, Form } from "react-bootstrap";
-import Modal from '../Newpostmodal/Newpostmodal'
+import Modal from '../Newpostmodal/Newpostmodal';
+
 
 export const Forum = () => {
     const navigate = useNavigate();
