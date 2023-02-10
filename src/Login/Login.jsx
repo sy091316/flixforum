@@ -22,6 +22,7 @@ export const Login = () => {
             if(response.data.message) {
                 setLoginStatus(response.data.message);
             } else {
+                localStorage.setItem('member', JSON.stringify(response.data[0].id))
                 setLoginStatus(true);//(response.data[0].username);
                 navigate('/');
             }

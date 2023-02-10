@@ -48,12 +48,16 @@ fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=10&limit_
 const Home = () => {
   const {loginStatus} = useContext(CategoryContext);
   console.log(loginStatus);
+
+  const curr = localStorage.getItem('member');
+
   const navigate = useNavigate();
   return (
     <div>
       <h1>Home Page:</h1>
-      {loginStatus && <h1>Logged in, bitch</h1>}
-      {!loginStatus && <h1>Not logged</h1>}
+      {
+        (loginStatus || curr) ?  <h1>Logged in, bitch</h1> : <h1>Not logged</h1>
+      }
       
       <br />
           {/* Endpoint to route to About component */}
