@@ -29,7 +29,7 @@ export const Forum = () => {
                     <br></br>
                     <br></br>
                     <br></br>
-                    <button className="button info" onClick={() => setShow(true)}>+New Post</button>
+                    <button className="newpost-button" onClick={() => setShow(true)}>New Post</button>
                     <Modal onClose = {() => setShow(false)} show={show}/>
                 </div>
             </div>

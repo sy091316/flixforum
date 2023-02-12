@@ -65,3 +65,14 @@
  .newpost {
     float:right;
  }
+
+ .newpost-button {
+      background-color: #D81F26;
+      color: black;
+      font-size: 16px;
+      float: right;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+    }
