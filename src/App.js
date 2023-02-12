@@ -5,7 +5,8 @@ import CategoryContext from './CategoryContext';
 import Home from "./Home";
 import Register from './Login/Register';
 import Login from './Login/Login';
-
+import Forum from './Forum/Forum';
+import Newpostmodal from './Newpostmodal/Newpostmodal';
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
             </CategoryContext.Provider>}>
           </Route>
           <Route exact path='/register' element={<Register/>}></Route>
+          <Route exact path='/forum' element={<Forum/>}></Route>
+          <Route exact path='/newpostmodal' element={<Newpostmodal/>}></Route>
         </Routes>
       </Router>
     </>
