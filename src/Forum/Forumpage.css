@@ -23,6 +23,34 @@
     justify-content: center;
     align-items: center;
  }
+ .show-title {
+    display: flex;
+    padding-left:22px;
+    font-family: "Arial";
+    font-weight: 500;
+    font-size: 20px;
+    color: white;
+ }
+ .show-season {
+    display: flex;
+    padding-left:22px;
+    display: flex;
+    padding-left:22px;
+    font-family: "Arial";
+    font-weight: 500;
+    font-size: 20px;
+    color: white;
+ }
+ .show-episode {
+   display: flex;
+    padding-left:22px;
+    display: flex;
+    padding-left:22px;
+    font-family: "Arial";
+    font-weight: 500;
+    font-size: 20px;
+    color: white;
+ }
  .tvshowpicture{
     display: flex;
     flex-direction: row;

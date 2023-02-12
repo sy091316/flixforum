@@ -6,9 +6,16 @@ import close from './close.svg';
 //Modal: https://medium.com/tinyso/how-to-create-a-modal-component-in-react-from-basic-to-advanced-a3357a2a716a
 
 export const Newpostmodal = (props) => {
+    const [postInput, setPostInput] = useState("");
     if(!props.show) {
         return null
     }
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setPostInput(e.target.value);
+    };
+
     return (
         <>
         <div className="modal">
@@ -21,7 +28,13 @@ export const Newpostmodal = (props) => {
                     TV Show Title
                 </div>
                 <div className="modal-comments">
-                    Comments
+                <textarea
+                    class = "comment-box"
+                    type="text"
+                    maxLength = "256"
+                    placeholder="Enter your post here"
+                    onChange={handleChange}
+                    value={postInput} />
                 </div>
                 <div className="modal-footer">
                   <button className="buttonsubmit">Submit</button>

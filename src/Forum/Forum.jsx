@@ -17,6 +17,10 @@ export const Forum = () => {
                     <button type="button" className="logo-flixforum" onClick={() => navigate("/")}>FLIXFORUM</button>
                 </div>
                 <br></br>
+                <div className = "show-title">Title</div>
+                <div className="show-season">Season x</div>
+                <div className="show-episode">Episode x</div>
+                <br></br>
                 <div className="tvshowpicture">
                   TVshowPicture
                 </div>
