@@ -7,13 +7,21 @@ import close from './close.svg';
 
 export const Newpostmodal = (props) => {
     const [postInput, setPostInput] = useState("");
+    const [postTitleInput, setPostTitleInput] = useState("");
     if(!props.show) {
         return null
     }
 
-    const handleChange = (e) => {
+    const handleChangePostTitle = (e) => {
+        e.preventDefault();
+        setPostTitleInput(e.target.value);
+        // console.log('title:', postTitleInput);
+    };
+
+    const handleChangePost = (e) => {
         e.preventDefault();
         setPostInput(e.target.value);
+        // console.log('post:', postInput);
     };
 
     return (
@@ -24,16 +32,22 @@ export const Newpostmodal = (props) => {
                     <h4 className="modal-title">New Post Forum</h4>
                     <img class="buttonclose" src={close} width="26" height="26" onClick={props.onClose}/>
                 </div>
-                <div className="modal-body">
-                    TV Show Title
-                </div>
-                <div className="modal-comments">
+                <div className="comment-title">
                 <textarea
-                    class = "comment-box"
+                    class = "comment-title-box"
+                    type="text"
+                    maxLength = "50"
+                    placeholder="Enter your post title here"
+                    onChange={handleChangePostTitle}
+                    value={postTitleInput} />
+                </div>
+                <div className="modal-post">
+                <textarea
+                    class = "post-box"
                     type="text"
                     maxLength = "256"
                     placeholder="Enter your post here"
-                    onChange={handleChange}
+                    onChange={handleChangePost}
                     value={postInput} />
                 </div>
                 <div className="modal-footer">
