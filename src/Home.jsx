@@ -55,13 +55,14 @@ const Home = () => {
   return (
     <div>
       <h1>Home Page:</h1>
-      {
-        (loginStatus || curr) ?  <h1>Logged in, bitch</h1> : <h1>Not logged</h1>
-      }
       
       <br />
           {/* Endpoint to route to About component */}
-            <button type ="button" class = "btn success" onClick={() => navigate("/login")}>Log In</button>
+          {
+            (loginStatus || curr) ?  
+              <h1>Logout button</h1> : //replace this with logout button 
+             <button type ="button" class = "btn success" onClick={() => navigate("/login")}>Log In</button>
+          }
             <button type ="button" class = "btn info" onClick={() => navigate("/forum")}>forums</button>
     </div>
   );
