@@ -32,7 +32,11 @@ function App() {
             </CategoryContext.Provider>}>
           </Route>
           <Route exact path='/register' element={<Register/>}></Route>
-          <Route exact path='/forum' element={<Forum/>}></Route>
+          <Route exact path='/forum' element={
+            <CategoryContext.Provider value={{loginStatus, setLoginStatus}}>
+              <Forum/>
+            </CategoryContext.Provider>}>
+          </Route>
           <Route exact path='/newpostmodal' element={<Newpostmodal/>}></Route>
         </Routes>
       </Router>

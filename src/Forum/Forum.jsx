@@ -1,12 +1,16 @@
-import React, { useState, Component } from "react";
+import React, { useState, useContext, Component } from "react";
 import Axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import "./Forumpage.css";
 //import { Modal, Button, Form } from "react-bootstrap";
 import Modal from '../Newpostmodal/Newpostmodal';
+import CategoryContext from "../CategoryContext";
 
 
 export const Forum = () => {
+    const {loginStatus} = useContext(CategoryContext);
+    const curr = localStorage.getItem('member');
+
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
         return (
@@ -25,13 +29,24 @@ export const Forum = () => {
                   TVshowPicture
                 </div>
                 
-                <div className="newpost">
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <button className="newpost-button" onClick={() => setShow(true)}>New Post</button>
-                    <Modal onClose = {() => setShow(false)} show={show}/>
-                </div>
+                {
+                    (loginStatus || curr) ? 
+                    <div className="newpost">
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <button className="newpost-button" onClick={() => setShow(true)}>New Post</button>
+                        <Modal onClose = {() => setShow(false)} show={show}/>
+                    </div> : 
+                    // redirect to login if not logged in
+                    <div className="newpost">
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <button type ="button" class = "btn success" onClick={() => navigate("/login")}>New Post</button>
+                    </div> 
+                }
+
             </div>
 
             </>
