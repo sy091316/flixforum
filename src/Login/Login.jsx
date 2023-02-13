@@ -9,7 +9,6 @@ import CategoryContext from "../CategoryContext";
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-
     const navigate = useNavigate();
 
     //added
@@ -25,7 +24,7 @@ export const Login = () => {
             } else {
                 localStorage.setItem('member', JSON.stringify(response.data[0].id))
                 setLoginStatus(true);//(response.data[0].username);
-                navigate(-1);
+                navigate('/');
             }
         });
     }
