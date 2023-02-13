@@ -65,7 +65,7 @@ const Home = () => {
       <br />
       <div classname='App'>
               <Search/>
-            </div>
+      </div>
           {/* Endpoint to route to About component */}
           {
             (loginStatus || curr) ?  

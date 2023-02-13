@@ -27,6 +27,8 @@ export const Forum = () => {
                 <br></br>
                 <div className="tvshowpicture">
                   TVshowPicture
+                  <br></br>
+                  Current ID: {curr}
                 </div>
                 
                 {
