@@ -16,10 +16,10 @@ function App() {
           with exact path "/", in component props 
           we passes the imported component*/}
           <Route exact path='/' element={
-            <>
+            <div className="main">
               <Home/>
               <ShowCard/>
-            </>
+            </div>
             }>
           </Route>
           {/* route links to the login page */}

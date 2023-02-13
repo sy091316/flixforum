@@ -12,8 +12,14 @@ const Home = () => {
     <div>
       <h1>Home Page:</h1>
       <br />
-          {/* Endpoint to route to About component */}
-            <button type ="button" class = "btn success" onClick={() => navigate("/login")}>Log In</button>
+      {/* Endpoint to route to About component */}
+      <button 
+        type="button"
+        class="btn success"
+        onClick={() => navigate("/login")}
+      >
+      Log In
+      </button>
     </div>
   );
 };
