@@ -1,0 +1,78 @@
+.forumspage{
+  color: white;
+  flex-direction: column;
+}
+ .navigation-bar{
+    background-color: black;
+    width:1460px;
+    height:50px;
+ }
+ .logo-flixforum {
+    display: flex;
+    padding-left:22px;
+    font-family: "BebasNeue";
+    font-weight: 700;
+    font-size: 26px;
+    color: #D81F26;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    justify-content: center;
+    align-items: center;
+ }
+ .show-title {
+    display: flex;
+    padding-left:22px;
+    font-family: "Arial";
+    font-weight: 500;
+    font-size: 20px;
+    color: white;
+ }
+ .show-season {
+    display: flex;
+    padding-left:22px;
+    display: flex;
+    padding-left:22px;
+    font-family: "Arial";
+    font-weight: 500;
+    font-size: 20px;
+    color: white;
+ }
+ .show-episode {
+   display: flex;
+    padding-left:22px;
+    display: flex;
+    padding-left:22px;
+    font-family: "Arial";
+    font-weight: 500;
+    font-size: 20px;
+    color: white;
+ }
+ .tvshowpicture{
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+    width: 3000px;
+    background-color: #262D34;
+    position:relative;
+    padding-top:200px;
+    padding-left:700px;
+
+ }
+ .newpost {
+    float:right;
+ }
+
+ .newpost-button {
+      background-color: #D81F26;
+      color: black;
+      font-size: 16px;
+      float: right;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+    }
