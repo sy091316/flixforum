@@ -65,7 +65,7 @@ const Home = () => {
           {/* Endpoint to route to About component */}
           {
             (loginStatus || curr) ?  
-              <h1><button type ="button" class = "btn success" onClick={logout}>Log Out</button></h1> : //replace this with logout button 
+              <button type ="button" class = "btn success" onClick={logout}>Log Out</button> : 
               <button type ="button" class = "btn success" onClick={() => navigate("/login")}>Log In</button>
           }
             <button type ="button" class = "btn info" onClick={() => navigate("/forum")}>forums</button>
