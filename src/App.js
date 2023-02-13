@@ -6,6 +6,7 @@ import Home from "./Home";
 import Register from './Login/Register';
 import Login from './Login/Login';
 import Forum from './Forum/Forum';
+import SearchResult from "./searchResult";
 import Newpostmodal from './Newpostmodal/Newpostmodal';
 
 
@@ -38,6 +39,7 @@ function App() {
             </CategoryContext.Provider>}>
           </Route>
           <Route exact path='/newpostmodal' element={<Newpostmodal/>}></Route>
+          <Route exact path='/searchResult' element={<SearchResult/>}></Route>
         </Routes>
       </Router>
     </>

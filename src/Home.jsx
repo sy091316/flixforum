@@ -7,6 +7,7 @@ import Login from './Login/Login';
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 import CategoryContext from "./CategoryContext";
+import Search from './searchbar';
 import './Home.css';
 
 /** Citations
@@ -62,6 +63,9 @@ const Home = () => {
       <h1>Home Page:</h1>
       
       <br />
+      <div classname='App'>
+              <Search/>
+            </div>
           {/* Endpoint to route to About component */}
           {
             (loginStatus || curr) ?  
