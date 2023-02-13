@@ -46,10 +46,15 @@ fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=10&limit_
 */
 
 const Home = () => {
-  const {loginStatus} = useContext(CategoryContext);
+  const {loginStatus, setloginStatus} = useContext(CategoryContext);
   console.log(loginStatus);
 
   const curr = localStorage.getItem('member');
+  const logout = () => {
+    setloginStatus(false);
+    localStorage.removeItem('member');
+    console.log(loginStatus);
+  };
 
   const navigate = useNavigate();
   return (
@@ -62,6 +67,7 @@ const Home = () => {
       <br />
           {/* Endpoint to route to About component */}
             <button type ="button" class = "btn success" onClick={() => navigate("/login")}>Log In</button>
+            <button type ="button" class = "btn success" onClickCapture={logout}>Log Out</button>
             <button type ="button" class = "btn info" onClick={() => navigate("/forum")}>forums</button>
     </div>
   );
