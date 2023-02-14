@@ -14,7 +14,7 @@ import './App.css';
 function App() {
 
   const [loginStatus, setLoginStatus] = useState(false);
-
+  const [selectedShow, setSingleShow] = useState([]);
   return (
     <>
     {/* This is the alias of BrowserRouter i.e. Router */}
@@ -24,7 +24,7 @@ function App() {
           with exact path "/", in component props 
           we passes the imported component*/}
           <Route exact path='/' element={
-            <CategoryContext.Provider value={{loginStatus, setLoginStatus}}>
+            <CategoryContext.Provider value={{loginStatus, setLoginStatus, selectedShow, setSingleShow}}>
               <div className="main">
                 <Home/>
                 <ShowCard/>
@@ -38,7 +38,7 @@ function App() {
           </Route>
           <Route exact path='/register' element={<Register/>}></Route>
           <Route exact path='/forum' element={
-            <CategoryContext.Provider value={{loginStatus, setLoginStatus}}>
+            <CategoryContext.Provider value={{loginStatus, setLoginStatus, selectedShow, setSingleShow}}>
               <Forum/>
             </CategoryContext.Provider>}>
           </Route>

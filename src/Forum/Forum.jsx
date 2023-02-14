@@ -1,27 +1,54 @@
-import React, { useState, useContext, Component } from "react";
+import React, { useState, useContext, Component, useEffect } from "react";
 import Axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import "./Forumpage.css";
 //import { Modal, Button, Form } from "react-bootstrap";
 import Modal from '../Newpostmodal/Newpostmodal';
 import CategoryContext from "../CategoryContext";
+import { display } from "@mui/system";
 
 
-export const Forum = () => {
+function Forum() {
     const {loginStatus} = useContext(CategoryContext);
+    const {selectedShow, setSingleShow} = useContext(CategoryContext);
+    const [displayShow, setDisplayedShow] = useState(false);
     const curr = localStorage.getItem('member');
-
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
+    // const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query='+ selectedShow +'&limit_titles=3&limit_suggestions=1';
+    React.useEffect(() => {
+        const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query='+ selectedShow +'&limit_titles=3&limit_suggestions=1';
+        fetch(singleShow, {
+            "method": "GET",
+            "headers": {
+                'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+                'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+            }
+        })
+        .then(response => response.json())
+        .then((data) => {
+            const convert_list = data.titles;
+            console.log(convert_list[0]);
+            // console.log('convert list: ', convert_list);
+            setDisplayedShow(convert_list[0]);
+            // console.log('bruh'); 
+            // console.log('temp: ', displayShow);
+        })
+        .catch(() => {
+            setDisplayedShow([]);
+            // console.log(err);
+        })
+        }, []);
+
         return (
-   
             <>
+            <div>{displayShow.jawSummary.cast}</div>
             <div className="forumspage">
                 <div className="navigation-bar">
                     <button type="button" className="logo-flixforum" onClick={() => navigate("/")}>FLIXFORUM</button>
                 </div>
                 <br></br>
-                <div className = "show-title">Title</div>
+                <div className = "show-title"></div>
                 <div className="show-season">Season x</div>
                 <div className="show-episode">Episode x</div>
                 <br></br>
