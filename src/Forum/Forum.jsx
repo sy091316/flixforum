@@ -17,7 +17,8 @@ function Forum() {
     const [show, setShow] = useState(false);
     // const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query='+ selectedShow +'&limit_titles=3&limit_suggestions=1';
     React.useEffect(() => {
-        const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query=stranger%20things&limit_titles=3&limit_suggestions=1';
+        // const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query=stranger%20things&limit_titles=3&limit_suggestions=1';
+        const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query='+ selectedShow +'&limit_titles=3&limit_suggestions=1';
         fetch(singleShow, {
             "method": "GET",
             "headers": {
@@ -29,14 +30,10 @@ function Forum() {
         .then((data) => {
             const convert_list = data.titles;
             console.log(convert_list[0]);
-            // console.log('convert list: ', convert_list);
             setDisplayedShow(convert_list[0]);
-            // console.log('bruh'); 
-            // console.log('temp: ', displayShow);
         })
         .catch(() => {
             setDisplayedShow([]);
-            // console.log(err);
         })
         }, []);
 
@@ -48,13 +45,13 @@ function Forum() {
                 </div>
                 <br></br>
                 <div className = "show-title">{displayShow && <div>{displayShow.jawSummary.title} </div>}</div>
-                <div className="show-season">Season x</div>
+                <div className="show-season">{displayShow && <div>Season {displayShow.jawSummary.seasonCount}</div>}</div>
                 <div className="show-episode">Episode x</div>
                 <br></br>
                 <div className="tvshowpicture">
-                  TVshowPicture
-                  <br></br>
-                  Current ID: {curr}
+                  {displayShow && <img src={displayShow.jawSummary.backgroundImage.url}></img>}
+                  {/* <br></br>
+                  Current ID: {curr} */}
                 </div>
                 
                 {

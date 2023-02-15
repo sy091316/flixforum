@@ -1,6 +1,7 @@
 .forumspage{
   color: white;
   flex-direction: column;
+  overflow: hidden;
 }
  .navigation-bar{
     background-color: black;

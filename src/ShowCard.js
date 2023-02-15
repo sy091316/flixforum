@@ -41,32 +41,15 @@ function ShowCard() {
     })
     .then(response => response.json())
     .then((json) => {
-        const convert_list = json.titles;
-        setList(convert_list);
+        console.log(json.titles[0].summary.type);
+        if (json.titles[0].summary.type === "show") {
+            const convert_list = json.titles;
+            setList(convert_list);
+        }
     })
     .catch(err => {
       console.log(err);
     })
-
-    // const getShow = (showID) => {
-    //     const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query='+ showID +'&limit_titles=3&limit_suggestions=1';
-    //     fetch(singleShow, {
-    //         "method": "GET",
-    //         "headers": {
-    //             'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
-    //             'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
-    //         }
-    //     })
-    //     .then(response => response.json())
-    //     .then((json) => {
-    //         const convert_list = json.titles;
-    //         console.log('bruh');
-    //         setSingleShow(convert_list);
-    //     })
-    //     .catch(err => {
-    //     console.log(err);
-    //     })
-    // }
     return(
         // <Card sx={{width: 225, height: 160, ml: 1}}>
         //     <CardActionArea 
@@ -103,7 +86,7 @@ function ShowCard() {
                         <Card sx={{width: 225, height: 160, ml: 1}}>
                             <CardActionArea  onClick={
                                     () => {
-                                        // getShow(show.jawSummary.title);
+                                        setSingleShow(show.jawSummary.title);
                                         navigate("/forum");
                                     }
                                 }>
