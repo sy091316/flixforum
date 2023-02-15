@@ -32,21 +32,21 @@ function ShowCard() {
             showRef.current.style.transform = `translateX(${-230 + distance}px)`
         }
     }
-    // fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=8&limit_suggestions=1', {
-    //   "method": "GET",
-    //   "headers": {
-    //     'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
-    //     'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
-    //   }
-    // })
-    // .then(response => response.json())
-    // .then((json) => {
-    //     const convert_list = json.titles;
-    //     setList(convert_list);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // })
+    fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=8&limit_suggestions=1', {
+      "method": "GET",
+      "headers": {
+        'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+        'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+      }
+    })
+    .then(response => response.json())
+    .then((json) => {
+        const convert_list = json.titles;
+        setList(convert_list);
+    })
+    .catch(err => {
+      console.log(err);
+    })
 
     // const getShow = (showID) => {
     //     const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query='+ showID +'&limit_titles=3&limit_suggestions=1';
@@ -68,68 +68,68 @@ function ShowCard() {
     //     })
     // }
     return(
-        <Card sx={{width: 225, height: 160, ml: 1}}>
-                            <CardActionArea 
-                                onClick={
+        // <Card sx={{width: 225, height: 160, ml: 1}}>
+        //     <CardActionArea 
+        //         onClick={
+        //             () => {
+        //                 // getShow('Stranger Things')
+        //                 setSingleShow('Stranger Things');
+        //                 navigate("/forum");
+        //             }
+        //         }>
+        //         <CardMedia
+        //             component="img"
+        //             height='110'
+        //             alt="show image"
+        //         />
+        //         <CardContent>
+        //             <Typography gutterBottom variant="subtitle1">
+        //                 Temp Title
+        //             </Typography>
+        //         </CardContent>
+        //     </CardActionArea>
+        // </Card>
+        <div className="list">
+            <div className="recommend"> RECOMMENDED SHOWS</div>
+            <div className="wrapper">
+                <Button 
+                    variant="contained"
+                    onClick={()=>handleClick("left")}
+                >
+                Left
+                </Button>
+                <div className="container" ref={showRef}>
+                    {list.map((show) => (
+                        <Card sx={{width: 225, height: 160, ml: 1}}>
+                            <CardActionArea  onClick={
                                     () => {
-                                        // getShow('Stranger Things')
-                                        setSingleShow('Stranger Things');
+                                        // getShow(show.jawSummary.title);
                                         navigate("/forum");
                                     }
                                 }>
                                 <CardMedia
                                     component="img"
+                                    image={show.jawSummary.backgroundImage.url}
                                     height='110'
                                     alt="show image"
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="subtitle1">
-                                        Temp Title
+                                        {show.jawSummary.title}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
                         </Card>
-        // <div className="list">
-        //     <div className="recommend"> RECOMMENDED SHOWS</div>
-        //     <div className="wrapper">
-        //         <Button 
-        //             variant="contained"
-        //             onClick={()=>handleClick("left")}
-        //         >
-        //         Left
-        //         </Button>
-        //         <div className="container" ref={showRef}>
-        //             {list.map((show) => (
-        //                 <Card sx={{width: 225, height: 160, ml: 1}}>
-        //                     <CardActionArea  onClick={
-        //                             () => {
-        //                                 getShow(show.jawSummary.title);
-        //                                 navigate("/forum");
-        //                             }
-        //                         }>
-        //                         <CardMedia
-        //                             component="img"
-        //                             image={show.jawSummary.backgroundImage.url}
-        //                             height='110'
-        //                             alt="show image"
-        //                         />
-        //                         <CardContent>
-        //                             <Typography gutterBottom variant="subtitle1">
-        //                                 {show.jawSummary.title}
-        //                             </Typography>
-        //                         </CardContent>
-        //                     </CardActionArea>
-        //                 </Card>
-        //             ))}
-        //         </div>
-        //         <Button 
-        //             variant="contained"
-        //             onClick={()=>handleClick("right")}
-        //         >
-        //         Right
-        //         </Button>
-        //     </div>
-        // </div>
+                    ))}
+                </div>
+                <Button 
+                    variant="contained"
+                    onClick={()=>handleClick("right")}
+                >
+                Right
+                </Button>
+            </div>
+        </div>
     );
 }
 

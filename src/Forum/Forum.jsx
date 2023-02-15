@@ -17,7 +17,7 @@ function Forum() {
     const [show, setShow] = useState(false);
     // const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query='+ selectedShow +'&limit_titles=3&limit_suggestions=1';
     React.useEffect(() => {
-        const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query='+ selectedShow +'&limit_titles=3&limit_suggestions=1';
+        const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query=stranger%20things&limit_titles=3&limit_suggestions=1';
         fetch(singleShow, {
             "method": "GET",
             "headers": {
@@ -42,13 +42,12 @@ function Forum() {
 
         return (
             <>
-            <div>{displayShow.jawSummary.cast}</div>
             <div className="forumspage">
                 <div className="navigation-bar">
                     <button type="button" className="logo-flixforum" onClick={() => navigate("/")}>FLIXFORUM</button>
                 </div>
                 <br></br>
-                <div className = "show-title"></div>
+                <div className = "show-title">{displayShow && <div>{displayShow.jawSummary.title} </div>}</div>
                 <div className="show-season">Season x</div>
                 <div className="show-episode">Episode x</div>
                 <br></br>
