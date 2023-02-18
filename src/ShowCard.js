@@ -32,25 +32,31 @@ function ShowCard() {
             showRef.current.style.transform = `translateX(${-230 + distance}px)`
         }
     }
-    fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=8&limit_suggestions=1', {
-      "method": "GET",
-      "headers": {
-        'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
-        'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
-      }
-    })
-    .then(response => response.json())
-    .then((json) => {
-        console.log(json.titles[0].summary.type);
-        if (json.titles[0].summary.type === "show") {
+    // useEffect is used to get the shows but not repeatedly unless this page
+    // is navigated to
+    useEffect(() => {
+        // fetches random shows from Netflix API
+        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=8&limit_suggestions=1', {
+            "method": "GET",
+            "headers": {
+            'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+            'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+            }
+        })
+        .then(response => response.json())
+        // sets the
+        .then((json) => {
             const convert_list = json.titles;
             setList(convert_list);
-        }
-    })
-    .catch(err => {
-      console.log(err);
-    })
+    
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }, []);
+
     return(
+        // testing card
         // <Card sx={{width: 225, height: 160, ml: 1}}>
         //     <CardActionArea 
         //         onClick={
