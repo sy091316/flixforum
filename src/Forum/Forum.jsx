@@ -5,6 +5,7 @@ import "./Forumpage.css";
 //import { Modal, Button, Form } from "react-bootstrap";
 import Modal from '../Newpostmodal/Newpostmodal';
 import CategoryContext from "../CategoryContext";
+import Logo from "../logo";
 
 
 export const Forum = () => {
@@ -17,9 +18,10 @@ export const Forum = () => {
    
             <>
             <div className="forumspage">
-                <div className="navigation-bar">
+                <Logo/>
+                {/* <div className="navigation-bar">
                     <button type="button" className="logo-flixforum" onClick={() => navigate("/")}>FLIXFORUM</button>
-                </div>
+                </div> */}
                 <br></br>
                 <div className = "show-title">Title</div>
                 <div className="show-season">Season x</div>

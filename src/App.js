@@ -6,7 +6,7 @@ import Home from "./Home";
 import Register from './Login/Register';
 import Login from './Login/Login';
 import Forum from './Forum/Forum';
-import SearchResult from "./searchResult";
+import SearchResult from "./Searchbar/searchResult";
 import Newpostmodal from './Newpostmodal/Newpostmodal';
 import ShowCard from './ShowCard';
 import './App.css';

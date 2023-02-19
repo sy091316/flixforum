@@ -2,6 +2,7 @@
   color: white;
   flex-direction: column;
 }
+/*
  .navigation-bar{
     background-color: black;
     width:1460px;
@@ -22,7 +23,7 @@
     outline: none;
     justify-content: center;
     align-items: center;
- }
+ }*/
  .show-title {
     display: flex;
     padding-left:22px;

@@ -1,0 +1,28 @@
+form .search-bar {
+  color: #555;
+  display: flex;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  border-color: white;
+  background-color: black;
+  border-width: 2px;
+}
+
+input .search-bar {
+  all :unset;
+  background-color: black;
+  /* background-image: url("./searchiconwhite.svg"); */
+}
+
+.search-icon {
+  border-color:white;
+}
+
+::placeholder {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+

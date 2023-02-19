@@ -3,8 +3,9 @@ import React, { useState, useContext } from "react";
 // different end points.
 import { useNavigate } from "react-router";
 import CategoryContext from "./CategoryContext";
-import Search from './searchbar';
+import Search from './Searchbar/searchbar';
 import './Home.css';
+import Logo from "./logo";
 
 /** Citations
  * Frontend Login Page: https://www.youtube.com/watch?v=Y-XW9m8qOis
@@ -55,21 +56,28 @@ const Home = () => {
 
   const navigate = useNavigate();
   return (
-    <div>
-      <h1>Home Page:</h1>
-      
-      <br />
-      <div classname='App'>
-              <Search/>
-      </div>
-          {/* Endpoint to route to About component */}
-          {
-            (loginStatus || curr) ?  
-              <button type ="button" class = "btn success" onClick={logout}>Log Out</button> : 
-              <button type ="button" class = "btn success" onClick={() => navigate("/login")}>Log In</button>
-          }
-            <button type ="button" class = "btn info" onClick={() => navigate("/forum")}>forums</button>
+    <>
+    <div className = 'homepage'>
+      <div className = 'logo'>
+        <Logo/> </div>
+        <br />
+        <div className = "search-and-login">
+          <div className='search-bar'>
+                  <Search/>
+          </div>
+          <div className = "login-buttons">
+              {/* Endpoint to route to About component */}
+              {
+                (loginStatus || curr) ?  
+                  <button type ="button" class = "btn success" onClick={logout}>Log Out</button> : 
+                  <button type ="button" class = "btn success" onClick={() => navigate("/login")}>Log In</button>
+              }
+          </div>
+        </div>
+      {/* </div> */}
     </div>
+    <button type ="button" class = "btn info" onClick={() => navigate("/forum")}>forums</button>
+    </>
   );
 };
   
