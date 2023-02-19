@@ -1,44 +1,52 @@
-import React, { useState, useContext, Component, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Forumpage.css";
 //import { Modal, Button, Form } from "react-bootstrap";
 import Modal from '../Newpostmodal/Newpostmodal';
 import CategoryContext from "../CategoryContext";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
+// https://codesandbox.io/s/edmekk?file=/demo.tsx
 
 function Forum() {
     // holds the login status of the user
     const {loginStatus} = useContext(CategoryContext);
     // holds data of the show that was picked by the user
     const {selectedShow, setSingleShow} = useContext(CategoryContext);
-    // used to display the data of the selected show
-    const [displayShow, setDisplayedShow] = useState(false);
+    const [seasonList, setSeasonList] = useState([]);
+    const [currSeason, setCurrSeason] = useState('');
     // used for creating posts
     const [show, setShow] = useState(false);
     // grabs the member info from the local storage
     const curr = localStorage.getItem('member');
     // used to move between home and forum pages
     const navigate = useNavigate();
-    console.log("this is currently selected: ", selectedShow);
-    // holds the fetch URL to grab the show that was picked
-    const singleShow = 'https://netflix-data.p.rapidapi.com/search/?query='+ selectedShow +'&limit_titles=1&limit_suggestions=1';
+
+    // fetches the seasons of the selected show
+    const seasonQuery = 'https://netflix-data.p.rapidapi.com/title/seasons/?ids='+ selectedShow.summary.id +'&offset=0&limit=25';
+    // grabs the seasons of a show
     useEffect(() => {
-        fetch(singleShow, {
-            "method": "GET",
-            "headers": {
+        fetch(seasonQuery, {
+            method: 'GET',
+            headers: {
                 'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
                 'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
             }
         })
         .then(response => response.json())
-        .then((data) => {
-            const convert_list = data.titles;
-            console.log(convert_list[0]);
-            setDisplayedShow(convert_list[0]);
+        .then((json) => {
+            const convert_season = json[0];
+            console.log('convert season: ', convert_season);
+            setSeasonList(convert_season.seasons);
         })
-        .catch(() => {
-            setDisplayedShow([]);
+        .catch(err => {
+            console.log(err)
         })
-    }, []);
+    }, [seasonQuery]);
 
     return (
         <>
@@ -47,12 +55,50 @@ function Forum() {
                 <button type="button" className="logo-flixforum" onClick={() => navigate("/")}>FLIXFORUM</button>
             </div>
             <br></br>
-            <div className = "show-title">{displayShow && <div>{displayShow.jawSummary.title} </div>}</div>
-            <div className="show-season">{displayShow && <div>Season {displayShow.jawSummary.seasonCount}</div>}</div>
-            <div className="show-episode">Episode x</div>
+            <div className = "show-title">{selectedShow && <div>{selectedShow.jawSummary.title} </div>}</div>
+            {console.log("currSeason: ", currSeason)}
+            <Box sx={{ minWidth: 20 }}>
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label" style={{color: '#FFFFFF'}}>Season</InputLabel>
+                <Select
+                value={currSeason}
+                label="seasonSelector"
+                style={{backgroundColor: '#414141', color: '#FFFFFF', width: 175}}
+                onChange={e => setCurrSeason(e.target.value)}
+                >
+                {/* creates the list of seasons a show has*/}
+                {seasonList.map((season) => (
+                    <MenuItem 
+                        value={season.seasonId}
+                        key={season.seasonId}
+                    >
+                    {season.shortName}
+                    </MenuItem>
+                ))}
+                </Select>
+            </FormControl>
+            </Box>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <br></br>
             <div className="tvshowpicture">
-                {displayShow && <img src={displayShow.jawSummary.backgroundImage.url}></img>}
+                {selectedShow && <img 
+                src={selectedShow.jawSummary.backgroundImage.url}
+                alt={selectedShow.jawSummary.title}
+                ></img>}
                 {/* <br></br>
                 Current ID: {curr} */}
             </div>

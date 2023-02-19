@@ -36,7 +36,7 @@ function ShowCard() {
     // is navigated to
     useEffect(() => {
         // fetches random shows from Netflix API
-        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=8&limit_suggestions=1', {
+        fetch('https://netflix-data.p.rapidapi.com/search/?query=stranger%20things&limit_titles=1&limit_suggestions=1', {
             "method": "GET",
             "headers": {
             'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
@@ -48,7 +48,6 @@ function ShowCard() {
         .then((json) => {
             const convert_list = json.titles;
             setList(convert_list);
-    
         })
         .catch(err => {
             console.log(err);
@@ -57,70 +56,74 @@ function ShowCard() {
 
     return(
         // testing card
-        // <Card sx={{width: 225, height: 160, ml: 1}}>
-        //     <CardActionArea 
-        //         onClick={
-        //             () => {
-        //                 // getShow('Stranger Things')
-        //                 setSingleShow('Stranger Things');
-        //                 navigate("/forum");
-        //             }
-        //         }>
-        //         <CardMedia
-        //             component="img"
-        //             height='110'
-        //             alt="show image"
-        //         />
-        //         <CardContent>
-        //             <Typography gutterBottom variant="subtitle1">
-        //                 Temp Title
-        //             </Typography>
-        //         </CardContent>
-        //     </CardActionArea>
-        // </Card>
-        <div className="list">
-            <div className="recommend"> RECOMMENDED SHOWS</div>
-            <div className="wrapper">
-                <Button 
-                    variant="contained"
-                    onClick={()=>handleClick("left")}
-                >
-                Left
-                </Button>
-                <div className="container" ref={showRef}>
-                    {list.map((show) => (
-                        show.summary.type == 'show' ?
-                        <Card sx={{width: 225, height: 160, ml: 1}}>
-                            <CardActionArea  onClick={
-                                    () => {
-                                        setSingleShow(show.jawSummary.title);
-                                        navigate("/forum");
-                                    }
-                                }>
-                                <CardMedia
-                                    component="img"
-                                    image={show.jawSummary.backgroundImage.url}
-                                    height='110'
-                                    alt="show image"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="subtitle1">
-                                        {show.jawSummary.title}
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-                        : null
-                    ))}
-                </div>
-                <Button 
-                    variant="contained"
-                    onClick={()=>handleClick("right")}
-                >
-                Right
-                </Button>
-            </div>
+        <div>
+        {list.map((show) => ( 
+            <Card sx={{width: 225, height: 160, ml: 1}} key={show.summary.id}>
+                <CardActionArea
+                    onClick={
+                        () => {
+                            setSingleShow(show);
+                            navigate("/forum");
+                        }
+                    }>
+                    <CardMedia
+                        component="img"
+                        height='110'
+                        image={show.jawSummary.backgroundImage.url}
+                        alt="show image"
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="subtitle1">
+                            {show.jawSummary.title}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        ))}
         </div>
+        // <div className="list">
+        //     <div className="recommend"> RECOMMENDED SHOWS</div>
+        //     <div className="wrapper">
+        //         <Button 
+        //             variant="contained"
+        //             onClick={()=>handleClick("left")}
+        //         >
+        //         Left
+        //         </Button>
+        //         <div className="container" ref={showRef}>
+        //             {list.map((show) => (
+        //                 show.summary.type == 'show' ?
+        //                 <Card sx={{width: 225, height: 160, ml: 1}}>
+        //                     <CardActionArea  onClick={
+        //                             () => {
+        //                                 setSingleShow(show);
+        //                                 navigate("/forum");
+        //                             }
+        //                         }>
+        //                         <CardMedia
+        //                             component="img"
+        //                             image={show.jawSummary.backgroundImage.url}
+        //                             height='110'
+        //                             alt="show image"
+        //                         />
+        //                         <CardContent>
+        //                             <Typography gutterBottom variant="subtitle1">
+        //                                 {show.jawSummary.title}
+        //                             </Typography>
+        //                         </CardContent>
+        //                     </CardActionArea>
+        //                 </Card>
+        //                 : null
+        //             ))}
+        //         </div>
+        //         <Button 
+        //             variant="contained"
+        //             onClick={()=>handleClick("right")}
+        //         >
+        //         Right
+        //         </Button>
+        //     </div>
+        // </div>
     );
 }
 
