@@ -26,7 +26,7 @@ export const Search = () => {
         <>
         <div className = "search-bar-icon">
             {/* <div className = "icon"> */}
-                {/* <img className="searchicon" src={searchbar} />  */}
+                <img className="searchicon" src={searchbar} /> 
             {/* </div> */}
             <input className= "search-bar"
             size="50"
