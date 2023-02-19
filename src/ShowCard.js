@@ -23,11 +23,11 @@ function ShowCard() {
         // holds the distance to travel between each show card when
         // button is clicked
         let distance = showRef.current.getBoundingClientRect().x - 50;
-        if (direction == "left" && listPos > 0) {
+        if (direction === "left" && listPos > 0) {
             setListPos(listPos - 1);
             showRef.current.style.transform = `translateX(${230 + distance}px)`
         }
-        if (direction == "right" && listPos < 5) {
+        if (direction === "right" && listPos < 5) {
             setListPos(listPos + 1);
             showRef.current.style.transform = `translateX(${-230 + distance}px)`
         }
@@ -89,6 +89,7 @@ function ShowCard() {
                 </Button>
                 <div className="container" ref={showRef}>
                     {list.map((show) => (
+                        show.summary.type == 'show' ?
                         <Card sx={{width: 225, height: 160, ml: 1}}>
                             <CardActionArea  onClick={
                                     () => {
@@ -109,6 +110,7 @@ function ShowCard() {
                                 </CardContent>
                             </CardActionArea>
                         </Card>
+                        : null
                     ))}
                 </div>
                 <Button 
