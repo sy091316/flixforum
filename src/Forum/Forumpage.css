@@ -1,12 +1,9 @@
 .forumspage{
-  /* color: white;
-  flex-direction: column; */
   overflow: hidden;
 }
 
  .navigation-bar{
     background-color: black;
-    /* width:1460px; */
     height:50px;
  }
 
@@ -21,28 +18,30 @@
  }
  .show-title {
     display: flex;
-    padding-left:22px;
+    justify-content: center;
+    padding-top: 5px;
+    padding-right:540px;
     font-family: "Arial";
     font-weight: 500;
-    font-size: 20px;
+    font-size: 30px;
     color: white;
+ }
+
+ .dropdown {
+   display: flex;
+   justify-content: center;
+   padding-right: 580px;
+   padding-top: 5px;
  }
 
  .tvshowpicture{
     display: flex;
-    margin-left: auto;
-    /* justify-content: center; */
-    height: 200px;
-    width: 3000px;
-    /* flex-direction: row;
-    
-    background-color: #262D34;
-    position:relative;
-    padding-top:200px;
-    padding-left:700px; */
-
+    justify-content: center;
+    position: relative;
+    padding-top: 10px;
  }
- /* .newpost {
+
+ .newpost {
     float:right;
  }
 
@@ -55,4 +54,4 @@
       display: flex;
       align-items: center;
       font-weight: 600;
-    } */
+    }

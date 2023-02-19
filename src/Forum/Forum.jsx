@@ -1,14 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Forumpage.css";
-//import { Modal, Button, Form } from "react-bootstrap";
 import Modal from '../Newpostmodal/Newpostmodal';
 import CategoryContext from "../CategoryContext";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 
 // https://codesandbox.io/s/edmekk?file=/demo.tsx
 
@@ -19,6 +18,8 @@ function Forum() {
     const {selectedShow, setSingleShow} = useContext(CategoryContext);
     const [seasonList, setSeasonList] = useState([]);
     const [currSeason, setCurrSeason] = useState('');
+    const [episodeList, setEpisodeList] = useState([]);
+    const [currEp, setCurrEp] = useState('');
     // used for creating posts
     const [show, setShow] = useState(false);
     // grabs the member info from the local storage
@@ -44,9 +45,27 @@ function Forum() {
             setSeasonList(convert_season.seasons);
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
         })
     }, [seasonQuery]);
+
+    // const episodeQuery = 'https://netflix-data.p.rapidapi.com/season/episodes/?ids=80077209%2C80117715&offset=0&limit=25';
+    // useEffect(() => {
+    //     fetch(episodeQuery, {
+    //         method: 'GET',
+	//         headers: {
+    //             'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+    //             'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+	//         }
+    //     })
+    //     .then(response => response.json())
+    //     .then((json) => {
+    //         console.log('episodes: ', json);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
+    // }, []);
 
     return (
         <>
@@ -54,55 +73,41 @@ function Forum() {
             <div className="navigation-bar">
                 <button type="button" className="logo-flixforum" onClick={() => navigate("/")}>FLIXFORUM</button>
             </div>
-            <br></br>
-            <div className = "show-title">{selectedShow && <div>{selectedShow.jawSummary.title} </div>}</div>
-            {console.log("currSeason: ", currSeason)}
-            <Box sx={{ minWidth: 20 }}>
-            <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label" style={{color: '#FFFFFF'}}>Season</InputLabel>
-                <Select
-                value={currSeason}
-                label="seasonSelector"
-                style={{backgroundColor: '#414141', color: '#FFFFFF', width: 175}}
-                onChange={e => setCurrSeason(e.target.value)}
-                >
-                {/* creates the list of seasons a show has*/}
-                {seasonList.map((season) => (
-                    <MenuItem 
-                        value={season.seasonId}
-                        key={season.seasonId}
-                    >
-                    {season.shortName}
-                    </MenuItem>
-                ))}
-                </Select>
-            </FormControl>
-            </Box>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <br></br>
+            {/* <br></br> */}
             <div className="tvshowpicture">
                 {selectedShow && <img 
                 src={selectedShow.jawSummary.backgroundImage.url}
                 alt={selectedShow.jawSummary.title}
+                height='380'
+                width='750'
                 ></img>}
-                {/* <br></br>
-                Current ID: {curr} */}
             </div>
             
+            <div className = "show-title">{selectedShow && <div>{selectedShow.jawSummary.title} </div>}</div>
+            {/* {console.log("currSeason: ", currSeason)} */}
+            <div className="dropdown">
+                <Box sx={{minWidth: 20}}>
+                <FormControl fullWidth>
+                    <InputLabel id="seasonPicker" style={{color: '#FFFFFF'}}>Season</InputLabel>
+                    <Select
+                    value={currSeason}
+                    label="seasonSelector"
+                    style={{backgroundColor: '#414141', color: '#FFFFFF', width: 175}}
+                    onChange={e => setCurrSeason(e.target.value)}
+                    >
+                    {seasonList.map((season) => (
+                        <MenuItem 
+                            style={{backgroundColor: '#414141', color:'#FFFFFF'}}
+                            value={season.seasonId}
+                            key={season.seasonId}
+                        >
+                        {season.shortName}
+                        </MenuItem>
+                    ))}
+                    </Select>
+                </FormControl>
+                </Box>
+            </div>
             {
                 (loginStatus || curr) ? 
                 <div className="newpost">
