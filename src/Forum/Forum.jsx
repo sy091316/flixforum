@@ -10,7 +10,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 // https://codesandbox.io/s/edmekk?file=/demo.tsx
-
 function Forum() {
     // holds the login status of the user
     const {loginStatus} = useContext(CategoryContext);
@@ -41,7 +40,7 @@ function Forum() {
         .then(response => response.json())
         .then((json) => {
             const convert_season = json[0];
-            console.log('convert season: ', convert_season);
+            // console.log('convert season: ', convert_season);
             setSeasonList(convert_season.seasons);
         })
         .catch(err => {
@@ -49,7 +48,7 @@ function Forum() {
         })
     }, [seasonQuery]);
 
-    const episodeQuery = 'https://netflix-data.p.rapidapi.com/season/episodes/?ids=80077209&offset=0&limit=25';
+    const episodeQuery = 'https://netflix-data.p.rapidapi.com/season/episodes/?ids='+ currSeason +'&offset=0&limit=25';
     useEffect(() => {
         fetch(episodeQuery, {
             method: 'GET',
@@ -60,19 +59,18 @@ function Forum() {
         })
         .then(response => response.json())
         .then((json) => {
-            console.log('episodes: ', json[0]);
+            // console.log('episodes: ', json[0]);
             const convert_epi = json[0].episodes;
             setEpisodeList(convert_epi);
         })
         .catch(err => {
             console.log(err);
         })
-    }, []);
+    }, [episodeQuery]);
 
     return (
         <>
         <div className="forumspage">
-            {console.log("episodes: ", episodeList)}
             <div className="navigation-bar">
                 <button type="button" className="logo-flixforum" onClick={() => navigate("/")}>FLIXFORUM</button>
             </div>
@@ -85,9 +83,8 @@ function Forum() {
                 width='750'
                 ></img>}
             </div>
-            
             <div className = "show-title">{selectedShow && <div>{selectedShow.jawSummary.title} </div>}</div>
-            <div className="dropdown">
+            <div className="dropdownSeason">
                 <Box sx={{minWidth: 20}}>
                 <FormControl fullWidth>
                     <InputLabel id="seasonPicker" style={{color: '#FFFFFF'}}>Season</InputLabel>
@@ -110,6 +107,32 @@ function Forum() {
                 </FormControl>
                 </Box>
             </div>
+            <div className="dropdownEpisode">
+                <Box sx={{minWidth: 20}}>
+                    <FormControl fullWidth>
+                        <InputLabel id="episodePicker" style={{color: '#FFFFFF'}}>Episodes</InputLabel>
+                        <Select
+                            value={currEp}
+                            label="episodeSelector"
+                            style={{backgroundColor: '#414141', color: '#FFFFFF', width: 400}}
+                            onChange={e => setCurrEp(e.target.value)}
+                        >
+                            {/* {console.log(episodeList)} */}
+                        {episodeList.map((episode) => (
+                            <MenuItem 
+                                style={{backgroundColor: '#414141', color:'#FFFFFF'}}
+                                value={episode.episodeId}
+                                key={episode.episodeId}
+                            >
+                                {episode.title}
+                            </MenuItem>
+                        ))}
+                        </Select>
+                    </FormControl>
+                </Box>
+            </div>
+            <div>{currEp && <div>{console.log("current episode id:", currEp)}</div>}</div>
+            <div style={{color: '#FFFFFF'}}>{currEp && <div>curr episode: {currEp}</div>}</div>
             {
                 (loginStatus || curr) ? 
                 <div className="newpost">

@@ -27,10 +27,17 @@
     color: white;
  }
 
- .dropdown {
+ .dropdownSeason {
    display: flex;
    justify-content: center;
    padding-right: 580px;
+   padding-top: 5px;
+ }
+
+ .dropdownEpisode {
+   display: flex;
+   justify-content: center;
+   padding-right: 355px;
    padding-top: 5px;
  }
 
