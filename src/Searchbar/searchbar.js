@@ -1,7 +1,7 @@
 import React , { useState } from 'react';
 import { useNavigate } from "react-router";
 import "./searchbar.css";
-//import image1, { ReactComponent as img1} from "./searchiconwhite.svg";
+import searchbar from "./searchbar.png"
 
 
 
@@ -24,18 +24,19 @@ export const Search = () => {
 
     return (
         <>
-       {/* <img src={image1} alt="img1" width="100%" height="100%" /> */}
-        <div className = "seach-bar-2"> 
-        <form className = "search-bar">
-        <input className= "search-bar"
+        <div className = "search-bar-icon">
+            {/* <div className = "icon"> */}
+                {/* <img className="searchicon" src={searchbar} />  */}
+            {/* </div> */}
+            <input className= "search-bar"
             size="50"
             type="text"
             placeholder="Enter a TV show"
             onChange={handleChange}
             onKeyUp={handleKeyPress}
             value={searchInput} />
-        </form>
-        </div> 
+           
+        </div>
         </>
 
     );
