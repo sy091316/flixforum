@@ -8,10 +8,17 @@ import close from './close.svg';
 export const Newpostmodal = (props) => {
     // to use to grab forum_id from DB 
     // need to grab from the actual froum page
-    const show_title = "criminal minds"; 
-    const season_number = 1; 
-    const episode_number = 5;
-    //const forum_id = "1";
+    const show_title = localStorage.getItem('title'); 
+
+    //getting the season the user chose on froum page and making it an Int
+    const string_season_number = localStorage.getItem('season'); 
+    const season_number = Number(string_season_number);
+    console.log("season number ", season_number);
+
+    //getting the episode the user chose on forum page and making it an Int
+    const string_episode_number = localStorage.getItem('episode');
+    const episode_number = Number(string_episode_number);
+    console.log("episode number ", episode_number);
 
     // getting user ID
     const string_user_id = localStorage.getItem('member');
@@ -36,7 +43,6 @@ export const Newpostmodal = (props) => {
           showtitle: show_title,
           season: season_number,
           episode: episode_number,
-          //forum_id: forum_id,
         })
     }
 

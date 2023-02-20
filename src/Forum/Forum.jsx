@@ -26,6 +26,7 @@ function Forum() {
     // used to move between home and forum pages
     const navigate = useNavigate();
 
+    localStorage.setItem('title', JSON.stringify(selectedShow.jawSummary.title))
     // fetches the seasons of the selected show
     const seasonQuery = 'https://netflix-data.p.rapidapi.com/title/seasons/?ids='+ selectedShow.summary.id +'&offset=0&limit=25';
     // grabs the seasons of a show
@@ -92,7 +93,7 @@ function Forum() {
                     value={currSeason}
                     label="seasonSelector"
                     style={{backgroundColor: '#414141', color: '#FFFFFF', width: 175}}
-                    onChange={e => setCurrSeason(e.target.value)}
+                    onChange={e => {setCurrSeason(e.target.value);localStorage.setItem('season', JSON.stringify(e.target.value))}}
                     >
                     {seasonList.map((season) => (
                         <MenuItem 
@@ -115,14 +116,14 @@ function Forum() {
                             value={currEp}
                             label="episodeSelector"
                             style={{backgroundColor: '#414141', color: '#FFFFFF', width: 400}}
-                            onChange={e => setCurrEp(e.target.value)}
+                            onChange={e =>{setCurrEp(e.target.value); localStorage.setItem('episode', JSON.stringify(e.target.value))}}
                         >
                             {/* {console.log(episodeList)} */}
                         {episodeList.map((episode) => (
                             <MenuItem 
                                 style={{backgroundColor: '#414141', color:'#FFFFFF'}}
-                                value={episode.episodeId}
-                                key={episode.episodeId}
+                                value={episode.summary.id}
+                                key={episode.summary.id}
                             >
                                 {episode.title}
                             </MenuItem>
