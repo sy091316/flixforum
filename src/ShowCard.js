@@ -125,6 +125,7 @@ function ShowCard() {
             </div>
         </div>
     );
+
 }
 
 export default ShowCard;

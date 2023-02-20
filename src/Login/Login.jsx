@@ -3,6 +3,7 @@ import Axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
 import "./Loginpage.css";
 import CategoryContext from "../CategoryContext";
+import Logo from "../Logo/logo";
 
 
 
@@ -37,7 +38,8 @@ export const Login = () => {
     }
  
     return (
-    <>
+    <>   
+        <div className = "logo-button"><Logo/></div>
         <div className="App2">
             <div className="auth-form-container">
                 <h2>Login</h2>

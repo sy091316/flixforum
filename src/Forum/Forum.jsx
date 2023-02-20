@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Logo from "../Logo/logo";
 
 // https://codesandbox.io/s/edmekk?file=/demo.tsx
 function Forum() {
@@ -72,9 +73,7 @@ function Forum() {
     return (
         <>
         <div className="forumspage">
-            <div className="navigation-bar">
-                <button type="button" className="logo-flixforum" onClick={() => navigate("/")}>FLIXFORUM</button>
-            </div>
+        <Logo/>
             {/* <br></br> */}
             <div className="tvshowpicture">
                 {selectedShow && <img 

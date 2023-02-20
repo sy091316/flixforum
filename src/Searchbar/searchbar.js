@@ -1,6 +1,9 @@
 import React , { useState } from 'react';
 import { useNavigate } from "react-router";
-import SearchResult from './searchResult';
+import "./searchbar.css";
+import searchbar from "./searchbar.png"
+
+
 
 export const Search = () => {
     const [searchInput, setSearchInput] = useState("");
@@ -21,12 +24,19 @@ export const Search = () => {
 
     return (
         <>
-        <input
+        <div className = "search-bar-icon">
+            {/* <div className = "icon"> */}
+                <img className="searchicon" src={searchbar} /> 
+            {/* </div> */}
+            <input className= "search-bar"
+            size="50"
             type="text"
             placeholder="Enter a TV show"
             onChange={handleChange}
             onKeyUp={handleKeyPress}
             value={searchInput} />
+           
+        </div>
         </>
 
     );

@@ -1,4 +1,8 @@
-.App2 {
+  .logo-button {
+    background-image:linear-gradient(70deg, #000000,  30%, #B82E1F);
+  }
+  
+  .App2 {
     text-align: center;
     display: flex;
     min-height: 100vh;
@@ -8,7 +12,6 @@
     background-image: linear-gradient(70deg, #000000,  50%, #B82E1F);
   }
 
-  
   .auth-form-container, .login-form, .register-form {
     display: flex;
     flex-direction: column;

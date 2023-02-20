@@ -2,6 +2,7 @@
   overflow: hidden;
 }
 
+/*
  .navigation-bar{
     background-color: black;
     height:50px;
@@ -16,6 +17,14 @@
     color: #D81F26;
     background-color: transparent;
  }
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    justify-content: center;
+    align-items: center;
+ }*/
  .show-title {
     display: flex;
     justify-content: center;
