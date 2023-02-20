@@ -13,6 +13,10 @@
   flex-direction: column;
 }
 
+.main {
+  overflow:hidden;
+}
+
 @media screen and (min-width: 600px) {
   .auth-form-container {
     padding: 5rem;
