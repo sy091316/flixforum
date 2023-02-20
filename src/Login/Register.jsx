@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../logo";
+import Logo from "../Logo/logo";
 
 export const Register = () => {
     const [name, setName] = useState('');

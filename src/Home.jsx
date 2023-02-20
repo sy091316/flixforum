@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import CategoryContext from "./CategoryContext";
 import Search from './Searchbar/searchbar';
 import './Home.css';
-import Logo from "./logo";
+import Logo from "./Logo/logo";
 
 /** Citations
  * Frontend Login Page: https://www.youtube.com/watch?v=Y-XW9m8qOis

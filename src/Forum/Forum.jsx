@@ -5,7 +5,7 @@ import "./Forumpage.css";
 //import { Modal, Button, Form } from "react-bootstrap";
 import Modal from '../Newpostmodal/Newpostmodal';
 import CategoryContext from "../CategoryContext";
-import Logo from "../logo";
+import Logo from "../Logo/logo";
 
 
 export const Forum = () => {

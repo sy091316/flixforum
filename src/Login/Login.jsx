@@ -3,7 +3,7 @@ import Axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
 import "./Loginpage.css";
 import CategoryContext from "../CategoryContext";
-import Logo from "../logo";
+import Logo from "../Logo/logo";
 
 
 
