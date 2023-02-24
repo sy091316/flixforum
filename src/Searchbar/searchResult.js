@@ -58,8 +58,11 @@ function SearchResult() {
                         <Card sx={{width: 225, height: 160, ml: 1}}>
                             <CardActionArea  onClick={
                                     () => {
-                                        console.log(show)
+                                        // console.log(show)
                                         setSingleShow(show);
+                                        localStorage.setItem('showID', JSON.stringify(show.summary.id));
+                                        localStorage.setItem('showTitle', JSON.stringify(show.jawSummary.title));
+                                        localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
                                         navigate("/forum");
                                     }
                                 }>
