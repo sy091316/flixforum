@@ -80,9 +80,6 @@ app.post("/newpostmodal", async (req, res) => {
         const posttitle = req.body.posttitle;
         const postcontent = req.body.postcontent;
 
-        const dbtitle = "";
-        const dbseason = "";
-        const dbepisode = "";
         var dbforum_id = "";
 
         db.query(
@@ -156,37 +153,85 @@ app.get("/forum", async (req, res) => {
         const showtitle = req.query.showtitle_forum;
         const season = req.query.season_forum;
         const episode = req.query.episode_forum;
-        const userid = req.query.userid_forum;
-        console.log("userId: ", userid);
-        console.log("show title: ", showtitle);
-        console.log("season: ", season);
-        console.log("ep: ", episode);
 
         db.query(
-            "SELECT forum_id FROM forums",
+            "SELECT forum_id FROM forums WHERE title = ? AND season = ? AND episode = ?",
             [showtitle, season, episode], 
             (err, result) => {
+                //console.log("result: ", result);
                 if(err) {
-                    console.log(err);
+                    console.log("sth went wrong in the first if ");
                 }
-                console.log("result: ", result[0].forum_id);
-                // else {
-                //     if (result.length === 0) {
-                //         console.log("forum not in database yet");
-                //     } else {
-                //         console.log("result from forum id: ", result);
-                //         db.query(
-                //             "SELECT title, content FROM posts WHERE forum_id = ?",
-                //             [result],
-                //             (err, result) => {
-                //                 console.log("result from posts: ", result);
-                //                 if(err) {
-                //                     console.log(err);
-                //                 }
-                //             }
-                //         )
-                //     }
-                // }
+                else {
+                    if (result.length === 0){
+                        return undefined;
+                    }
+                    const result_forum_id = result[0].forum_id;
+
+                    //console.log("result: ", result_forum_id);
+                    db.query(
+                        "SELECT title, content, user_id FROM posts WHERE forum_id = ?",
+                        [result_forum_id],
+                        (err, result) => {
+                            posts_list = [{
+                                title: "",
+                                content: "",
+                                user_id: 0,
+                                user_name: ""
+                            }];
+                            if(err) {
+                                console.log("sth went wrong in the second if");
+                            }
+                            else {
+                                let post_userid = 0;
+                                result.map((posts) => (
+                                    console.log("title: ", posts.title),
+                                    console.log("content:", posts.content),
+                                    post_userid = posts.user_id,
+                                    //insert into posts list here 
+                                    posts_list.push({title:posts.title,content:posts.content,user_id:posts.user_id, user_name:""})
+                                    
+                                ))
+                                posts_list[1].user_name = "testing outside";
+                                // db.query(
+                                //     "SELECT username, id FROM users WHERE id = ?",
+                                //     [post_userid],
+                                //     (err, result) => {
+                                //         if(err) {
+                                //             console.log(err);
+                                //         }
+                                //         else {
+                                //             //console.log(posts_list);
+                                //             result.map((users) => (
+                                //                 console.log("users: ", users),
+                                //                 // https://hackernoon.com/how-to-update-object-key-values-using-javascript
+                                //                 console.log("username: ", users.username),
+                                //                 console.log("userID: ", users.id),
+                                //                 Object.keys(posts_list).forEach((item) => {
+                                //                     console.log("inside iterator thing");
+                                //                     console.log("items: ", item);
+                                //                     // if user id from postslist is equal to id from db query, set the username in postslist
+                                //                     if (posts_list[item].user_id == users.id) {
+                                //                         console.log("FOUND A MATCH");
+                                //                         console.log("current username: ", posts_list[item].user_name);
+                                //                         // console.log("bruh i found user match: ", result[0].username);
+                                //                         // posts_list[item].username = result[0].username;
+                                //                         //posts_list[item]['user_name'] = "Name";
+                                //                         //posts_list.push({username: result[0].username});
+                                //                         posts_list[item].user_name = users.username;
+                                //                         console.log("updated username: ", posts_list[item].user_name);
+                                //                         //posts_list.insert(item, {user_name:users.username})
+                                //                     }
+                                //                 })
+                                //             ))
+                                //         }
+                                //     },
+                                // )
+                            }
+                            res.send(posts_list);
+                        }
+                    )
+                }
             }
         )
     } 

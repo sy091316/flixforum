@@ -29,6 +29,9 @@ function Forum() {
     const Title = localStorage.getItem('title');
     const Image = localStorage.getItem('showImage');
 
+    //getting the title the user chose on froum page and making it an Int
+    const title_forum = localStorage.getItem('title'); 
+
     //getting the season the user chose on froum page and making it an Int
     const string_season_number = localStorage.getItem('season'); 
     const season_number_forum = Number(string_season_number);
@@ -42,6 +45,25 @@ function Forum() {
     const user_id_forum = Number(string_user_id);
     // used to move between home and forum pages
     const navigate = useNavigate();
+    
+    // gets the forum posts associated with current show's season and episode
+    const forum = () => {
+        Axios.get('http://localhost:3001/forum', {
+            params: {
+                userid_forum: user_id_forum,
+                showtitle_forum: title_forum,
+                season_forum: season_number_forum,
+                episode_forum: episode_number_forum,
+            }
+        })
+        // .then(response => response.data)
+        // .then((data) => {
+        //     console.log("ligma: ", data);
+        // })
+        .then(response => {
+            console.log("response inside of forum", response.data);
+        })
+    }
 
     // fetches the seasons of the selected show
     const seasonQuery = 'https://netflix-data.p.rapidapi.com/title/seasons/?ids='+ ID +'&offset=0&limit=25';
@@ -84,24 +106,13 @@ function Forum() {
             console.log(err);
         })
     }, [episodeQuery]);
-    // gets the forum posts associated with current show's season and episode
-    useEffect(() => {
-        Axios.get('http://localhost:3001/forum', {
-            params: {
-                userid_forum: user_id_forum,
-                showtitle_forum: Title,
-                season_forum: season_number_forum,
-                episode_forum: episode_number_forum,
-            }
-        })
-    }
-    , [season_number_forum, episode_number_forum]);
 
     return (
         <>
         <div className="forumspage">
         <Logo/>
             {/* <br></br> */}
+            <button onClick = {forum} className="buttonsubmit">GO</button>
             <div className="tvshowpicture">
                 {Image && <img 
                 src={Image}
@@ -158,8 +169,6 @@ function Forum() {
                     </FormControl>
                 </Box>
             </div>
-            {/* <div>{currEp && <div>{console.log("current episode id:", currEp)}</div>}</div> */}
-            {/* <div>{forum()}</div> */}
             <div style={{color: '#FFFFFF'}}>{currEp && <div>curr episode: {currEp}</div>}</div>
             
             {

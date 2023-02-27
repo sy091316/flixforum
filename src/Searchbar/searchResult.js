@@ -61,7 +61,7 @@ function SearchResult() {
                                         // console.log(show)
                                         setSingleShow(show);
                                         localStorage.setItem('showID', JSON.stringify(show.summary.id));
-                                        localStorage.setItem('showTitle', JSON.stringify(show.jawSummary.title));
+                                        localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
                                         localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
                                         navigate("/forum");
                                     }
