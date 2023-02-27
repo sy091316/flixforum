@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Axios from 'axios'
 import "./Forumpage.css";
 import Modal from '../Newpostmodal/Newpostmodal';
 import CategoryContext from "../CategoryContext";
@@ -27,10 +28,21 @@ function Forum() {
     const ID = localStorage.getItem('showID');
     const Title = localStorage.getItem('title');
     const Image = localStorage.getItem('showImage');
+
+    //getting the season the user chose on froum page and making it an Int
+    const string_season_number = localStorage.getItem('season'); 
+    const season_number_forum = Number(string_season_number);
+
+    //getting the episode the user chose on forum page and making it an Int
+    const string_episode_number = localStorage.getItem('episode');
+    const episode_number_forum = Number(string_episode_number);
+
+    // getting user ID
+    const string_user_id = localStorage.getItem('member');
+    const user_id_forum = Number(string_user_id);
     // used to move between home and forum pages
     const navigate = useNavigate();
 
-    // localStorage.setItem('title', Title);
     // fetches the seasons of the selected show
     const seasonQuery = 'https://netflix-data.p.rapidapi.com/title/seasons/?ids='+ ID +'&offset=0&limit=25';
     // grabs the seasons of a show
@@ -52,7 +64,7 @@ function Forum() {
             console.log(err);
         })
     }, [seasonQuery]);
-
+    // gets the episodes of the currently selected season
     const episodeQuery = 'https://netflix-data.p.rapidapi.com/season/episodes/?ids='+ currSeason +'&offset=0&limit=25';
     useEffect(() => {
         fetch(episodeQuery, {
@@ -72,6 +84,18 @@ function Forum() {
             console.log(err);
         })
     }, [episodeQuery]);
+    // gets the forum posts associated with current show's season and episode
+    useEffect(() => {
+        Axios.get('http://localhost:3001/forum', {
+            params: {
+                userid_forum: user_id_forum,
+                showtitle_forum: Title,
+                season_forum: season_number_forum,
+                episode_forum: episode_number_forum,
+            }
+        })
+    }
+    , [season_number_forum, episode_number_forum]);
 
     return (
         <>
@@ -134,8 +158,10 @@ function Forum() {
                     </FormControl>
                 </Box>
             </div>
-            <div>{currEp && <div>{console.log("current episode id:", currEp)}</div>}</div>
+            {/* <div>{currEp && <div>{console.log("current episode id:", currEp)}</div>}</div> */}
+            {/* <div>{forum()}</div> */}
             <div style={{color: '#FFFFFF'}}>{currEp && <div>curr episode: {currEp}</div>}</div>
+            
             {
                 (loginStatus || curr) ? 
                 <div className="newpost">

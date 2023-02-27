@@ -151,6 +151,50 @@ app.post("/newpostmodal", async (req, res) => {
     
 });
 
+app.get("/forum", async (req, res) => {
+    try {
+        const showtitle = req.query.showtitle_forum;
+        const season = req.query.season_forum;
+        const episode = req.query.episode_forum;
+        const userid = req.query.userid_forum;
+        console.log("userId: ", userid);
+        console.log("show title: ", showtitle);
+        console.log("season: ", season);
+        console.log("ep: ", episode);
+
+        db.query(
+            "SELECT forum_id FROM forums",
+            [showtitle, season, episode], 
+            (err, result) => {
+                if(err) {
+                    console.log(err);
+                }
+                console.log("result: ", result[0].forum_id);
+                // else {
+                //     if (result.length === 0) {
+                //         console.log("forum not in database yet");
+                //     } else {
+                //         console.log("result from forum id: ", result);
+                //         db.query(
+                //             "SELECT title, content FROM posts WHERE forum_id = ?",
+                //             [result],
+                //             (err, result) => {
+                //                 console.log("result from posts: ", result);
+                //                 if(err) {
+                //                     console.log(err);
+                //                 }
+                //             }
+                //         )
+                //     }
+                // }
+            }
+        )
+    } 
+    catch {
+        res.status(500).send();
+    }
+});
+
 app.listen(3001, () => {
     console.log("running server");
 })

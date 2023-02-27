@@ -14,12 +14,12 @@ export const Newpostmodal = (props) => {
     //getting the season the user chose on froum page and making it an Int
     const string_season_number = localStorage.getItem('season'); 
     const season_number = Number(string_season_number);
-    console.log("season number ", season_number);
+    // console.log("season number ", season_number);
 
     //getting the episode the user chose on forum page and making it an Int
     const string_episode_number = localStorage.getItem('episode');
     const episode_number = Number(string_episode_number);
-    console.log("episode number ", episode_number);
+    // console.log("episode number ", episode_number);
 
     // getting user ID
     const string_user_id = localStorage.getItem('member');
