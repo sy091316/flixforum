@@ -5,6 +5,8 @@ import "./Forumpage.css";
 import Modal from '../Newpostmodal/Newpostmodal';
 import CategoryContext from "../CategoryContext";
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import { CardActionArea, CardContent, CardMedia } from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -21,6 +23,7 @@ function Forum() {
     const [currSeason, setCurrSeason] = useState('');
     const [episodeList, setEpisodeList] = useState([]);
     const [currEp, setCurrEp] = useState('');
+    const [forumList, setForumList] = useState([]);
     // used for creating posts
     const [show, setShow] = useState(false);
     // grabs the member info from the local storage
@@ -59,6 +62,7 @@ function Forum() {
 
         .then(response => {
             console.log("response inside of forum", response.data);
+            setForumList(response.data);
         })
     }
 
@@ -166,8 +170,19 @@ function Forum() {
                     </FormControl>
                 </Box>
             </div>
-            <div style={{color: '#FFFFFF'}}>{currEp && <div>curr episode: {currEp}</div>}</div>
-            
+            {/* <div style={{color: '#FFFFFF'}}>{currEp && <div>curr episode: {currEp}</div>}</div> */}
+            <div style={{color: '#FFFFFF'}}>
+                {forumList.map((comments) => (
+                    <Card sx={{width: 400, height: 160, ml: 1}}>
+                        <CardContent>
+                            {<div>user name: {comments.user_name}</div>}
+                            {<div>title of post: {comments.title}</div>}
+                            {<div>content of post: {comments.content}</div>}
+                            {<div>the user's id "backend stuff": {comments.user_id}</div>}
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
             {
                 (loginStatus || curr) ? 
                 <div className="newpost">
