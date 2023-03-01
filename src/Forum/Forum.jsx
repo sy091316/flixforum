@@ -56,10 +56,7 @@ function Forum() {
                 episode_forum: episode_number_forum,
             }
         })
-        // .then(response => response.data)
-        // .then((data) => {
-        //     console.log("ligma: ", data);
-        // })
+
         .then(response => {
             console.log("response inside of forum", response.data);
         })

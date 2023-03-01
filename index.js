@@ -153,6 +153,12 @@ app.get("/forum", async (req, res) => {
         const showtitle = req.query.showtitle_forum;
         const season = req.query.season_forum;
         const episode = req.query.episode_forum;
+        var posts_list = [{
+                title: "",
+                content: "",
+                user_id: 0,
+                user_name: ""
+            }];
 
         db.query(
             "SELECT forum_id FROM forums WHERE title = ? AND season = ? AND episode = ?",
@@ -168,72 +174,51 @@ app.get("/forum", async (req, res) => {
                     }
                     const result_forum_id = result[0].forum_id;
 
-                    //console.log("result: ", result_forum_id);
                     db.query(
                         "SELECT title, content, user_id FROM posts WHERE forum_id = ?",
                         [result_forum_id],
                         (err, result) => {
-                            posts_list = [{
-                                title: "",
-                                content: "",
-                                user_id: 0,
-                                user_name: ""
-                            }];
                             if(err) {
-                                console.log("sth went wrong in the second if");
+                                console.log("sth went wrong in the second if for title content user id query");
                             }
                             else {
-                                let post_userid = 0;
                                 result.map((posts) => (
-                                    console.log("title: ", posts.title),
-                                    console.log("content:", posts.content),
-                                    post_userid = posts.user_id,
                                     //insert into posts list here 
                                     posts_list.push({title:posts.title,content:posts.content,user_id:posts.user_id, user_name:""})
-                                    
                                 ))
-                                posts_list[1].user_name = "testing outside";
-                                // db.query(
-                                //     "SELECT username, id FROM users WHERE id = ?",
-                                //     [post_userid],
-                                //     (err, result) => {
-                                //         if(err) {
-                                //             console.log(err);
-                                //         }
-                                //         else {
-                                //             //console.log(posts_list);
-                                //             result.map((users) => (
-                                //                 console.log("users: ", users),
-                                //                 // https://hackernoon.com/how-to-update-object-key-values-using-javascript
-                                //                 console.log("username: ", users.username),
-                                //                 console.log("userID: ", users.id),
-                                //                 Object.keys(posts_list).forEach((item) => {
-                                //                     console.log("inside iterator thing");
-                                //                     console.log("items: ", item);
-                                //                     // if user id from postslist is equal to id from db query, set the username in postslist
-                                //                     if (posts_list[item].user_id == users.id) {
-                                //                         console.log("FOUND A MATCH");
-                                //                         console.log("current username: ", posts_list[item].user_name);
-                                //                         // console.log("bruh i found user match: ", result[0].username);
-                                //                         // posts_list[item].username = result[0].username;
-                                //                         //posts_list[item]['user_name'] = "Name";
-                                //                         //posts_list.push({username: result[0].username});
-                                //                         posts_list[item].user_name = users.username;
-                                //                         console.log("updated username: ", posts_list[item].user_name);
-                                //                         //posts_list.insert(item, {user_name:users.username})
-                                //                     }
-                                //                 })
-                                //             ))
-                                //         }
-                                //     },
-                                // )
+
+                                // once every post is pushed into the posts_list
+                                // pull every username and userId from users table 
+                                // loop through posts_list and and user result from query to update username based on id 
+
+                                    db.query (
+                                        "SELECT username, id FROM users",
+                                        (err, result) => {
+                                            if (err) {
+                                                console.log ("something went wrong in username query")
+                                            }
+                                            else {
+                                                for (var i = 0; i < posts_list.length; i++) {
+                                                    for (var j = 0; j < result.length; j++) {
+                                                        if (posts_list[i].user_id == result[j].id) {
+                                                            posts_list[i].user_name = result[j].username;
+                                                        }
+                                                    }
+                                                }
+                                                console.log("updated Posts_list: ", posts_list)
+                                            }
+                                            res.status(200).send(posts_list);
+                                        }
+                                        
+                                    )
                             }
-                            res.send(posts_list);
+
                         }
                     )
                 }
             }
         )
+        
     } 
     catch {
         res.status(500).send();
