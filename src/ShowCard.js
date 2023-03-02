@@ -6,9 +6,11 @@ import Button from "@mui/material/Button";
 import { CardActionArea, CardContent, CardMedia } from "@mui/material";
 import CategoryContext from "./CategoryContext";
 import "./ShowCard.css";
-
+import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
 // MAJORITY OF CODE COMES FROM THIS VIDEO FOR DISPLAYING THE SHOWS
 // https://www.youtube.com/watch?v=FzWG8jiw4XM&ab_channel=LamaDev
+// Right/Left Arrow UI 
+// https://www.tabnine.com/code/javascript/classes/react-icons/MdChevronRight 
 function ShowCard() {
     const [list, setList] = useState([]);
     // handles how far you scroll through list of shows
@@ -84,13 +86,12 @@ function ShowCard() {
         <div className="list">
             <div className="recommend"> RECOMMENDED SHOWS</div>
             <div className="wrapper">
-                <Button 
-                    variant="contained"
-                    onClick={()=>handleClick("left")}
-                >
-                Left
-                </Button>
-                <div className="container" ref={showRef}>
+                {/* Left arrow button for scrolling a list of tv shows */}
+                <div className="leftarrow">
+                    <MdChevronLeft variant="contained" onClick={()=>handleClick("left")} size={60}/>
+                </div>
+    
+                <div id='slider' className="container" ref={showRef}>
                     {list.map((show) => (
                         show.summary.type == 'show' ?
                         <Card sx={{width: 225, height: 160, ml: 1}}>
@@ -118,12 +119,12 @@ function ShowCard() {
                         : null
                     ))}
                 </div>
-                <Button 
-                    variant="contained"
-                    onClick={()=>handleClick("right")}
-                >
-                Right
-                </Button>
+
+                {/* Right arrow button for scrolling a list of tv shows */}
+                <div className="rightarrow">
+                    <MdChevronRight variant="contained" onClick={()=>handleClick("right")} size={60}/>
+                </div>
+
             </div>
         </div>
     );
