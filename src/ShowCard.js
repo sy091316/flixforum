@@ -84,7 +84,10 @@ function ShowCard() {
         // ))}
         // </div>
         <div className="list">
-            <div className="recommend"> RECOMMENDED SHOWS</div>
+            <br></br>
+            <br></br>
+            <div className="recommend"> Popular on Netflix</div>
+            <br></br>
             <div className="wrapper">
                 {/* Left arrow button for scrolling a list of tv shows */}
                 <div className="leftarrow">

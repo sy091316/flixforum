@@ -113,7 +113,7 @@ function Forum() {
         <div className="forumspage">
         <Logo/>
             {/* <br></br> */}
-            <button onClick = {forum} className="buttonsubmit">GO</button>
+            
             <div className="tvshowpicture">
                 {Image && <img 
                 src={Image}
@@ -122,63 +122,69 @@ function Forum() {
                 width='750'
                 ></img>}
             </div>
+            <br></br>
             <div className = "show-title">{Title && <div>{Title}</div>}</div>
-            <div className="dropdownSeason">
-                <Box sx={{minWidth: 20}}>
-                <FormControl fullWidth>
-                    <InputLabel id="seasonPicker" style={{color: '#FFFFFF'}}>Season</InputLabel>
-                    <Select
-                    value={currSeason}
-                    label="seasonSelector"
-                    style={{backgroundColor: '#414141', color: '#FFFFFF', width: 175}}
-                    onChange={e => {setCurrSeason(e.target.value);localStorage.setItem('season', JSON.stringify(e.target.value))}}
-                    >
-                    {seasonList.map((season) => (
-                        <MenuItem 
-                            style={{backgroundColor: '#414141', color:'#FFFFFF'}}
-                            value={season.seasonId}
-                            key={season.seasonId}
-                        >
-                        {season.shortName}
-                        </MenuItem>
-                    ))}
-                    </Select>
-                </FormControl>
-                </Box>
-            </div>
-            <div className="dropdownEpisode">
-                <Box sx={{minWidth: 20}}>
+            <br></br>
+                <div className="dropdownSeason">
+                    <Box sx={{minWidth: 20}}>
                     <FormControl fullWidth>
-                        <InputLabel id="episodePicker" style={{color: '#FFFFFF'}}>Episodes</InputLabel>
+                        <InputLabel id="seasonPicker" style={{color: '#FFFFFF'}}><b>Season</b></InputLabel>
                         <Select
-                            value={currEp}
-                            label="episodeSelector"
-                            style={{backgroundColor: '#414141', color: '#FFFFFF', width: 400}}
-                            onChange={e =>{setCurrEp(e.target.value); localStorage.setItem('episode', JSON.stringify(e.target.value))}}
+                        value={currSeason}
+                        label="seasonSelector"
+                        style={{backgroundColor: '#43465e', color: '#FFFFFF', width: 175}}
+                        onChange={e => {setCurrSeason(e.target.value);localStorage.setItem('season', JSON.stringify(e.target.value))}}
                         >
-                            {/* {console.log(episodeList)} */}
-                        {episodeList.map((episode) => (
+                        {seasonList.map((season) => (
                             <MenuItem 
-                                style={{backgroundColor: '#414141', color:'#FFFFFF'}}
-                                value={episode.summary.id}
-                                key={episode.summary.id}
+                                style={{backgroundColor: '#43465e', color:'#FFFFFF'}}
+                                value={season.seasonId}
+                                key={season.seasonId}
                             >
-                                {episode.title}
+                            {season.shortName}
                             </MenuItem>
                         ))}
                         </Select>
                     </FormControl>
-                </Box>
+                    </Box>
+                </div>
+            <br></br>
+            <div className = "goButton-episode-menu">
+                <div className="dropdownEpisode">
+                    <Box sx={{minWidth: 20}}>
+                        <FormControl fullWidth>
+                            <InputLabel id="episodePicker" style={{color: '#FFFFFF'}}><b>Episodes</b></InputLabel>
+                            <Select
+                                value={currEp}
+                                label="episodeSelector"
+                                style={{backgroundColor: '#43465e', color: '#FFFFFF', width: 400}}
+                                onChange={e =>{setCurrEp(e.target.value); localStorage.setItem('episode', JSON.stringify(e.target.value))}}
+                            >
+                                {/* {console.log(episodeList)} */}
+                            {episodeList.map((episode) => (
+                                <MenuItem 
+                                    style={{backgroundColor: '#43465e', color:'#FFFFFF'}}
+                                    value={episode.summary.id}
+                                    key={episode.summary.id}
+                                >
+                                    {episode.title}
+                                </MenuItem>
+                            ))}
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <button onClick = {forum} className="button-go">GO</button>
+                </div>
             </div>
             {/* <div style={{color: '#FFFFFF'}}>{currEp && <div>curr episode: {currEp}</div>}</div> */}
-            <div style={{color: '#FFFFFF'}}>
-                {forumList.map((comments) => (
-                    <Card sx={{width: 400, height: 160, ml: 1}}>
-                        <CardContent>
-                            {<div>user name: {comments.user_name}</div>}
-                            {<div>title of post: {comments.title}</div>}
-                            {<div>content of post: {comments.content}</div>}
-                            {<div>the user's id "backend stuff": {comments.user_id}</div>}
+            <div className = "forum-posts">
+                {forumList.slice(1).map((comments) => (
+                    <Card className = "post-cards"sx={{width:750, height: 96, ml: 1}}>
+                        <CardContent className = "post-cards-content">
+                            {<div className="display-username">{comments.user_name}</div>}
+                            {<div className="display-title"> {comments.title}</div>}
+                            {<div className="display-content"> {comments.content}</div>}
+                            {/* {<div className="display-userid"> the user's id "backend stuff": {comments.user_id}</div>} */}
                         </CardContent>
                     </Card>
                 ))}
@@ -189,15 +195,13 @@ function Forum() {
                     <br></br>
                     <br></br>
                     <br></br>
-                    <button className="newpost-button" onClick={() => setShow(true)}>New Post</button>
+                    <button className="newpost-button" onClick={() => setShow(true)}><b>New Post</b></button>
                     <Modal onClose = {() => setShow(false)} show={show}/>
                 </div> : 
                 // redirect to login if not logged in
                 <div className="newpost">
                     <br></br>
-                    <br></br>
-                    <br></br>
-                    <button type ="button" class = "btn success" onClick={() => navigate("/login")}>New Post</button>
+                    <button type ="button" class = "newpost-button" onClick={() => navigate("/login")}><b>New Post</b></button>
                 </div> 
             }
         </div>
