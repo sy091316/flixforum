@@ -44,7 +44,12 @@ function App() {
             </CategoryContext.Provider>}>
           </Route>
           <Route exact path='/newpostmodal' element={<Newpostmodal/>}></Route>
-          <Route exact path='/numLikes' element={<LikeButton/>}></Route>
+          <Route exact path='/totalLikes' element={<LikeButton/>}></Route>
+          <Route exact path='/totalDisikes' element={<LikeButton/>}></Route>
+          <Route exact path='/addLike' element={<LikeButton/>}></Route>
+          <Route exact path='/subLike' element={<LikeButton/>}></Route>
+          <Route exact path='/addDisike' element={<LikeButton/>}></Route>
+          <Route exact path='/subDisike' element={<LikeButton/>}></Route>
           <Route exact path='/searchResult' element={<CategoryContext.Provider value ={{selectedShow, setSingleShow}}> 
             <SearchResult/>
             </CategoryContext.Provider>}>

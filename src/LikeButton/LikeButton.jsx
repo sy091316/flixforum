@@ -1,63 +1,94 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 
 const LikeButton = () => {
-  const [likeCount, setLikeCount] = useState(50);
-  const [dislikeCount, setDislikeCount] = useState(25);
+  const [likeCount, setLikeCount] = useState(0);
+  const [dislikeCount, setDislikeCount] = useState(0);
 
   const [activeBtn, setActiveBtn] = useState("none");
-  const [numLikes,setnumLikes]=useState(1);
 
-  // retrieve the number of likes from the database for a specific post
-  const handleLikes = () => {
-    Axios.post("http://localhost:3001/numLikes").then((response) => {
+  // retrieve the number of likes and dislikes
+  useEffect(()=>{
+    Axios.post("http://localhost:3001/totalLikes", {
+      typeOfLike: 'likes'
+    }).then((response) => {
         if(response.data.message) {
             console.log(response.data.message);
         } else {
-            setnumLikes(response.data[0].likes)
+            setLikeCount(response.data[0].likes)
             console.log(response)
         }
     });
-  }
+  });
 
+  useEffect(()=>{
+    Axios.post("http://localhost:3001/totalDislikes").then((response) => {
+      if(response.data.message) {
+          console.log(response.data.message);
+      } else {
+          setDislikeCount(response.data[0].dislikes)
+          console.log(response)
+      }
+    });
+  });
+  
+  // handle all the logic when pressing like button and all the diff cases
   const handleLikeClick = () => {
-    // need to do an axios post instead of using useState()
     if (activeBtn === "none") {
-      setLikeCount(likeCount + 1); //"UPDATE Posts SET likes = likes + 1 WHERE id = ?"
+      // update the DB
+      Axios.post("http://localhost:3001/addLike").then((response) => {});
+      setLikeCount(likeCount + 1);
       setActiveBtn("like");
-      return;
     }
 
-    if (activeBtn === 'like'){
-      setLikeCount(likeCount - 1); //"UPDATE Posts SET likes = likes - 1 WHERE id = ?"
+    if (activeBtn === 'like'){ // take away a like if the user presses the like button again
+      Axios.post("http://localhost:3001/subLike").then((response) => {});
+      setLikeCount(likeCount - 1);
       setActiveBtn("none");
-      return;
+      //console.log(response)
     }
 
     if (activeBtn === "dislike") {
-      setLikeCount(likeCount + 1); //"UPDATE Posts SET likes = likes + 1 WHERE id = ?"
-      setDislikeCount(dislikeCount - 1); //"UPDATE Posts SET dislikes = dislikes - 1 WHERE id = ?"
+      // update the DB
+      Axios.post("http://localhost:3001/addLike").then((response) => {});
+      setLikeCount(likeCount + 1);
       setActiveBtn("like");
+      //console.log(response)
+      
+      Axios.post("http://localhost:3001/subDislike").then((response) => {});
+      setDislikeCount(dislikeCount - 1);
+      setActiveBtn("like");
+      //console.log(response)
     }
   };
 
+  // handle all the logic when pressing dislike button and all the diff cases
   const handleDisikeClick = () => {
     if (activeBtn === "none") {
+      // update the DB
+      Axios.post("http://localhost:3001/addDislike").then((response) => {});
       setDislikeCount(dislikeCount + 1);
       setActiveBtn("dislike");
-      return;
+      //console.log(response)
     }
     
     if (activeBtn === 'dislike'){
+      Axios.post("http://localhost:3001/subDislike").then((response) => {});
       setDislikeCount(dislikeCount - 1);
       setActiveBtn("none");
-      return;
+      //console.log(response)
     }
 
     if (activeBtn === "like") {
+      Axios.post("http://localhost:3001/addDislike").then((response) => {});
       setDislikeCount(dislikeCount + 1);
+      setActiveBtn("dislike");
+      //console.log(response)
+
+      Axios.post("http://localhost:3001/subLike").then((response) => {});
       setLikeCount(likeCount - 1);
       setActiveBtn("dislike");
+      //console.log(response)
     }
   };
 
@@ -67,10 +98,10 @@ const LikeButton = () => {
       <div className="btn-container">
         <button
           className={`btn ${activeBtn === 'like' ? 'like-active' : ''}`}
-          onClick={handleLikes}
+          onClick={handleLikeClick}
         >
           <span className="material-symbols-rounded"></span>
-          Like {numLikes}
+          Like {likeCount}
         </button>
 
         <button

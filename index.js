@@ -66,15 +66,14 @@ app.post("/login", async (req, res) => {
     }
 });
 
-// retrieves the amount of likes from the DB for a specific post
-app.post("/numLikes", async (req, res) => {
+// retrieves the total amount of likes or dislikes for a specific post
+app.post("/totalLikes", async (req, res) => {
     try {
-        console.log("inside of /numLikes");
+        console.log("inside of /totalLikes");
         const post_id = 8; //static ID for now, need to change later
-
         db.query(
         'SELECT likes FROM posts WHERE post_id = ?',
-        post_id,
+        [post_id],
         (err, result) => {
             if(err) {
                 res.send({err:err});
@@ -89,6 +88,104 @@ app.post("/numLikes", async (req, res) => {
     } catch {
         res.status(500).send();
     }
+});
+app.post("/totalDislikes", async (req, res) => {
+    try {
+        console.log("inside of /totalDisikes");
+        const post_id = 8; //static ID for now, need to change later
+        db.query(
+        'SELECT dislikes FROM posts WHERE post_id = ?',
+        [post_id],
+        (err, result) => {
+            if(err) {
+                res.send({err:err});
+            }
+            if (result.length > 0) {
+                res.send(result);
+            } else {
+                //console.log(result.length)
+                res.send({message: "Couldn't retrieve dislikes"});
+            }
+        });
+    } catch {
+        res.status(500).send();
+    }
+});
+
+app.post("/addLike", async (req, res) => {
+    try {
+        console.log('inside of addLike')
+        const post_id = 8; //static ID for now, need to change later
+        db.query(
+        "UPDATE posts SET likes = likes + 1 WHERE post_id = ?", 
+        [post_id], 
+        (err, result) => {
+            if(err) {
+                console.log(err)
+            }
+            console.log(result)
+        });
+    } catch {
+        res.status(500).send();
+    }
+    
+});
+
+app.post("/subLike", async (req, res) => {
+    try {
+        console.log('inside of subLike')
+        const post_id = 8; //static ID for now, need to change later
+        db.query(
+        "UPDATE posts SET likes = likes - 1 WHERE post_id = ?", 
+        [post_id], 
+        (err, result) => {
+            if(err) {
+                console.log(err)
+            }
+            console.log(result)
+        });
+    } catch {
+        res.status(500).send();
+    }
+    
+});
+
+app.post("/addDislike", async (req, res) => {
+    try {
+        console.log('inside of addDislike')
+        const post_id = 8; //static ID for now, need to change later
+        db.query(
+        "UPDATE posts SET dislikes = dislikes + 1 WHERE post_id = ?", 
+        [post_id], 
+        (err, result) => {
+            if(err) {
+                console.log(err)
+            }
+            console.log(result)
+        });
+    } catch {
+        res.status(500).send();
+    }
+    
+});
+
+app.post("/subDislike", async (req, res) => {
+    try {
+        console.log('inside of subDislike')
+        const post_id = 8; //static ID for now, need to change later
+        db.query(
+        "UPDATE posts SET dislikes = dislikes - 1 WHERE post_id = ?", 
+        [post_id], 
+        (err, result) => {
+            if(err) {
+                console.log(err)
+            }
+            console.log(result)
+        });
+    } catch {
+        res.status(500).send();
+    }
+    
 });
 
 app.post("/newpostmodal", async (req, res) => {
