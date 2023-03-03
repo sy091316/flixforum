@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Axios from 'axios'
 
 const LikeButton = () => {
@@ -6,7 +6,7 @@ const LikeButton = () => {
   const [dislikeCount, setDislikeCount] = useState(25);
 
   const [activeBtn, setActiveBtn] = useState("none");
-  const [numLikes,setnumLikes]=useState(0);
+  const [numLikes,setnumLikes]=useState(1);
 
   // retrieve the number of likes from the database for a specific post
   const handleLikes = () => {
@@ -14,19 +14,11 @@ const LikeButton = () => {
         if(response.data.message) {
             console.log(response.data.message);
         } else {
-            setnumLikes(response.data)
+            setnumLikes(response.data[0].likes)
             console.log(response)
         }
     });
   }
-
-
-  // useEffect(()=>{
-  //   Axios.get("http://localhost:3001/numLikes").then((data)=>{
-  //   setnumLikes(data.data)
-  //   console.log(data)
-  //   });
-  // },[])
 
   const handleLikeClick = () => {
     // need to do an axios post instead of using useState()

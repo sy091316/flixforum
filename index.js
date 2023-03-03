@@ -66,8 +66,7 @@ app.post("/login", async (req, res) => {
     }
 });
 
-// retrieves the amount of likes from the DB for a specific post (not working currenlty)
-// the query doesn't return anything for some reason
+// retrieves the amount of likes from the DB for a specific post
 app.post("/numLikes", async (req, res) => {
     try {
         console.log("inside of /numLikes");
