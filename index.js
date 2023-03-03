@@ -201,9 +201,6 @@ app.post("/newpostmodal", async (req, res) => {
         const posttitle = req.body.posttitle;
         const postcontent = req.body.postcontent;
 
-        const dbtitle = "";
-        const dbseason = "";
-        const dbepisode = "";
         var dbforum_id = "";
 
         db.query(
@@ -270,6 +267,83 @@ app.post("/newpostmodal", async (req, res) => {
         res.status(500).send();
     }
     
+});
+
+app.get("/forum", async (req, res) => {
+    try {
+        const showtitle = req.query.showtitle_forum;
+        const season = req.query.season_forum;
+        const episode = req.query.episode_forum;
+        var posts_list = [{
+                title: "",
+                content: "",
+                user_id: 0,
+                user_name: ""
+            }];
+
+        db.query(
+            "SELECT forum_id FROM forums WHERE title = ? AND season = ? AND episode = ?",
+            [showtitle, season, episode], 
+            (err, result) => {
+                //console.log("result: ", result);
+                if(err) {
+                    console.log("sth went wrong in the first if ");
+                }
+                else {
+                    if (result.length === 0){
+                        return undefined;
+                    }
+                    const result_forum_id = result[0].forum_id;
+
+                    db.query(
+                        "SELECT title, content, user_id FROM posts WHERE forum_id = ?",
+                        [result_forum_id],
+                        (err, result) => {
+                            if(err) {
+                                console.log("sth went wrong in the second if for title content user id query");
+                            }
+                            else {
+                                result.map((posts) => (
+                                    //insert into posts list here 
+                                    posts_list.push({title:posts.title,content:posts.content,user_id:posts.user_id, user_name:""})
+                                ))
+
+                                // once every post is pushed into the posts_list
+                                // pull every username and userId from users table 
+                                // loop through posts_list and and user result from query to update username based on id 
+
+                                    db.query (
+                                        "SELECT username, id FROM users",
+                                        (err, result) => {
+                                            if (err) {
+                                                console.log ("something went wrong in username query")
+                                            }
+                                            else {
+                                                for (var i = 0; i < posts_list.length; i++) {
+                                                    for (var j = 0; j < result.length; j++) {
+                                                        if (posts_list[i].user_id == result[j].id) {
+                                                            posts_list[i].user_name = result[j].username;
+                                                        }
+                                                    }
+                                                }
+                                                console.log("updated Posts_list: ", posts_list)
+                                            }
+                                            res.status(200).send(posts_list);
+                                        }
+                                        
+                                    )
+                            }
+
+                        }
+                    )
+                }
+            }
+        )
+        
+    } 
+    catch {
+        res.status(500).send();
+    }
 });
 
 app.listen(3001, () => {
