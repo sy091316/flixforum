@@ -66,6 +66,31 @@ app.post("/login", async (req, res) => {
     }
 });
 
+// retrieves the amount of likes from the DB for a specific post (not working currenlty)
+// the query doesn't return anything for some reason
+app.post("/numLikes", async (req, res) => {
+    try {
+        console.log("inside of /numLikes");
+        const post_id = 8; //static ID for now, need to change later
+
+        db.query(
+        'SELECT likes FROM posts WHERE post_id = ?',
+        post_id,
+        (err, result) => {
+            if(err) {
+                res.send({err:err});
+            }
+            if (result.length > 0) {
+                res.send(result);
+            } else {
+                //console.log(result.length)
+                res.send({message: "Couldn't retrieve likes"});
+            }
+        });
+    } catch {
+        res.status(500).send();
+    }
+});
 
 app.post("/newpostmodal", async (req, res) => {
     try {

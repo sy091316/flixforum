@@ -8,6 +8,7 @@ import Login from './Login/Login';
 import Forum from './Forum/Forum';
 import SearchResult from "./Searchbar/searchResult";
 import Newpostmodal from './Newpostmodal/Newpostmodal';
+import LikeButton from "./LikeButton/LikeButton";
 import ShowCard from './ShowCard';
 import './App.css';
 
@@ -43,6 +44,7 @@ function App() {
             </CategoryContext.Provider>}>
           </Route>
           <Route exact path='/newpostmodal' element={<Newpostmodal/>}></Route>
+          <Route exact path='/numLikes' element={<LikeButton/>}></Route>
           <Route exact path='/searchResult' element={<CategoryContext.Provider value ={{selectedShow, setSingleShow}}> 
             <SearchResult/>
             </CategoryContext.Provider>}>
