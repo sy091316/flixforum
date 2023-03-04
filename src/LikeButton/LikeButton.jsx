@@ -7,7 +7,7 @@ const LikeButton = () => {
 
   const [activeBtn, setActiveBtn] = useState("none");
 
-  // retrieve the number of likes and dislikes
+  // retrieve the current number of likes and dislikes
   useEffect(()=>{
     Axios.post("http://localhost:3001/totalLikes", {
       typeOfLike: 'likes'
