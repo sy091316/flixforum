@@ -3,6 +3,57 @@
     margin-top: 10px;
 }
 
+.wrapper {
+    position:relative;
+}
+
+.slider {
+    color:white;
+    position:absolute;
+    margin:auto;
+    z-index:99;
+    cursor: pointer;
+}
+
+.arrowboxleft {
+    width: 50px;
+    height: 160px;
+    background-color:rgba(40, 40, 40, 0.5); 
+}
+
+.arrowboxright {
+    width: 50px;
+    height: 160px;
+    background-color: rgba(40, 40, 40, 0.5); 
+    transform: translateY(-100%);
+    right:10px;
+    /* right: 61%; use this if there are only 2 or 3 cards */
+    /*right 10px; use this if there are more than 3 cards and delete 'right:61%' */ 
+}
+
+.leftarrow {
+    top: 0;
+    bottom:0;
+    left:0;
+    margin-left:10px;
+    transform:scale(1.8);
+}
+
+.rightarrow {
+    top: 0;
+    bottom:0;
+    right:0;
+    margin-right:10px;
+    transform:scale(1.8);
+}
+
+.list-cards:hover {
+    transform:scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+
+
 .recommend {
     color: white;
     font-size: 20px;
@@ -17,4 +68,37 @@
     width: max-content;
     transform: translateX(0px);
     transition: all .5s ease;
+
 }
+/* .cardname:hover {
+    width: 325px;
+    height:300px;
+    /* position:absolute;
+    top:-150px; */
+    /* overflow:hidden;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(255,255,255,0.07); box-shadow:0px 0px 15px 0px rgba(255,255,255,0.07);
+} */ 
+
+/* .leftarrow {
+    color:white;
+    position:absolute;
+    top: 220px;
+    z-index:10;
+    cursor:pointer;
+    user-select:none;
+}
+.rightarrow {
+    color:white;
+    position:absolute;
+    left: 95%;
+    top: 220px;
+    z-index:10;
+    cursor:pointer;
+    user-select:none;
+} */
+
+.forum-posts {
+    margin-left: 335px;
+    margin-top: 30px;
+}
+

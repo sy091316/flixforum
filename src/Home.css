@@ -2,6 +2,8 @@
     background-color: black;
     display:flex;
     flex-direction: row;
+    
+    overflow:hidden;
 
   }
   
@@ -14,7 +16,7 @@
     cursor: pointer;
   }
   
-  /* Green */
+
   .success {
     border-color: #D81F26;
     color: #D81F26;

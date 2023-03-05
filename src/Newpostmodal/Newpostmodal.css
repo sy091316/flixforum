@@ -13,8 +13,10 @@
 
 .modal-content {
     width:500px;
-    height:350px;
-    background-color: #fff;
+    height:340px;
+    background-color: transparent;
+    border: 2px solid black;
+    border-color:#dedede;
 }
 
 .modal-header, .modal-footer {
@@ -23,20 +25,28 @@
 
 .modal-title {
     margin: 0;
+    background-color: transparent;
+    color:white;
 }
 
 .comment-title {
     padding:10px;
-    border-top:1px solid #eee;
-    border-bottom:1px solid #eee;
+    border-top:1px solid #dedede;
+    border-bottom:1px solid #dedede;
 }
 
 .comment-title-box {
     text-align: left;
     font-family: Arial, Helvetica, sans-serif;
-    width: 450px;
+    width: 475px;
     height: 18px;
     text-align: left;
+    background-color: #dedede;
+    color:#131834;
+}
+
+.comment-title-box::placeholder {
+    color:#131834;
 }
 
 .modal-post {
@@ -45,12 +55,17 @@
 
 .post-box{
     /* border: 1px solid black; */
-    width: 450px;
+    width: 475px;
     height: 150px;
     text-align: left;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #dedede;
+    color:#131834;
 }
 
+.post-box::placeholder {
+    color:#131834;
+}
 
 .buttonclose {
   border: none;
@@ -58,15 +73,18 @@
   top:1px;
   float:right;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .buttonsubmit {
-    background-color: black; /* Green */
-    color: #D81F26;
+    background-color: transparent; /* Green */
+    color: #dedede;
     font-size: 16px;
     float: right;
     height: 20px;
     display: flex;
     align-items: center;
     font-weight: 600;
+    border: 2px solid black;
+    border-color:#dedede;
   }

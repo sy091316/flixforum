@@ -2,6 +2,7 @@
   overflow: hidden;
 }
 
+
 /*
  .navigation-bar{
     background-color: black;
@@ -29,24 +30,31 @@
     display: flex;
     justify-content: center;
     padding-top: 5px;
-    padding-right:540px;
+    padding-right:630px;
     font-family: "Arial";
     font-weight: 500;
     font-size: 30px;
     color: white;
  }
 
+
+ .goButton-episode-menu {
+   display: flex;
+   justify-content: center;
+   padding-right: 254px;
+ }
+
  .dropdownSeason {
    display: flex;
    justify-content: center;
-   padding-right: 580px;
+   padding-right: 578px;
    padding-top: 5px;
  }
 
  .dropdownEpisode {
    display: flex;
    justify-content: center;
-   padding-right: 355px;
+   /* padding-right: 355px; */
    padding-top: 5px;
  }
 
@@ -62,12 +70,57 @@
  }
 
  .newpost-button {
-      background-color: #D81F26;
+      border: 2px solid black;
+      background-color: white;
       color: black;
+      padding: 14px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      border-color: #D81F26;
+      color: #D81F26;
+      background-color: transparent;
+   }
+
+   .button-go {
+      background-color: #43465e;
+      color: white;
       font-size: 16px;
       float: right;
-      height: 20px;
+      height: 55px;
       display: flex;
       align-items: center;
       font-weight: 600;
-    }
+      margin-left: 30px;
+      margin-top: 1px;
+      border-radius: 3px;
+      border: 2px solid black;
+      border-color:#dedede;
+   }
+
+   .post-cards {
+      background-color: #43465e;
+      margin-bottom: 20px;
+   }
+
+   .post-cards-content {
+      background-color: #43465e;
+   }
+
+   .display-username {
+      font-size: 17px;
+      font-weight: 700;
+      color:white;
+   }
+
+   .display-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-left:20px;
+      color:white;
+   }
+
+   .display-content {
+      font-size: 15px;
+      margin-left:20px;
+      color:white;
+   }
