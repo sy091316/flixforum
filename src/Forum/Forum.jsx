@@ -13,6 +13,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Logo from "../Logo/logo";
 import LikeButton from "../LikeButton/LikeButton";
+import RatingButton from "../RatingButton/RatingButton";
 
 // https://codesandbox.io/s/edmekk?file=/demo.tsx
 function Forum() {
@@ -205,6 +206,7 @@ function Forum() {
                     <button type ="button" class = "newpost-button" onClick={() => navigate("/login")}><b>New Post</b></button>
                 </div> 
             }
+            <RatingButton />
             <LikeButton />
         </div>
         </>

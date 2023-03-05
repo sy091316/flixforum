@@ -216,7 +216,7 @@ app.post("/addRating", async (req, res) => {
         const forum_id = 8;
         const user_rating = req.body.rating;
         db.query(
-        "UPDATE forums SET total_stars = total_stars + ? WHERE forum_id = ?",
+        "UPDATE forums SET total_stars = total_stars + ?, num_ratings = num_ratings + 1 WHERE forum_id = ?",
         [user_rating, forum_id],
         (err, result) => {
             if (err) {
@@ -227,6 +227,11 @@ app.post("/addRating", async (req, res) => {
     } catch {
         res.status(500).send();
     }
+});
+
+// remove entry from rating table, get rating and subtract it from total stars, decrease num_ratings by 1
+app.post("/subRating", async (req, res) => {
+    
 });
 
 app.post("/newpostmodal", async (req, res) => {
