@@ -188,6 +188,47 @@ app.post("/subDislike", async (req, res) => {
     
 });
 
+app.post("/totalRating", async (req, res) => {
+    try {
+        console.log('inside totalRating')
+        const forum_id = 8; //static ID for now, need to change later
+        db.query(
+        'SELECT total_stars FROM forums WHERE forum_id = ?',
+        [forum_id],
+        (err, result) => {
+            if(err) {
+                res.send({err:err});
+            }
+            if (result.length > 0) {
+                res.send(result);
+            } else {
+                res.send({message: "Couldn't retrieve rating"});
+            }
+        });
+    } catch {
+        res.status(500).send();
+    }
+});
+
+app.post("/addRating", async (req, res) => {
+    try {
+        console.log('inside of addRating')
+        const forum_id = 8;
+        const user_rating = req.body.rating;
+        db.query(
+        "UPDATE forums SET total_stars = total_stars + ? WHERE forum_id = ?",
+        [user_rating, forum_id],
+        (err, result) => {
+            if (err) {
+                console.log(err)
+            }
+            console.log(result)
+        });
+    } catch {
+        res.status(500).send();
+    }
+});
+
 app.post("/newpostmodal", async (req, res) => {
     try {
         //console.log("inside of index of /newpostmodal");
