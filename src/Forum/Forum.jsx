@@ -15,14 +15,22 @@ import Logo from "../Logo/logo";
 
 // https://codesandbox.io/s/edmekk?file=/demo.tsx
 function Forum() {
+    let defaultSeason = "";
+    if (localStorage.getItem('season')) {
+        defaultSeason = localStorage.getItem('season');
+    }
+    let defaultEpisode = "";
+    if (localStorage.getItem('season')) {
+        defaultEpisode = localStorage.getItem('episode');
+    }
     // holds the login status of the user
     const {loginStatus} = useContext(CategoryContext);
     // holds data of the show that was picked by the user
     const {selectedShow, setSingleShow} = useContext(CategoryContext);
     const [seasonList, setSeasonList] = useState([]);
-    const [currSeason, setCurrSeason] = useState('');
+    const [currSeason, setCurrSeason] = useState(defaultSeason);
     const [episodeList, setEpisodeList] = useState([]);
-    const [currEp, setCurrEp] = useState('');
+    const [currEp, setCurrEp] = useState(defaultEpisode);
     const [forumList, setForumList] = useState([]);
     // used for creating posts
     const [show, setShow] = useState(false);
