@@ -54,6 +54,7 @@
  .dropdownEpisode {
    display: flex;
    justify-content: center;
+   padding-left:151px;
    /* padding-right: 355px; */
    padding-top: 5px;
  }
@@ -65,13 +66,19 @@
     padding-top: 10px;
  }
 
+ .newpost-b {
+   display:flex;
+   flex-direction: row;
+   margin-left: 20px;
+ }
  .newpost {
-    float:right;
+  display:flex;
+  flex-direction: space-between;
  }
 
  .newpost-button {
       border: 2px solid black;
-      background-color: white;
+      /* background-color: white; */
       color: black;
       padding: 14px 28px;
       font-size: 16px;
