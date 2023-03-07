@@ -46,6 +46,9 @@ function App() {
           <Route exact path='/newpostmodal' element={<Newpostmodal/>}></Route>
           <Route exact path='/totalLikes' element={<LikeButton/>}></Route>
           <Route exact path='/totalDisikes' element={<LikeButton/>}></Route>
+          <Route exact path='/buttonStatus' element={<LikeButton/>}></Route>
+          <Route exact path='/updatePostsLikes' element={<LikeButton/>}></Route>
+          <Route exact path='/insertPost' element={<LikeButton/>}></Route>
           <Route exact path='/addLike' element={<LikeButton/>}></Route>
           <Route exact path='/subLike' element={<LikeButton/>}></Route>
           <Route exact path='/addDisike' element={<LikeButton/>}></Route>

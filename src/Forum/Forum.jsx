@@ -185,6 +185,11 @@ function Forum() {
                             {<div className="display-username">{comments.user_name}</div>}
                             {<div className="display-title"> {comments.title}</div>}
                             {<div className="display-content"> {comments.content}</div>}
+                            <LikeButton 
+                                forum_id = {comments.forum_id}
+                                post_id = {comments.post_id}
+                                user_id = {comments.user_id}
+                                />
                             {/* {<div className="display-userid"> the user's id "backend stuff": {comments.user_id}</div>} */}
                         </CardContent>
                     </Card>

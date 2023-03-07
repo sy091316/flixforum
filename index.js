@@ -70,7 +70,7 @@ app.post("/login", async (req, res) => {
 app.post("/totalLikes", async (req, res) => {
     try {
         console.log("inside of /totalLikes");
-        const post_id = 8; //static ID for now, need to change later
+        const post_id = req.body.post_id;
         db.query(
         'SELECT likes FROM posts WHERE post_id = ?',
         [post_id],
@@ -92,7 +92,7 @@ app.post("/totalLikes", async (req, res) => {
 app.post("/totalDislikes", async (req, res) => {
     try {
         console.log("inside of /totalDisikes");
-        const post_id = 8; //static ID for now, need to change later
+        const post_id = req.body.post_id
         db.query(
         'SELECT dislikes FROM posts WHERE post_id = ?',
         [post_id],
@@ -115,7 +115,7 @@ app.post("/totalDislikes", async (req, res) => {
 app.post("/addLike", async (req, res) => {
     try {
         console.log('inside of addLike')
-        const post_id = 8; //static ID for now, need to change later
+        const post_id = req.body.post_id;
         db.query(
         "UPDATE posts SET likes = likes + 1 WHERE post_id = ?", 
         [post_id], 
@@ -181,6 +181,71 @@ app.post("/subDislike", async (req, res) => {
                 console.log(err)
             }
             console.log(result)
+        });
+    } catch {
+        res.status(500).send();
+    }
+    
+});
+
+app.post("/buttonStatus", async (req, res) => {
+    try {
+        const post_id = req.body.post_id;
+        db.query(
+            'SELECT liked AND disliked FROM post_likes WHERE post_id = ?',
+            [post_id],
+            (err, result) => {
+                if(err) {
+                    // if the post_id isn't there, then there should be an error
+                    res.send({message: "Couldn't retrieve information"});
+                }
+                else if (result.length > 0) {
+                    res.send(result);
+                } else {
+                    //console.log(result.length)
+                    res.send({message: "Couldn't retrieve information"});
+                }
+            });
+    } catch {
+        res.status(500).send();
+    }
+});
+
+app.post("/updatePostsLikes", async (req, res) => {
+    try {
+        const like_value = req.body.like_value
+        const dislike_value = req.body.dislike_value
+        const post_id = req.body.post_id
+        db.query(
+            "UPDATE post_likes SET liked = ?, disliked = ? WHERE post_id = ?", 
+            [like_value, dislike_value, post_id], 
+            (err, result) => {
+                if(err) {
+                    console.log(err)
+                }
+                console.log(result)
+            });
+    } catch {
+        res.status(500).send();
+    }
+});
+
+app.post("/insertPost", async (req, res) => {
+    try {
+        const post_id = req.body.post_id
+        const user_id = req.body.user_id
+        const forum_id = req.body.forum_id
+        const like_value = req.body.like_value
+        const dislike_value = req.body.dislike_value
+
+        db.query(
+        "INSERT IGNORE INTO post_likes (forum_id, post_id, user_id, liked, disliked) VALUES (?, ?, ?, ?, ?)", 
+        [forum_id, post_id, user_id, like_value, dislike_value], 
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            }
+            res.status(201).send(result);
         });
     } catch {
         res.status(500).send();
@@ -337,7 +402,7 @@ app.get("/forum", async (req, res) => {
                     const result_forum_id = result[0].forum_id;
 
                     db.query(
-                        "SELECT title, content, user_id FROM posts WHERE forum_id = ?",
+                        "SELECT title, post_id, content, user_id FROM posts WHERE forum_id = ?",
                         [result_forum_id],
                         (err, result) => {
                             if(err) {
@@ -346,7 +411,7 @@ app.get("/forum", async (req, res) => {
                             else {
                                 result.map((posts) => (
                                     //insert into posts list here 
-                                    posts_list.push({title:posts.title,content:posts.content,user_id:posts.user_id, user_name:""})
+                                    posts_list.push({forum_id:result_forum_id,post_id:posts.post_id,title:posts.title,content:posts.content,user_id:posts.user_id, user_name:""})
                                 ))
 
                                 // once every post is pushed into the posts_list
