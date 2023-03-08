@@ -114,6 +114,8 @@ function ShowCard() {
                                             localStorage.setItem('showID', JSON.stringify(show.summary.id));
                                             localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
                                             localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
+                                            localStorage.setItem('season', "");
+                                            localStorage.setItem('episode', "");
                                             navigate("/forum");
                                         }
                                     }>

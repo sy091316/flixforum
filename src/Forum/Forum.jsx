@@ -16,17 +16,15 @@ import Logo from "../Logo/logo";
 // https://codesandbox.io/s/edmekk?file=/demo.tsx
 function Forum() {
     let defaultSeason = "";
-    if (localStorage.getItem('season')) {
-        defaultSeason = localStorage.getItem('season');
-    }
     let defaultEpisode = "";
-    if (localStorage.getItem('season')) {
+    if (localStorage.getItem('season') && localStorage.getItem('episode')) {
+        defaultSeason = localStorage.getItem('season');
         defaultEpisode = localStorage.getItem('episode');
     }
     // holds the login status of the user
     const {loginStatus} = useContext(CategoryContext);
     // holds data of the show that was picked by the user
-    const {selectedShow, setSingleShow} = useContext(CategoryContext);
+    // const {selectedShow, setSingleShow} = useContext(CategoryContext);
     const [seasonList, setSeasonList] = useState([]);
     const [currSeason, setCurrSeason] = useState(defaultSeason);
     const [episodeList, setEpisodeList] = useState([]);
@@ -168,7 +166,6 @@ function Forum() {
                                 style={{backgroundColor: '#43465e', color: '#FFFFFF', width: 400}}
                                 onChange={e =>{setCurrEp(e.target.value); localStorage.setItem('episode', JSON.stringify(e.target.value))}}
                             >
-                                {/* {console.log(episodeList)} */}
                             {episodeList.map((episode) => (
                                 <MenuItem 
                                     style={{backgroundColor: '#43465e', color:'#FFFFFF'}}
@@ -201,7 +198,6 @@ function Forum() {
                     </div>
                 </div>
             </div>
-            {/* <div style={{color: '#FFFFFF'}}>{currEp && <div>curr episode: {currEp}</div>}</div> */}
             <div className = "forum-posts">
                 {forumList && forumList.slice(1).map((comments) => (
                     <Card className = "post-cards"sx={{width:750, height: 130, ml: 1}}>
@@ -209,7 +205,6 @@ function Forum() {
                             {<div className="display-username">{comments.user_name}</div>}
                             {<div className="display-title"> {comments.title}</div>}
                             {<div className="display-content"> {comments.content}</div>}
-                            {/* {<div className="display-userid"> the user's id "backend stuff": {comments.user_id}</div>} */}
                         </CardContent>
                     </Card>
                 ))}
