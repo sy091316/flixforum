@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios'
 
+// Credit for the overall like/dislike button logic found here:
+// https://timetoprogram.com/create-like-dislike-button-react-js/
+
 const LikeButton = ({forum_id, post_id, user_id}) => {
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
