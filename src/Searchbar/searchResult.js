@@ -9,6 +9,7 @@ import "../ShowCard.css";
 import Search from './searchbar';
 import "./searchbar.css";
 import Logo from "../Logo/logo";
+import "./searchResult.css";
 
 // MAJORITY OF CODE COMES FROM THIS VIDEO FOR DISPLAYING THE SHOWS
 // https://www.youtube.com/watch?v=FzWG8jiw4XM&ab_channel=LamaDev
@@ -53,9 +54,11 @@ function SearchResult() {
 
     return(
         <div className="list">
-            <Logo/>
-            <div className='search-bar'>
-                  <Search/>
+            <div className = "logo-searchbar">
+                <Logo/>
+                <div className='searchreseults-bar'>
+                        <Search/>
+                </div>
             </div>
             <br></br> 
             <div className="recommend"> Search Results:</div>
@@ -71,6 +74,8 @@ function SearchResult() {
                                         localStorage.setItem('showID', JSON.stringify(show.summary.id));
                                         localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
                                         localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
+                                        localStorage.setItem('season', "");
+                                        localStorage.setItem('episode', "");
                                         navigate("/forum");
                                     }
                                 }>

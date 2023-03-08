@@ -404,7 +404,8 @@ app.get("/forum", async (req, res) => {
                 }
                 else {
                     if (result.length === 0){
-                        return undefined;
+                        res.status(200).send();
+                        return;
                     }
                     const result_forum_id = result[0].forum_id;
 
