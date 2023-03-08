@@ -212,7 +212,6 @@ function Forum() {
                 </div> 
             }
             <RatingButton />
-            <LikeButton />
         </div>
         </>
     )

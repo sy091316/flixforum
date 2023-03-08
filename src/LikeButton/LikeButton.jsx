@@ -68,7 +68,6 @@ const LikeButton = ({forum_id, post_id, user_id}) => {
       }).then((response) => {});
       setLikeCount(likeCount + 1);
       // add user to likes table (if not already in table) and set the like column to 1 and dislikes 0
-      // need to make the post_id the PK not the forum_id
       Axios.post("http://localhost:3001/insertPost", { 
         post_id: post_id,
         user_id: user_id,
@@ -88,9 +87,9 @@ const LikeButton = ({forum_id, post_id, user_id}) => {
       Axios.post("http://localhost:3001/subLike").then((response) => {});
       setLikeCount(likeCount - 1);
       // set the like column to 0 
-      // set the dislike column to 0???
+      // set the dislike column to 0
       Axios.post("http://localhost:3001/updatePostsLikes", { 
-        post_id: post_id, //static value for testing purposes
+        post_id: post_id,
         like_value: 0,
         dislike_value: 0,
       }).then((response) => {})
@@ -106,7 +105,7 @@ const LikeButton = ({forum_id, post_id, user_id}) => {
       setDislikeCount(dislikeCount - 1);
       // set the liked column to 1 and the disliked column to 0
       Axios.post("http://localhost:3001/updatePostsLikes", { 
-        post_id: post_id, //static value for testing purposes
+        post_id: post_id,
         like_value: 1,
         dislike_value: 0,
       }).then((response) => {})
@@ -122,12 +121,30 @@ const LikeButton = ({forum_id, post_id, user_id}) => {
       Axios.post("http://localhost:3001/addDislike").then((response) => {});
       setDislikeCount(dislikeCount + 1);
       setActiveBtn("dislike");
+      Axios.post("http://localhost:3001/insertPost", { 
+        post_id: post_id,
+        user_id: user_id,
+        forum_id: forum_id,
+        like_value: 0,
+        dislike_value: 0,
+      }).then((response) => {
+        Axios.post("http://localhost:3001/updatePostsLikes", { 
+        post_id: post_id,
+        like_value: 0,
+        dislike_value: 1,
+      }).then((response) => {})});
+      setActiveBtn('dislike');
       //console.log(response)
     }
     
     if (activeBtn === 'dislike'){
       Axios.post("http://localhost:3001/subDislike").then((response) => {});
       setDislikeCount(dislikeCount - 1);
+      Axios.post("http://localhost:3001/updatePostsLikes", { 
+        post_id: post_id,
+        like_value: 0,
+        dislike_value: 0,
+      }).then((response) => {})
       setActiveBtn("none");
       //console.log(response)
     }
@@ -140,6 +157,11 @@ const LikeButton = ({forum_id, post_id, user_id}) => {
 
       Axios.post("http://localhost:3001/subLike").then((response) => {});
       setLikeCount(likeCount - 1);
+      Axios.post("http://localhost:3001/updatePostsLikes", { 
+        post_id: post_id,
+        like_value: 0,
+        dislike_value: 1,
+      }).then((response) => {})
       setActiveBtn("dislike");
       //console.log(response)
     }
