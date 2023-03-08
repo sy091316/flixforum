@@ -25,6 +25,7 @@ function Forum() {
     }
     // holds the login status of the user
     const {loginStatus} = useContext(CategoryContext);
+    
     // holds data of the show that was picked by the user
     // const {selectedShow, setSingleShow} = useContext(CategoryContext);
     const [seasonList, setSeasonList] = useState([]);
@@ -181,23 +182,30 @@ function Forum() {
                         </FormControl>
                     </Box>
                     <button onClick = {forum} className="button-go">GO</button>
-                    <div className="newpost-b">
-                        {
-                            (loginStatus || curr) ? 
-                            <div className="newpost">
-                                <br></br>
-                                <br></br>
-                                <br></br>
-                                <button className="newpost-button" onClick={() => setShow(true)}><b>New Post</b></button>
-                                <Modal onClose = {() => setShow(false)} show={show}/>
-                            </div> : 
-                            // redirect to login if not logged in
-                            <div className="newpost">
-                                <br></br>
-                                <button type ="button" class = "newpost-button" onClick={() => navigate("/login")}><b>New Post</b></button>
-                            </div> 
-                        }
-                    </div>
+                    {
+                        (episode_number_forum) ? 
+                            <div className="newpost-b">
+                                {
+                                    (loginStatus || curr) ? 
+                                    <div className="newpost">
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <button className="newpost-button" onClick={() => setShow(true)}><b>New Post</b></button>
+                                        <Modal onClose = {() => setShow(false)} show={show}/>
+                                    </div> : 
+                                    // redirect to login if not logged in
+                                    
+                                    <div className="newpost">
+                                        <br></br>
+                                        <button type ="button" class = "newpost-button" onClick={() => navigate("/login")}><b>New Post</b></button>
+                                    </div> 
+                                }
+                            </div>
+                        :
+                        <h1></h1>
+                    }
+                    
                 </div>
             </div>
             <div className = "forum-posts">
@@ -207,47 +215,16 @@ function Forum() {
                             {<div className="display-username">{comments.user_name}</div>}
                             {<div className="display-title"> {comments.title}</div>}
                             {<div className="display-content"> {comments.content}</div>}
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-        </div>
-                </div>
-            </div>
-            {/* <div style={{color: '#FFFFFF'}}>{currEp && <div>curr episode: {currEp}</div>}</div> */}
-            <div className = "forum-posts">
-                {forumList.slice(1).map((comments) => (
-                    <Card className = "post-cards"sx={{width:750, height: 130, ml: 1}}>
-                        <CardContent className = "post-cards-content">
-                            {<div className="display-username">{comments.user_name}</div>}
-                            {<div className="display-title"> {comments.title}</div>}
-                            {<div className="display-content"> {comments.content}</div>}
                             <LikeButton 
                                 forum_id = {comments.forum_id}
                                 post_id = {comments.post_id}
                                 user_id = {comments.user_id}
-                                />
-                            {/* {<div className="display-userid"> the user's id "backend stuff": {comments.user_id}</div>} */}
+                                login = {curr}
+                            />
                         </CardContent>
                     </Card>
                 ))}
             </div>
-            {
-                (loginStatus || curr) ? 
-                <div className="newpost">
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <button className="newpost-button" onClick={() => setShow(true)}><b>New Post</b></button>
-                    <Modal onClose = {() => setShow(false)} show={show}/>
-                </div> : 
-                // redirect to login if not logged in
-                <div className="newpost">
-                    <br></br>
-                    <button type ="button" class = "newpost-button" onClick={() => navigate("/login")}><b>New Post</b></button>
-                </div> 
-            }
-            <RatingButton />
         </div>
         </>
     )
