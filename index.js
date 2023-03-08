@@ -213,6 +213,7 @@ app.post("/buttonStatus", async (req, res) => {
 
 app.post("/updatePostsLikes", async (req, res) => {
     try {
+        console.log('inside updatePostsLikes')
         const like_value = req.body.like_value
         const dislike_value = req.body.dislike_value
         const post_id = req.body.post_id
@@ -232,6 +233,7 @@ app.post("/updatePostsLikes", async (req, res) => {
 
 app.post("/insertPost", async (req, res) => {
     try {
+        console.log('inside insertPost')
         const post_id = req.body.post_id
         const user_id = req.body.user_id
         const forum_id = req.body.forum_id

@@ -68,14 +68,19 @@ const LikeButton = ({forum_id, post_id, user_id}) => {
       }).then((response) => {});
       setLikeCount(likeCount + 1);
       // add user to likes table (if not already in table) and set the like column to 1 and dislikes 0
-      // INSERT IGNORE INTO post_likes (post_id, user_id, ...) VALUES (post_id, user_id, ...)
-      // only do the updatePostsLikes post call after the insertPost post call is finished
       // need to make the post_id the PK not the forum_id
-      Axios.post("http://localhost:3001/updatePostsLikes", { 
-        post_id: 25, //static value for testing purposes
+      Axios.post("http://localhost:3001/insertPost", { 
+        post_id: post_id,
+        user_id: user_id,
+        forum_id: forum_id,
+        like_value: 0,
+        dislike_value: 0,
+      }).then((response) => {
+        Axios.post("http://localhost:3001/updatePostsLikes", { 
+        post_id: post_id, //static value for testing purposes
         like_value: 1,
         dislike_value: 0,
-      }).then((response) => {});
+      }).then((response) => {})});
       setActiveBtn("like");
     }
 
@@ -84,6 +89,11 @@ const LikeButton = ({forum_id, post_id, user_id}) => {
       setLikeCount(likeCount - 1);
       // set the like column to 0 
       // set the dislike column to 0???
+      Axios.post("http://localhost:3001/updatePostsLikes", { 
+        post_id: post_id, //static value for testing purposes
+        like_value: 0,
+        dislike_value: 0,
+      }).then((response) => {})
       setActiveBtn("none");
       //console.log(response)
     }
@@ -92,13 +102,14 @@ const LikeButton = ({forum_id, post_id, user_id}) => {
       // update the DB
       Axios.post("http://localhost:3001/addLike").then((response) => {});
       setLikeCount(likeCount + 1);
-      // set the like column to 1
-      setActiveBtn("like");
-      //console.log(response)
-      
       Axios.post("http://localhost:3001/subDislike").then((response) => {});
       setDislikeCount(dislikeCount - 1);
-      // set the dislike column to 0
+      // set the liked column to 1 and the disliked column to 0
+      Axios.post("http://localhost:3001/updatePostsLikes", { 
+        post_id: post_id, //static value for testing purposes
+        like_value: 1,
+        dislike_value: 0,
+      }).then((response) => {})
       setActiveBtn("like");
       //console.log(response)
     }
