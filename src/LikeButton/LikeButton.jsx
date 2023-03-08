@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import Axios from 'axios'
 
 // Credit for the overall like/dislike button logic found here:
 // https://timetoprogram.com/create-like-dislike-button-react-js/
 
-const LikeButton = ({forum_id, post_id, user_id}) => {
+const LikeButton = ({forum_id, post_id, user_id, login}) => {
+  console.log("login status " + login)
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
 
   const [activeBtn, setActiveBtn] = useState("none");
+
+  const navigate = useNavigate();
 
   // retrieve the current number of likes and dislikes
   useEffect(()=>{
@@ -174,21 +178,42 @@ const LikeButton = ({forum_id, post_id, user_id}) => {
   return (
     <div className="container">
       <div className="btn-container">
-        <button
-          className={`btn ${activeBtn === 'like' ? 'like-active' : ''}`}
-          onClick={handleLikeClick}
-        >
-          <span className="material-symbols-rounded"></span>
-          Like {likeCount}
-        </button>
-
-        <button
-          className={`btn ${activeBtn === 'dislike' ? 'dislike-active' : ''}`}
-          onClick={handleDisikeClick}
-        >
-          <span className="material-symbols-rounded"></span>
-          Dislike {dislikeCount}
-        </button>
+      {
+          (login) ?
+          <>
+            <button
+              className={"btn ${activeBtn === 'like' ? 'like-active' : ''}"}
+              onClick={handleLikeClick}  
+            >
+              <span className="material-symbols-rounded"></span>
+              Like {likeCount}
+            </button>
+            
+            <button
+              className={"btn ${activeBtn === 'dislike' ? 'dislike-active' : ''}"}
+              onClick={handleDisikeClick}
+            >
+              <span className="material-symbols-rounded"></span>
+              Dislike {dislikeCount}
+            </button>
+          </>
+          :
+          <>
+            <button
+              onClick={() => navigate("/login")}  
+            >
+              <span className="material-symbols-rounded"></span>
+              Like {likeCount}
+            </button>
+            
+            <button
+              onClick={() => navigate("/login")}
+            >
+              <span className="material-symbols-rounded"></span>
+              Dislike {dislikeCount}
+            </button>
+          </>
+        }
       </div>
     </div>
   );
