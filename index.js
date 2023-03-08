@@ -134,7 +134,7 @@ app.post("/addLike", async (req, res) => {
 app.post("/subLike", async (req, res) => {
     try {
         console.log('inside of subLike')
-        const post_id = 8; //static ID for now, need to change later
+        const post_id = req.body.post_id
         db.query(
         "UPDATE posts SET likes = likes - 1 WHERE post_id = ?", 
         [post_id], 
@@ -153,7 +153,7 @@ app.post("/subLike", async (req, res) => {
 app.post("/addDislike", async (req, res) => {
     try {
         console.log('inside of addDislike')
-        const post_id = 8; //static ID for now, need to change later
+        const post_id = req.body.post_id
         db.query(
         "UPDATE posts SET dislikes = dislikes + 1 WHERE post_id = ?", 
         [post_id], 
@@ -172,7 +172,7 @@ app.post("/addDislike", async (req, res) => {
 app.post("/subDislike", async (req, res) => {
     try {
         console.log('inside of subDislike')
-        const post_id = 8; //static ID for now, need to change later
+        const post_id = req.body.post_id
         db.query(
         "UPDATE posts SET dislikes = dislikes - 1 WHERE post_id = ?", 
         [post_id], 
@@ -190,10 +190,11 @@ app.post("/subDislike", async (req, res) => {
 
 app.post("/buttonStatus", async (req, res) => {
     try {
-        const post_id = req.body.post_id;
+        const forum_id = req.body.forum_id
+        const post_id = req.body.post_id
         db.query(
-            'SELECT liked AND disliked FROM post_likes WHERE post_id = ?',
-            [post_id],
+            'SELECT liked AND disliked FROM post_likes WHERE forum_id = ? AND post_id = ?',
+            [forum_id, post_id],
             (err, result) => {
                 if(err) {
                     // if the post_id isn't there, then there should be an error
@@ -217,9 +218,10 @@ app.post("/updatePostsLikes", async (req, res) => {
         const like_value = req.body.like_value
         const dislike_value = req.body.dislike_value
         const post_id = req.body.post_id
+        const forum_id = req.body.forum_id
         db.query(
-            "UPDATE post_likes SET liked = ?, disliked = ? WHERE post_id = ?", 
-            [like_value, dislike_value, post_id], 
+            "UPDATE post_likes SET liked = ?, disliked = ? WHERE forum_id = ? AND post_id = ?", 
+            [like_value, dislike_value, forum_id, post_id], 
             (err, result) => {
                 if(err) {
                     console.log(err)
