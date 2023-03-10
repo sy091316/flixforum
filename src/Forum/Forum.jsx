@@ -179,23 +179,29 @@ function Forum() {
                         </FormControl>
                     </Box>
                     <button onClick = {forum} className="button-go">GO</button>
-                    <div className="newpost-b">
-                        {
-                            (loginStatus || curr) ? 
-                            <div className="newpost">
-                                <br></br>
-                                <br></br>
-                                <br></br>
-                                <button className="newpost-button" onClick={() => setShow(true)}><b>New Post</b></button>
-                                <Modal onClose = {() => setShow(false)} show={show}/>
-                            </div> : 
-                            // redirect to login if not logged in
-                            <div className="newpost">
-                                <br></br>
-                                <button type ="button" class = "newpost-button" onClick={() => navigate("/login")}><b>New Post</b></button>
-                            </div> 
-                        }
-                    </div>
+                    {
+                        (episode_number_forum) ? 
+                            <div className="newpost-b">
+                                {
+                                    (loginStatus || curr) ? 
+                                    <div className="newpost">
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <button className="newpost-button" onClick={() => setShow(true)}><b>New Post</b></button>
+                                        <Modal onClose = {() => setShow(false)} show={show}/>
+                                    </div> : 
+                                    // redirect to login if not logged in
+                                    
+                                    <div className="newpost">
+                                        <br></br>
+                                        <button type ="button" class = "newpost-button" onClick={() => navigate("/login")}><b>New Post</b></button>
+                                    </div> 
+                                }
+                            </div>
+                        :
+                        <h1></h1>
+                    }
                 </div>
             </div>
             <div className = "forum-posts">
