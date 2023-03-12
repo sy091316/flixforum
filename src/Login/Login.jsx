@@ -25,7 +25,7 @@ export const Login = () => {
             } else {
                 localStorage.setItem('member', JSON.stringify(response.data[0].id))
                 setLoginStatus(true);//(response.data[0].username);
-                navigate(-1);
+                navigate('/');
             }
         });
     }
