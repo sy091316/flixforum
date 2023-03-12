@@ -23,7 +23,6 @@ const Home = () => {
     setLoginStatus(false);
     localStorage.removeItem('member');
     console.log(loginStatus);
-    navigate("/")
   };
 
   const navigate = useNavigate();
