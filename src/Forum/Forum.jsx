@@ -60,6 +60,8 @@ function Forum() {
     
     // gets the forum posts associated with current show's season and episode
     const forum = () => {
+        console.log("go bitch")
+        console.log(user_id_forum, title_forum, season_number_forum, episode_number_forum)
         Axios.get('http://localhost:3001/forum', {
             params: {
                 userid_forum: user_id_forum,
@@ -218,7 +220,7 @@ function Forum() {
                             <LikeButton 
                                 forum_id = {comments.forum_id}
                                 post_id = {comments.post_id}
-                                user_id = {comments.user_id}
+                                user_id = {curr}
                                 login = {curr}
                             />
                         </CardContent>

@@ -19,12 +19,13 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
     Axios.post("http://localhost:3001/totalLikes", {
       post_id: post_id,
     }).then((response) => {
-        if(response.data.message) {
-            console.log(response.data.message);
-        } else {
-            setLikeCount(response.data[0].likes)
-            console.log(response)
-        }
+      console.log("getting likes")
+      if(response.data.message) {
+          console.log(response.data.message);
+      } else {
+          setLikeCount(response.data[0].likes);
+          console.log(response)
+      }
     });
   });
 
@@ -32,6 +33,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
     Axios.post("http://localhost:3001/totalDislikes", {
       post_id: post_id,
     }).then((response) => {
+      console.log("getting dislikes")
       if(response.data.message) {
           console.log(response.data.message);
       } else {
@@ -48,18 +50,25 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
     }).then((response) => {
       if(response.data.message) { // post isn't in post_likes table yet
           console.log(response.data.message);
+          console.log("this post isn't in the likes table yet")
           setActiveBtn('none');
       } else {
           // update the button status based on the query
-          const like_status = response.data[0].like
-          const dislike_status = response.data[0].dislike
+          const like_status = response.data[0].liked
+          const dislike_status = response.data[0].disliked
+          console.log(response.data)
+          console.log("this post is in the database. likes : " + like_status + "\tdislikes: " + dislike_status)
           if (like_status === 0 && dislike_status === 0) {
+            console.log("like status: " + like_status + "\tdisliked status: " + dislike_status + "\t setting to none")
             setActiveBtn('none')
           } else if (like_status === 1 && dislike_status === 0) {
+            console.log("like status: " + like_status + "\tdisliked status: " + dislike_status + "\t setting to like")
             setActiveBtn('like')
           } else if (like_status === 0 && dislike_status === 1) {
+            console.log("like status: " + like_status + "\tdisliked status: " + dislike_status + "\t setting to dislike")
             setActiveBtn('dislike')
           } else {
+            console.log("like status: " + like_status + "\tdisliked status: " + dislike_status + "\t setting to else")
             setActiveBtn('none')
           }
           console.log(response)
@@ -69,6 +78,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
   console.log(activeBtn);
   // handle all the logic when pressing like button and all the diff cases
   const handleLikeClick = () => {
+    console.log("handling like click: " + activeBtn)
     if (activeBtn === "none") {
       // update the DB
       Axios.post("http://localhost:3001/addLike", { 
@@ -85,6 +95,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
       }).then((response) => {
         Axios.post("http://localhost:3001/updatePostsLikes", { 
         post_id: post_id,
+        user_id: user_id,
         forum_id: forum_id,
         like_value: 1,
         dislike_value: 0,
@@ -103,6 +114,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
       Axios.post("http://localhost:3001/updatePostsLikes", { 
         post_id: post_id,
         user_id: user_id,
+        forum_id: forum_id,
         like_value: 0,
         dislike_value: 0,
       }).then((response) => {})
@@ -124,6 +136,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
       Axios.post("http://localhost:3001/updatePostsLikes", { 
         post_id: post_id,
         user_id: user_id,
+        forum_id: forum_id,
         like_value: 1,
         dislike_value: 0,
       }).then((response) => {})
@@ -134,25 +147,29 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
 
   // handle all the logic when pressing dislike button and all the diff cases
   const handleDisikeClick = () => {
+    console.log("handling dislike click: " + activeBtn)
     if (activeBtn === "none") {
       // update the DB
       Axios.post("http://localhost:3001/addDislike", {
         post_id: post_id,
       }).then((response) => {});
       setDislikeCount(dislikeCount + 1);
+      console.log("inserting post")
       Axios.post("http://localhost:3001/insertPost", { 
         post_id: post_id,
         user_id: user_id,
         forum_id: forum_id,
         like_value: 0,
         dislike_value: 0,
-      }).then((response) => {
-        Axios.post("http://localhost:3001/updatePostsLikes", { 
+      }).then((response) => {});
+      console.log("changing status")
+      Axios.post("http://localhost:3001/updatePostsLikes", { 
         post_id: post_id,
         user_id: user_id,
+        forum_id: forum_id,
         like_value: 0,
         dislike_value: 1,
-      }).then((response) => {})});
+      }).then((response) => {});
       setActiveBtn('dislike');
       //console.log(response)
     }
@@ -165,6 +182,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
       Axios.post("http://localhost:3001/updatePostsLikes", { 
         post_id: post_id,
         user_id: user_id,
+        forum_id: forum_id,
         like_value: 0,
         dislike_value: 0,
       }).then((response) => {})
@@ -184,6 +202,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
       Axios.post("http://localhost:3001/updatePostsLikes", { 
         post_id: post_id,
         user_id: user_id,
+        forum_id: forum_id,
         like_value: 0,
         dislike_value: 1,
       }).then((response) => {})
