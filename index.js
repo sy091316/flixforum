@@ -1,7 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
-const bycrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.post("/register", async (req, res) => {
     try {
         const username = req.body.username;
         const email = req.body.email;
-        const hashedPassword = await bycrypt.hash(req.body.password, 10);
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
         db.query(
         "INSERT INTO users (username, email, password) VALUES (?, ?, ?)", 
@@ -47,16 +47,20 @@ app.post("/login", async (req, res) => {
         db.query(
         'SELECT * FROM users WHERE email = ?',
         [email],
-        (err, result) => {
+        async (err, result) => {
             if(err) {
                 res.send({err:err});
             }
+            console.log(result)
             if (result.length > 0) {
-                if(bycrypt.compare(password, result[0].password)){
-                    res.send(result);
-                } else {
-                    res.send({message: "Wrong username/password combination!"});
-                }
+                console.log(password, result[0].password)
+                if(await bcrypt.compare(req.body.password, result[0].password)) {
+                    console.log("match")
+                    res.send(result)
+                  } else {
+                    console.log("no match")
+                    res.send({message: "no match"})
+                  }
             } else {
                 res.send({message: "No such username."});
             }
@@ -251,6 +255,87 @@ app.post("/insertPost", async (req, res) => {
             }
             res.status(201).send(result);
         });
+    } catch {
+        res.status(500).send();
+    }
+    
+});
+
+app.post("/newpostmodal", async (req, res) => {
+    try {
+        //console.log("inside of index of /newpostmodal");
+        //info needed to grab the forumId from the DB
+        // info passed from NEW POST MODAL
+        const showtitle = req.body.showtitle;
+        const season = req.body.season;
+        const episode = req.body.episode;
+
+        const userid = req.body.userid;
+        const posttitle = req.body.posttitle;
+        const postcontent = req.body.postcontent;
+
+        var dbforum_id = "";
+
+        db.query(
+            // check if the forum exists in the forums table
+            "SELECT forum_id FROM forums WHERE title = ? AND season = ? AND episode = ?",
+            [showtitle, season, episode], 
+            (err, result) => {
+                if(err) {
+                    console.log(err);
+                }
+                else {
+                    if (result.length === 0) {
+                        console.log("forum not in database yet");
+                        // push to the forums table
+                        db.query(
+                            "INSERT INTO forums (title, season, episode) VALUES (?, ?, ?)",
+                            [showtitle, season, episode],
+                            (err, result) => {
+                                if(err) {
+                                    console.log(err);
+                                }
+                                console.log(result);
+                            });
+                        // grab from the forums the newly added forum 
+                        db.query(
+                            "SELECT forum_id FROM forums WHERE title = ? AND season = ? AND episode = ?",
+                            [showtitle, season, episode],
+                            (err, result) => {
+                                if(err) {
+                                    console.log(err);
+                                }
+                                dbforum_id = result[0].forum_id;
+                                // insert into posts 
+                                db.query(
+                                    "INSERT INTO posts (user_id, forum_id, title, content) VALUES (?, ?, ?, ?)",
+                                    [userid, dbforum_id, posttitle, postcontent],
+                                    (err, result) => {
+                                        if(err) {
+                                            console.log(err);
+                                        }
+                                        console.log(result);
+                                    });
+                            });
+                        
+                    }
+                    else {
+                        dbforum_id = result[0].forum_id;
+                        console.log("forum in database and forumID = ", dbforum_id);
+                        // insert into posts table because the forum_id exists
+                        db.query(
+                        "INSERT INTO posts (user_id, forum_id, title, content) VALUES (?, ?, ?, ?)",
+                        [userid, dbforum_id, posttitle, postcontent],
+                        (err, result) => {
+                            if(err) {
+                                console.log(err);
+                            }
+                            console.log(result);
+                        });
+                    }
+                }
+            });
+
     } catch {
         res.status(500).send();
     }
