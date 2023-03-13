@@ -47,12 +47,12 @@ app.post("/login", async (req, res) => {
         db.query(
         'SELECT * FROM users WHERE email = ?',
         [email],
-        (err, result) => {
+        async (err, result) => {
             if(err) {
                 res.send({err:err});
             }
             if (result.length > 0) {
-                if(bycrypt.compare(password, result[0].password)){
+                if(await bycrypt.compare(password, result[0].password)){
                     res.send(result);
                 } else {
                     res.send({message: "Wrong username/password combination!"});
