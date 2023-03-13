@@ -1,10 +1,8 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
-//import Button from "@mui/material/Button";
 import { CardActionArea, CardContent, CardMedia } from "@mui/material";
-import CategoryContext from '../CategoryContext';
 import "../ShowCard.css";
 import Search from './searchbar';
 import "./searchbar.css";
@@ -22,11 +20,9 @@ function SearchResult() {
         console.log(JSON.stringify(result.state.message))
         query = JSON.stringify(result.state.message)
     };
+    //list to display the shows
     const [list, setList] = useState([]);
-    // handles how far you scroll through list of shows
-    //const [listPos, setListPos] = useState(0);
-    // sets the shows name to pass to the forums when clicked
-    const {selectedShow, setSingleShow} = useContext(CategoryContext);
+ 
     // handles updating the position of the shows cards
     const showRef = useRef();
     const navigate = useNavigate();
@@ -42,7 +38,7 @@ function SearchResult() {
             }
         })
         .then(response => response.json())
-        // sets the
+        // grabs only the titles from the json file
         .then((json) => {
             const convert_list = json.titles;
             setList(convert_list);
@@ -50,7 +46,7 @@ function SearchResult() {
         .catch(err => {
             console.log(err);
         })
-    }, []);
+    });
 
     return(
         <div className="list">
@@ -69,8 +65,6 @@ function SearchResult() {
                         <Card sx={{width: 225, height: 160, ml: 1}}>
                             <CardActionArea  onClick={
                                     () => {
-                                        // console.log(show)
-                                        setSingleShow(show);
                                         localStorage.setItem('showID', JSON.stringify(show.summary.id));
                                         localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
                                         localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
