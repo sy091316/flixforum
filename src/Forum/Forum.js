@@ -203,7 +203,7 @@ function Forum() {
             </div>
             <div className = "forum-posts">
                 {forumList && forumList.slice(1).map((comments) => (
-                    <Card className = "post-cards"sx={{width:750, height: 153, ml: 1}}>
+                    <Card className = "post-cards"sx={{width:750, height: 153, ml: 1}} key={comments.user_name}>
                         <CardContent className = "post-cards-content">
                             {<div className="display-username">{comments.user_name}</div>}
                             {<div className="display-title"> {comments.title}</div>}

@@ -65,11 +65,11 @@ export const Newpostmodal = (props) => {
             <div className="modal-content">
                 <div className="modal-header">
                     <h4 className="modal-title">New Post Forum</h4>
-                    <img class="buttonclose" src={close} width="26" height="26" onClick={props.onClose}/>
+                    <img className="buttonclose" src={close} width="26" height="26" onClick={props.onClose}/>
                 </div>
                 <div className="comment-title">
                 <textarea
-                    class = "comment-title-box"
+                    className = "comment-title-box"
                     type="text"
                     maxLength = "50"
                     placeholder="Enter your post title here"
@@ -79,7 +79,7 @@ export const Newpostmodal = (props) => {
                 </div>
                 <div className="modal-post">
                 <textarea
-                    class = "post-box"
+                    className = "post-box"
                     type="text"
                     maxLength = "256"
                     placeholder="Enter your post here"
@@ -95,7 +95,6 @@ export const Newpostmodal = (props) => {
         </form>
         </>
     )
-
 }
 
 export default Newpostmodal;

@@ -65,7 +65,7 @@ function SearchResult() {
                 <div className="container" ref={showRef}>
                     {list.map((show) => (
                         show.summary.type === 'show' ?
-                        <div className="Searched-Shows">
+                        <div className="Searched-Shows" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
                                 <CardActionArea  onClick={
                                         () => {

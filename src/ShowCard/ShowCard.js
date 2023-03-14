@@ -112,9 +112,9 @@ function ShowCard() {
                 <div className="container" ref={showRef} >
                     {list.map((show) => (
                         show.summary.type === 'show' ?
-                        <div className="list-cards">
+                        <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
-                                <CardActionArea onClick={ () => {
+                                <CardActionArea key={show.summary.id} onClick={ () => {
                                             localStorage.setItem('showID', JSON.stringify(show.summary.id));
                                             localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
                                             localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
@@ -159,7 +159,7 @@ function ShowCard() {
                 <div className="container" >
                     {comList.map((show) => (
                         show.summary.type === 'show' && show.jawSummary.seasonCount > 2 ?
-                        <div className="list-cards">
+                        <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
                                 <CardActionArea onClick={ () => {
                                             localStorage.setItem('showID', JSON.stringify(show.summary.id));
@@ -207,7 +207,7 @@ function ShowCard() {
                 <div className="container" >
                     {origList.map((show) => (
                         show.summary.type === 'show' ?
-                        <div className="list-cards">
+                        <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
                                 <CardActionArea onClick={ () => {
                                             localStorage.setItem('showID', JSON.stringify(show.summary.id));
