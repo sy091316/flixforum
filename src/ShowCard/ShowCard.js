@@ -15,6 +15,10 @@ function ShowCard() {
     const [list, setList] = useState([]);
     // handles how far you scroll through list of shows
     const [listPos, setListPos] = useState(0);
+    const [comList, setComList] = useState([]);
+    const [comPos, setComPos] = useState(0);
+    const [origList, setOrigList] = useState([]);
+    const [origPos, setOrigPos] = useState(0);
     // handles updating the position of the shows cards
     const showRef = useRef();
     const navigate = useNavigate();
@@ -36,7 +40,7 @@ function ShowCard() {
     // is navigated to
     useEffect(() => {
         // fetches random shows from Netflix API
-        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=10&limit_suggestions=1', {
+        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=15&limit_suggestions=1', {
             "method": "GET",
             "headers": {
             'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
@@ -48,6 +52,46 @@ function ShowCard() {
         .then((json) => {
             const convert_list = json.titles;
             setList(convert_list);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }, []);
+
+    useEffect(() => {
+        // fetches random shows from Netflix API
+        fetch('https://netflix-data.p.rapidapi.com/search/?query=A&limit_titles=15&limit_suggestions=1', {
+            "method": "GET",
+            "headers": {
+            'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+            'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+            }
+        })
+        .then(response => response.json())
+        // sets the
+        .then((json) => {
+            const convert_list = json.titles;
+            setOrigList(convert_list);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }, []);
+
+    useEffect(() => {
+        // fetches random shows from Netflix API
+        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=15&limit_suggestions=1', {
+            "method": "GET",
+            "headers": {
+            'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+            'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+            }
+        })
+        .then(response => response.json())
+        // sets the
+        .then((json) => {
+            const convert_list = json.titles;
+            setComList(convert_list);
         })
         .catch(err => {
             console.log(err);
@@ -67,6 +111,101 @@ function ShowCard() {
                 </div>
                 <div className="container" ref={showRef} >
                     {list.map((show) => (
+                        show.summary.type === 'show' ?
+                        <div className="list-cards">
+                            <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
+                                <CardActionArea onClick={ () => {
+                                            localStorage.setItem('showID', JSON.stringify(show.summary.id));
+                                            localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
+                                            localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
+                                            localStorage.setItem('season', "");
+                                            localStorage.setItem('episode', "");
+                                            navigate("/forum");
+                                        }
+                                    }>
+                                    <CardMedia
+                                        component="img"
+                                        image={show.jawSummary.backgroundImage.url}
+                                        height='120'
+                                        alt="show image"
+                                    />
+                                    <CardContent>
+                                        <Typography 
+                                            gutterBottom variant="subtitle1"
+                                            sx={{color: "white", fontSize: "18px", fontWeight:700, align:'left', fontFamily:"Arial"}}>
+                                            {show.jawSummary.title}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        </div>
+                        : null
+                    ))}
+                </div>
+                {/* Right arrow button for scrolling a list of tv shows */}
+                <div className="slider arrowboxright" onClick={()=>handleClick("right")}>
+                    <ArrowForwardIosOutlined className="slider rightarrow" onClick={()=>handleClick("right")}/>
+                </div>
+            </div>
+            <br></br>
+            <br></br>
+            <div className="recommend"><b>Shows With More than One Season</b></div>
+            <br></br>
+            <div className="wrapper">
+                {/* Left arrow button for scrolling a list of tv shows */}
+                <div className="slider arrowboxleft" onClick={()=>handleClick("left")}>
+                    <ArrowBackIosOutlined className="slider leftarrow" onClick={()=>handleClick("left")}/>
+                </div>
+                <div className="container" >
+                    {comList.map((show) => (
+                        show.summary.type === 'show' && show.jawSummary.seasonCount > 2 ?
+                        <div className="list-cards">
+                            <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
+                                <CardActionArea onClick={ () => {
+                                            localStorage.setItem('showID', JSON.stringify(show.summary.id));
+                                            localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
+                                            localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
+                                            localStorage.setItem('season', "");
+                                            localStorage.setItem('episode', "");
+                                            navigate("/forum");
+                                        }
+                                    }>
+                                    <CardMedia
+                                        component="img"
+                                        image={show.jawSummary.backgroundImage.url}
+                                        height='120'
+                                        alt="show image"
+                                    />
+                                    <CardContent>
+                                        <Typography 
+                                            gutterBottom variant="subtitle1"
+                                            sx={{color: "white", fontSize: "18px", fontWeight:700, align:'left', fontFamily:"Arial"}}>
+                                            {show.jawSummary.title}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        </div>
+                        : null
+                    ))}
+                </div>
+                {/* Right arrow button for scrolling a list of tv shows */}
+                <div className="slider arrowboxright" onClick={()=>handleClick("right")}>
+                    <ArrowForwardIosOutlined className="slider rightarrow" onClick={()=>handleClick("right")}/>
+                </div>
+            </div>
+
+            <br></br>
+            <br></br>
+            <div className="recommend"><b>Shows A in the Name</b></div>
+            <br></br>
+            <div className="wrapper">
+                {/* Left arrow button for scrolling a list of tv shows */}
+                <div className="slider arrowboxleft" onClick={()=>handleClick("left")}>
+                    <ArrowBackIosOutlined className="slider leftarrow" onClick={()=>handleClick("left")}/>
+                </div>
+                <div className="container" >
+                    {origList.map((show) => (
                         show.summary.type === 'show' ?
                         <div className="list-cards">
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
