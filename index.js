@@ -48,19 +48,17 @@ app.post("/login", async (req, res) => {
         'SELECT * FROM users WHERE email = ?',
         [email],
         async (err, result) => {
+        async (err, result) => {
             if(err) {
                 res.send({err:err});
             }
             console.log(result)
             if (result.length > 0) {
-                console.log(password, result[0].password)
-                if(await bcrypt.compare(req.body.password, result[0].password)) {
-                    console.log("match")
-                    res.send(result)
-                  } else {
-                    console.log("no match")
-                    res.send({message: "no match"})
-                  }
+                if(await bycrypt.compare(password, result[0].password)){
+                    res.send(result);
+                } else {
+                    res.send({message: "Wrong username/password combination!"});
+                }
             } else {
                 res.send({message: "No such username."});
             }
