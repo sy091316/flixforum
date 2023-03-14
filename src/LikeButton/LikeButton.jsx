@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Axios from 'axios'
+import './LikeButton.css';
+import like from './like.png';
+import dislike from './dislike.png';
 
 // Credit for the overall like/dislike button logic found here:
 // https://timetoprogram.com/create-like-dislike-button-react-js/
@@ -27,8 +30,8 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
           console.log(response)
       }
     });
-  });
-
+  }, []);
+  
   useEffect(()=>{
     Axios.post("http://localhost:3001/totalDislikes", {
       post_id: post_id,
@@ -41,7 +44,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
           console.log(response)
       }
     });
-  });
+  }, []);
 
   useEffect(()=>{
     Axios.post("http://localhost:3001/buttonStatus", {
@@ -74,7 +77,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
           console.log(response)
       }
     });
-  });
+  }, []);
   console.log(activeBtn);
   // handle all the logic when pressing like button and all the diff cases
   const handleLikeClick = () => {
@@ -86,6 +89,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
       }).then((response) => {});
       setLikeCount(likeCount + 1);
       // add user to likes table (if not already in table) and set the like column to 1 and dislikes 0
+      
       Axios.post("http://localhost:3001/insertPost", { 
         post_id: post_id,
         user_id: user_id,
@@ -219,35 +223,37 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
           (login) ?
           <>
             <button
-              className={"btn ${activeBtn === 'like' ? 'like-active' : ''}"}
-              onClick={handleLikeClick}  
-            >
-              <span className="material-symbols-rounded"></span>
-              Like {likeCount}
+              className={`like-button ${activeBtn === 'like' ? 'like-active' : ''}`}
+              onClick={handleLikeClick}>
+              <img className='like-image' src={like}></img>
+              {/* <span className="like-button"></span> */}
+              <div className='like-count'>{likeCount}</div>
             </button>
             
             <button
-              className={"btn ${activeBtn === 'dislike' ? 'dislike-active' : ''}"}
-              onClick={handleDisikeClick}
-            >
-              <span className="material-symbols-rounded"></span>
-              Dislike {dislikeCount}
+              className={`dislike-button ${activeBtn === 'dislike' ? 'dislike-active' : ''}`}
+              onClick={handleDisikeClick}>
+              <img className='dislike-image' src={dislike} ></img>
+              {/* <span className="material-symbols-dislike"></span> */}
+              <div className='dislike-count'>{dislikeCount}</div>
             </button>
           </>
           :
           <>
             <button
-              onClick={() => navigate("/login")}  
-            >
-              <span className="material-symbols-rounded"></span>
-              Like {likeCount}
+            className={`like-button ${activeBtn === 'like' ? 'like-active' : ''}`}
+            onClick={() => navigate("/login")}>
+            <img className='like-image' src={like}></img>
+            {/* <span className="like-button"></span> */}
+            <div className='like-count'>{likeCount}</div>
             </button>
             
             <button
-              onClick={() => navigate("/login")}
-            >
-              <span className="material-symbols-rounded"></span>
-              Dislike {dislikeCount}
+              className={`dislike-button ${activeBtn === 'dislike' ? 'dislike-active' : ''}`}
+              onClick={() => navigate("/login")}>
+              <img className='dislike-image' src={dislike} ></img>
+              {/* <span className="material-symbols-dislike"></span> */}
+              <div className='dislike-count'>{dislikeCount}</div>
             </button>
           </>
         }
