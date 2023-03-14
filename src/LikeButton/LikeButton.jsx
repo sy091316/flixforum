@@ -8,8 +8,8 @@ import dislike from './dislike.png';
 // Credit for the overall like/dislike button logic found here:
 // https://timetoprogram.com/create-like-dislike-button-react-js/
 
-const LikeButton = ({forum_id, post_id, user_id, login}) => {
-  console.log("login status " + login)
+const LikeButton = ({forum_id, post_id, user_id}) => {
+  console.log("login status " + user_id)
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
 
@@ -30,7 +30,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
           console.log(response)
       }
     });
-  }, []);
+  }, [user_id]);
   
   useEffect(()=>{
     Axios.post("http://localhost:3001/totalDislikes", {
@@ -44,12 +44,14 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
           console.log(response)
       }
     });
-  }, []);
+  }, [user_id]);
 
   useEffect(()=>{
+    console.log("user id: ", user_id)
     Axios.post("http://localhost:3001/buttonStatus", {
       forum_id: forum_id,
       post_id: post_id,
+      user_id: user_id,
     }).then((response) => {
       if(response.data.message) { // post isn't in post_likes table yet
           console.log(response.data.message);
@@ -77,7 +79,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
           console.log(response)
       }
     });
-  }, []);
+  }, [user_id]);
   console.log(activeBtn);
   // handle all the logic when pressing like button and all the diff cases
   const handleLikeClick = () => {
@@ -220,7 +222,7 @@ const LikeButton = ({forum_id, post_id, user_id, login}) => {
     <div className="container">
       <div className="btn-container">
       {
-          (login) ?
+          (user_id) ?
           <>
             <button
               className={`like-button ${activeBtn === 'like' ? 'like-active' : ''}`}

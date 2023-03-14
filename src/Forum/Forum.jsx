@@ -221,7 +221,6 @@ function Forum() {
                                 forum_id = {comments.forum_id}
                                 post_id = {comments.post_id}
                                 user_id = {curr}
-                                login = {curr}
                             />
                         </CardContent>
                     </Card>
