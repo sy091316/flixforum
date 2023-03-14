@@ -3,6 +3,11 @@ import Axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../Logo/logo";
 
+/** Citations
+ * Frontend Login Page: https://www.youtube.com/watch?v=Y-XW9m8qOis
+ * Backend Login Page: https://www.youtube.com/watch?v=W-sZo6Gtx_E , https://www.youtube.com/watch?v=W8jySpfRUDY 
+ */
+
 export const Register = () => {
     //store username, email, and password users typed on Register page
     const [name, setName] = useState('');

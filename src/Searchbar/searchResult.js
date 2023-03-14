@@ -10,6 +10,8 @@ import "./searchResult.css"
 
 // MAJORITY OF CODE COMES FROM THIS VIDEO FOR DISPLAYING THE SHOWS
 // https://www.youtube.com/watch?v=FzWG8jiw4XM&ab_channel=LamaDev
+// search Result was inspired by : https://reactnavigation.org/docs/params/
+
 function SearchResult() {
     // grad the search bar input and store it in a the query variable
     const result = useLocation();

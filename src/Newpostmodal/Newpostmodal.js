@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import Axios from 'axios'
-import { Link, useNavigate } from "react-router-dom";
 import '../Newpostmodal/Newpostmodal.css'
 import close from '../img/close-button.png';
+
 //Modal: https://medium.com/tinyso/how-to-create-a-modal-component-in-react-from-basic-to-advanced-a3357a2a716a
 // DB format based on
 // https://gist.github.com/mrdaemon/1446020
 
 export const Newpostmodal = (props) => {
     // to use to grab forum_id from DB 
-    // need to grab from the actual froum page
+    // grab the show title of the forum user is on
     const show_title = localStorage.getItem('title'); 
 
     //getting the season the user chose on froum page and making it an Int
@@ -36,6 +36,7 @@ export const Newpostmodal = (props) => {
         return null
     }
 
+    //axios call to database with user and forum information
     const newpostmodal = () => {
         console.log("inside new post modal and clicked submit");
         Axios.post('http://localhost:3001/newpostmodal', {
@@ -48,12 +49,14 @@ export const Newpostmodal = (props) => {
         })
     }
 
+    // if user is writing in the post-title text box, save the value
     const handleChangePostTitle = (e) => {
         e.preventDefault();
         setPostTitleInput(e.target.value);
         // console.log('title:', postTitleInput);
     };
 
+    //if user is writing in the post text box, save the value
     const handleChangePost = (e) => {
         e.preventDefault();
         setPostInput(e.target.value);
@@ -67,8 +70,9 @@ export const Newpostmodal = (props) => {
             <div className="modal-content">
                 <div className="modal-header">
                     <h4 className="modal-title">New Post Forum</h4>
-                    <img className="buttonclose" src={close} width="26" height="26" onClick={props.onClose}/>
+                    <img className="buttonclose" src={close} alt="X" width="26" height="26" onClick={props.onClose}/>
                 </div>
+                {/* Text box for title of post */}
                 <div className="comment-title">
                 <textarea
                     className = "comment-title-box"
@@ -79,6 +83,7 @@ export const Newpostmodal = (props) => {
                     value={postTitleInput} 
                     required/>
                 </div>
+                {/* Text box for post */}
                 <div className="modal-post">
                 <textarea
                     className = "post-box"
@@ -89,6 +94,7 @@ export const Newpostmodal = (props) => {
                     value={postInput}
                     required/>
                 </div>
+                {/* submit button which triggers Axios post */}
                 <div className="modal-footer">
                   <button onClick = {newpostmodal} className="buttonsubmit">Submit</button>
                 </div>

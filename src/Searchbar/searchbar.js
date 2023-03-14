@@ -3,6 +3,11 @@ import { useNavigate } from "react-router";
 import "./searchbar.css";
 import searchbar from "./searchbar.png"
 
+// Code for search bar inspired by 
+// https://plainenglish.io/blog/how-to-implement-a-search-bar-in-react-js
+// https://reactnavigation.org/docs/params/
+
+
 export const Search = () => {
     // useState to store the search input
     const [searchInput, setSearchInput] = useState("");

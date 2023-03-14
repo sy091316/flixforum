@@ -1,9 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from 'axios'
 import "./Forumpage.css";
 import Modal from '../Newpostmodal/Newpostmodal';
-import CategoryContext from "../CategoryContext";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { CardContent } from "@mui/material";
@@ -15,6 +14,7 @@ import Logo from "../Logo/logo";
 import LikeButton from "../LikeButton/LikeButton";
 
 // https://codesandbox.io/s/edmekk?file=/demo.tsx
+
 function Forum() {
     // holds the selected season that stays when refreshing or making new post
     let defaultSeason = "";
@@ -95,7 +95,7 @@ function Forum() {
             console.log(err);
         })
     }, [seasonQuery]);
-    // gets the episodes of the currently selected season
+    // gets the episodes of the currently selected season of show
     const episodeQuery = 'https://netflix-data.p.rapidapi.com/season/episodes/?ids='+ currSeason +'&offset=0&limit=25';
     useEffect(() => {
         fetch(episodeQuery, {
@@ -197,7 +197,7 @@ function Forum() {
                                 }
                             </div>
                         :
-                        <h1></h1>
+                        null
                     }
                 </div>
             </div>

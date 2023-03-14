@@ -1,11 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
 import "./Loginpage.css";
-import CategoryContext from "../CategoryContext";
 import Logo from "../Logo/logo";
 
-
+/** Citations
+ * Frontend Login Page: https://www.youtube.com/watch?v=Y-XW9m8qOis
+ * Backend Login Page: https://www.youtube.com/watch?v=W-sZo6Gtx_E , https://www.youtube.com/watch?v=W8jySpfRUDY 
+ */
 
 export const Login = () => {
     //store email, and password users typed on the Login Page
@@ -29,8 +31,8 @@ export const Login = () => {
             }
         });
     }
-   
 
+    // gets user's email and password after they submit/click 'log in' button
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email);
