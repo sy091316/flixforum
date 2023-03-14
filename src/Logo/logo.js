@@ -5,6 +5,7 @@ import "./logo.css";
 function Logo() {
     const navigate = useNavigate();
     return (
+        // Logo
         <button type="button" className="logo-flixforum" onClick={() => navigate("/")}>FLIXFORUM</button>
     )
 

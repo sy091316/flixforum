@@ -7,3 +7,16 @@
     padding-right:30px;
     padding-top: 7px;
 }
+
+.search-result-title {
+    color: white;
+    font-size: 21px;
+    font-weight: 700;
+    margin-left: 60px;
+}
+
+.Searched-Shows:hover {
+    transform:scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+

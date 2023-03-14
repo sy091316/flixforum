@@ -134,16 +134,14 @@ app.post("/addLike", async (req, res) => {
 
 app.post("/subLike", async (req, res) => {
     try {
-        console.log('inside of subLike')
         const post_id = req.body.post_id
         db.query(
-        "UPDATE posts SET likes = likes - 1 WHERE post_id = ?", 
-        [post_id], 
-        (err, result) => {
-            if(err) {
-                console.log(err)
-            }
-            console.log(result)
+            "UPDATE posts SET likes = likes - 1 WHERE post_id = ?", 
+            [post_id], 
+            (err, result) => {
+                if(err) {
+                    console.log(err)
+                }
         });
     } catch {
         res.status(500).send();
@@ -153,35 +151,32 @@ app.post("/subLike", async (req, res) => {
 
 app.post("/addDislike", async (req, res) => {
     try {
-        console.log('inside of addDislike')
         const post_id = req.body.post_id
         db.query(
-        "UPDATE posts SET dislikes = dislikes + 1 WHERE post_id = ?", 
-        [post_id], 
-        (err, result) => {
-            if(err) {
-                console.log(err)
-            }
-            console.log(result)
+            "UPDATE posts SET dislikes = dislikes + 1 WHERE post_id = ?", 
+            [post_id], 
+            (err, result) => {
+                if(err) {
+                    console.log(err)
+                }
+                console.log(result)
         });
     } catch {
         res.status(500).send();
     }
-    
 });
 
 app.post("/subDislike", async (req, res) => {
     try {
-        console.log('inside of subDislike')
         const post_id = req.body.post_id
         db.query(
-        "UPDATE posts SET dislikes = dislikes - 1 WHERE post_id = ?", 
-        [post_id], 
-        (err, result) => {
-            if(err) {
-                console.log(err)
-            }
-            console.log(result)
+            "UPDATE posts SET dislikes = dislikes - 1 WHERE post_id = ?", 
+            [post_id], 
+            (err, result) => {
+                if(err) {
+                    console.log(err)
+                }
+                console.log(result)
         });
     } catch {
         res.status(500).send();
@@ -216,7 +211,6 @@ app.post("/buttonStatus", async (req, res) => {
 
 app.post("/updatePostsLikes", async (req, res) => {
     try {
-        console.log('inside updatePostsLikes')
         const like_value = req.body.like_value
         const dislike_value = req.body.dislike_value
         const post_id = req.body.post_id
@@ -261,9 +255,6 @@ app.post("/insertPost", async (req, res) => {
 
 app.post("/newpostmodal", async (req, res) => {
     try {
-        //console.log("inside of index of /newpostmodal");
-        //info needed to grab the forumId from the DB
-        // info passed from NEW POST MODAL
         const showtitle = req.body.showtitle;
         const season = req.body.season;
         const episode = req.body.episode;
@@ -275,7 +266,8 @@ app.post("/newpostmodal", async (req, res) => {
         var dbforum_id = "";
 
         db.query(
-            // check if the forum exists in the forums table
+            // check if the forum exists in the forums table to see if we need to deploy into both 
+            //forums and posts table or just the posts table 
             "SELECT forum_id FROM forums WHERE title = ? AND season = ? AND episode = ?",
             [showtitle, season, episode], 
             (err, result) => {
@@ -284,8 +276,8 @@ app.post("/newpostmodal", async (req, res) => {
                 }
                 else {
                     if (result.length === 0) {
-                        console.log("forum not in database yet");
-                        // push to the forums table
+                        //console.log("forum not in database yet");
+                        // push to the forums table becuase this is the first post under this forum
                         db.query(
                             "INSERT INTO forums (title, season, episode) VALUES (?, ?, ?)",
                             [showtitle, season, episode],
@@ -293,9 +285,9 @@ app.post("/newpostmodal", async (req, res) => {
                                 if(err) {
                                     console.log(err);
                                 }
-                                console.log(result);
+                                //console.log(result);
                             });
-                        // grab from the forums the newly added forum 
+                        // grab from the forums table the newly added forum_id
                         db.query(
                             "SELECT forum_id FROM forums WHERE title = ? AND season = ? AND episode = ?",
                             [showtitle, season, episode],
@@ -304,7 +296,7 @@ app.post("/newpostmodal", async (req, res) => {
                                     console.log(err);
                                 }
                                 dbforum_id = result[0].forum_id;
-                                // insert into posts 
+                                // insert into posts using the forum_id
                                 db.query(
                                     "INSERT INTO posts (user_id, forum_id, title, content) VALUES (?, ?, ?, ?)",
                                     [userid, dbforum_id, posttitle, postcontent],
@@ -312,15 +304,16 @@ app.post("/newpostmodal", async (req, res) => {
                                         if(err) {
                                             console.log(err);
                                         }
-                                        console.log(result);
-                                    });
-                            });
-                        
+                                        //console.log(result);
+                                    }
+                                );
+                            }
+                        );
                     }
                     else {
                         dbforum_id = result[0].forum_id;
-                        console.log("forum in database and forumID = ", dbforum_id);
-                        // insert into posts table because the forum_id exists
+                        // console.log("forum in database and forumID = ", dbforum_id);
+                        // insert into posts table because the forum_id exists already, it is not the first post under this forum
                         db.query(
                         "INSERT INTO posts (user_id, forum_id, title, content) VALUES (?, ?, ?, ?)",
                         [userid, dbforum_id, posttitle, postcontent],
@@ -328,16 +321,14 @@ app.post("/newpostmodal", async (req, res) => {
                             if(err) {
                                 console.log(err);
                             }
-                            console.log(result);
+                            // console.log(result);
                         });
                     }
                 }
             });
-
     } catch {
         res.status(500).send();
     }
-    
 });
 
 app.get("/forum", async (req, res) => {
@@ -373,37 +364,33 @@ app.get("/forum", async (req, res) => {
                         (err, result) => {
                             if(err) {
                                 console.log("sth went wrong in the second if for title content user id query");
-                            }
-                            else {
+                            } else {
                                 result.map((posts) => (
                                     //insert into posts list here 
                                     posts_list.push({forum_id:result_forum_id,post_id:posts.post_id,title:posts.title,content:posts.content,user_id:posts.user_id, user_name:""})
                                 ))
-
                                 // once every post is pushed into the posts_list
                                 // pull every username and userId from users table 
                                 // loop through posts_list and and user result from query to update username based on id 
-
-                                    db.query (
-                                        "SELECT username, id FROM users",
-                                        (err, result) => {
-                                            if (err) {
-                                                console.log ("something went wrong in username query")
-                                            }
-                                            else {
-                                                for (var i = 0; i < posts_list.length; i++) {
-                                                    for (var j = 0; j < result.length; j++) {
-                                                        if (posts_list[i].user_id == result[j].id) {
-                                                            posts_list[i].user_name = result[j].username;
-                                                        }
+                                db.query (
+                                    "SELECT username, id FROM users",
+                                    (err, result) => {
+                                        if (err) {
+                                            console.log ("something went wrong in username query")
+                                        }
+                                        else {
+                                            for (var i = 0; i < posts_list.length; i++) {
+                                                for (var j = 0; j < result.length; j++) {
+                                                    if (posts_list[i].user_id == result[j].id) {
+                                                        posts_list[i].user_name = result[j].username;
                                                     }
                                                 }
-                                                console.log("updated Posts_list: ", posts_list)
                                             }
-                                            res.status(200).send(posts_list);
+                                            console.log("updated Posts_list: ", posts_list)
                                         }
-                                        
-                                    )
+                                        res.status(200).send(posts_list);
+                                    } 
+                                )
                             }
 
                         }

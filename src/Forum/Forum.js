@@ -6,32 +6,35 @@ import Modal from '../Newpostmodal/Newpostmodal';
 import CategoryContext from "../CategoryContext";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import { CardActionArea, CardContent, CardMedia } from "@mui/material";
+import { CardContent } from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Logo from "../Logo/logo";
 import LikeButton from "../LikeButton/LikeButton";
-import RatingButton from "../RatingButton/RatingButton";
 
 // https://codesandbox.io/s/edmekk?file=/demo.tsx
 function Forum() {
+    // holds the selected season that stays when refreshing or making new post
     let defaultSeason = "";
+    // holds the selected episode that stays when refreshing or making new post
     let defaultEpisode = "";
+    // checks if there is a season and episode selected previously
     if (localStorage.getItem('season') && localStorage.getItem('episode')) {
         defaultSeason = localStorage.getItem('season');
         defaultEpisode = localStorage.getItem('episode');
     }
-    // holds the login status of the user
-    const {loginStatus} = useContext(CategoryContext);
-    
-    // holds data of the show that was picked by the user
-    // const {selectedShow, setSingleShow} = useContext(CategoryContext);
+    // handles and holds the list of seasons from the selected show
     const [seasonList, setSeasonList] = useState([]);
+    // handles and holds the season id of a show
     const [currSeason, setCurrSeason] = useState(defaultSeason);
+    // handles and holds the list of episodes from the selected season of show
     const [episodeList, setEpisodeList] = useState([]);
+    // handles and holds the selected episode id of a show
     const [currEp, setCurrEp] = useState(defaultEpisode);
+    // holds the list of forum posts associated with the select season
+    // and episode
     const [forumList, setForumList] = useState([]);
     // used for creating posts
     const [show, setShow] = useState(false);
@@ -60,8 +63,6 @@ function Forum() {
     
     // gets the forum posts associated with current show's season and episode
     const forum = () => {
-        console.log("go bitch")
-        console.log(user_id_forum, title_forum, season_number_forum, episode_number_forum)
         Axios.get('http://localhost:3001/forum', {
             params: {
                 userid_forum: user_id_forum,
@@ -70,13 +71,10 @@ function Forum() {
                 episode_forum: episode_number_forum,
             }
         })
-
         .then(response => {
-            console.log("response inside of forum", response.data);
             setForumList(response.data);
         })
     }
-
     // fetches the seasons of the selected show
     const seasonQuery = 'https://netflix-data.p.rapidapi.com/title/seasons/?ids='+ ID +'&offset=0&limit=25';
     // grabs the seasons of a show
@@ -91,7 +89,6 @@ function Forum() {
         .then(response => response.json())
         .then((json) => {
             const convert_season = json[0];
-            // console.log('convert season: ', convert_season);
             setSeasonList(convert_season.seasons);
         })
         .catch(err => {
@@ -110,7 +107,6 @@ function Forum() {
         })
         .then(response => response.json())
         .then((json) => {
-            // console.log('episodes: ', json[0]);
             const convert_epi = json[0].episodes;
             setEpisodeList(convert_epi);
         })
@@ -123,8 +119,6 @@ function Forum() {
         <>
         <div className="forumspage">
         <Logo/>
-            {/* <br></br> */}
-            
             <div className="tvshowpicture">
                 {Image && <img 
                 src={Image}
@@ -160,7 +154,7 @@ function Forum() {
                     </Box>
                 </div>
             <br></br>
-            <div className = "goButton-episode-menu">
+            <div className = "go-episode-menu-newpost">
                 <div className="dropdownEpisode">
                     <Box sx={{minWidth: 20}}>
                         <FormControl fullWidth>
@@ -186,7 +180,7 @@ function Forum() {
                     <button onClick = {forum} className="button-go">GO</button>
                     {
                         (episode_number_forum) ? 
-                            <div className="newpost-b">
+                            <div className="newpost-logic">
                                 {
                                     (curr) ? 
                                     <div className="newpost">
@@ -195,9 +189,7 @@ function Forum() {
                                         <br></br>
                                         <button className="newpost-button" onClick={() => setShow(true)}><b>New Post</b></button>
                                         <Modal onClose = {() => setShow(false)} show={show}/>
-                                    </div> : 
-                                    // redirect to login if not logged in
-                                    
+                                    </div> :
                                     <div className="newpost">
                                         <br></br>
                                         <button type ="button" class = "newpost-button" onClick={() => navigate("/login")}><b>New Post</b></button>
@@ -207,7 +199,6 @@ function Forum() {
                         :
                         <h1></h1>
                     }
-                    
                 </div>
             </div>
             <div className = "forum-posts">

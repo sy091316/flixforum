@@ -1,13 +1,11 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
-import Button from "@mui/material/Button";
 import { CardActionArea, CardContent, CardMedia } from "@mui/material";
-import CategoryContext from "./CategoryContext";
 import "./ShowCard.css";
-// import {MdChevronLeft, MdChevronRight} from 'react-icons/md';
 import {ArrowBackIosOutlined, ArrowForwardIosOutlined} from "@material-ui/icons";
+
 // MAJORITY OF CODE COMES FROM THIS VIDEO FOR DISPLAYING THE SHOWS
 // https://www.youtube.com/watch?v=FzWG8jiw4XM&ab_channel=LamaDev
 // Right/Left Arrow UI 
@@ -17,8 +15,6 @@ function ShowCard() {
     const [list, setList] = useState([]);
     // handles how far you scroll through list of shows
     const [listPos, setListPos] = useState(0);
-    // sets the shows name to pass to the forums when clicked
-    const {selectedShow, setSingleShow} = useContext(CategoryContext);
     // handles updating the position of the shows cards
     const showRef = useRef();
     const navigate = useNavigate();
@@ -36,14 +32,11 @@ function ShowCard() {
             showRef.current.style.transform = `translateX(${-230 + distance}px)`
         }
     }
-
-
-
     // useEffect is used to get the shows but not repeatedly unless this page
     // is navigated to
     useEffect(() => {
         // fetches random shows from Netflix API
-        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=5&limit_suggestions=1', {
+        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=10&limit_suggestions=1', {
             "method": "GET",
             "headers": {
             'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
@@ -62,55 +55,22 @@ function ShowCard() {
     }, []);
 
     return(
-        // testing card
-        // <div>
-        // {list.map((show) => ( 
-        //     <Card sx={{width: 225, height: 160, ml: 1}} key={show.summary.id}>
-        //         <CardActionArea
-        //             onClick={
-        //                 () => {
-        //                     setSingleShow(show);
-        //                     navigate("/forum");
-        //                 }
-        //             }>
-        //             <CardMedia
-        //                 component="img"
-        //                 height='110'
-        //                 image={show.jawSummary.backgroundImage.url}
-        //                 alt="show image"
-        //             />
-        //             <CardContent>
-        //                 <Typography gutterBottom variant="subtitle1">
-        //                     {show.jawSummary.title}
-        //                 </Typography>
-        //             </CardContent>
-        //         </CardActionArea>
-        //     </Card>
-        // ))}
-        // </div>
         <div className="list">
             <br></br>
             <br></br>
             <div className="recommend"><b>Popular on Netflix</b></div>
             <br></br>
             <div className="wrapper">
-
                 {/* Left arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxleft" onClick={()=>handleClick("left")}>
                     <ArrowBackIosOutlined className="slider leftarrow" onClick={()=>handleClick("left")}/>
                 </div>
-
-                {/* <div className="leftarrow">
-                    <MdChevronLeft variant="contained" onClick={()=>handleClick("left")} size={60}/>
-                </div> */}
-    
                 <div className="container" ref={showRef} >
                     {list.map((show) => (
-                        show.summary.type == 'show' ?
+                        show.summary.type === 'show' ?
                         <div className="list-cards">
-                            <Card sx={{width: 225, height: 160, ml: 1}}>
+                            <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
                                 <CardActionArea onClick={ () => {
-                                            setSingleShow(show);
                                             localStorage.setItem('showID', JSON.stringify(show.summary.id));
                                             localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
                                             localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
@@ -122,11 +82,13 @@ function ShowCard() {
                                     <CardMedia
                                         component="img"
                                         image={show.jawSummary.backgroundImage.url}
-                                        height='110'
+                                        height='120'
                                         alt="show image"
                                     />
                                     <CardContent>
-                                        <Typography gutterBottom variant="subtitle1">
+                                        <Typography 
+                                            gutterBottom variant="subtitle1"
+                                            sx={{color: "white", fontSize: "18px", fontWeight:700, align:'left', fontFamily:"Arial"}}>
                                             {show.jawSummary.title}
                                         </Typography>
                                     </CardContent>
@@ -136,21 +98,13 @@ function ShowCard() {
                         : null
                     ))}
                 </div>
-
                 {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={()=>handleClick("right")}>
                     <ArrowForwardIosOutlined className="slider rightarrow" onClick={()=>handleClick("right")}/>
                 </div>
-
-                
-                {/* <div className="rightarrow">
-                    <MdChevronRight variant="contained" onClick={()=>handleClick("right")} size={60}/>
-                </div> */}
-
             </div>
         </div>
     );
-
 }
 
 export default ShowCard;

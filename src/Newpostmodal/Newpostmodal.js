@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
 import '../Newpostmodal/Newpostmodal.css'
-//import close from './close.svg';
-import close from '../close-button.png';
+import close from '../img/close-button.png';
 //Modal: https://medium.com/tinyso/how-to-create-a-modal-component-in-react-from-basic-to-advanced-a3357a2a716a
 
 export const Newpostmodal = (props) => {

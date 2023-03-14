@@ -2,18 +2,17 @@ import React, {useState} from "react";
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import CategoryContext from './CategoryContext';
-import Home from "./Home";
+import Home from "./Home/Home";
 import Register from './Login/Register';
 import Login from './Login/Login';
 import Forum from './Forum/Forum';
 import SearchResult from "./Searchbar/searchResult";
 import Newpostmodal from './Newpostmodal/Newpostmodal';
 import LikeButton from "./LikeButton/LikeButton";
-import ShowCard from './ShowCard';
+import ShowCard from "./ShowCard/ShowCard";
 import './App.css';
 
 function App() {
-
   const [loginStatus, setLoginStatus] = useState(false);
   const [selectedShow, setSingleShow] = useState([]);
   return (
