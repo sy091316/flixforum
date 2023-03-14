@@ -40,7 +40,7 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
     try {
-        console.log("inside of login of /login");
+        // console.log("inside of login of /login");
         const email = req.body.email;
         const password = req.body.password;
 
@@ -70,7 +70,7 @@ app.post("/login", async (req, res) => {
 // retrieves the total amount of likes or dislikes for a specific post
 app.post("/totalLikes", async (req, res) => {
     try {
-        console.log("inside of /totalLikes");
+        // console.log("inside of /totalLikes");
         const post_id = req.body.post_id;
         db.query(
         'SELECT likes FROM posts WHERE post_id = ?',
@@ -92,7 +92,7 @@ app.post("/totalLikes", async (req, res) => {
 });
 app.post("/totalDislikes", async (req, res) => {
     try {
-        console.log("inside of /totalDisikes");
+        // console.log("inside of /totalDisikes");
         const post_id = req.body.post_id
         db.query(
         'SELECT dislikes FROM posts WHERE post_id = ?',
@@ -115,7 +115,7 @@ app.post("/totalDislikes", async (req, res) => {
 
 app.post("/addLike", async (req, res) => {
     try {
-        console.log('inside of addLike')
+        // console.log('inside of addLike')
         const post_id = req.body.post_id;
         db.query(
         "UPDATE posts SET likes = likes + 1 WHERE post_id = ?", 
@@ -231,7 +231,7 @@ app.post("/updatePostsLikes", async (req, res) => {
 
 app.post("/insertPost", async (req, res) => {
     try {
-        console.log('inside insertPost')
+        // console.log('inside insertPost')
         const post_id = req.body.post_id
         const user_id = req.body.user_id
         const forum_id = req.body.forum_id
@@ -386,7 +386,7 @@ app.get("/forum", async (req, res) => {
                                                     }
                                                 }
                                             }
-                                            console.log("updated Posts_list: ", posts_list)
+                                            // console.log("updated Posts_list: ", posts_list)
                                         }
                                         res.status(200).send(posts_list);
                                     } 

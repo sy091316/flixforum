@@ -15,7 +15,7 @@ function SearchResult() {
     const result = useLocation();
     let query = ''
     if (result.state) {
-        console.log(JSON.stringify(result.state.message))
+        // console.log(JSON.stringify(result.state.message))
         query = JSON.stringify(result.state.message)
     };
 

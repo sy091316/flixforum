@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import '../Newpostmodal/Newpostmodal.css'
 import close from '../img/close-button.png';
 //Modal: https://medium.com/tinyso/how-to-create-a-modal-component-in-react-from-basic-to-advanced-a3357a2a716a
+// DB format based on
+// https://gist.github.com/mrdaemon/1446020
 
 export const Newpostmodal = (props) => {
     // to use to grab forum_id from DB 

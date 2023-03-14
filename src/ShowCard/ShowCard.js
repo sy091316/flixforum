@@ -10,37 +10,70 @@ import {ArrowBackIosOutlined, ArrowForwardIosOutlined} from "@material-ui/icons"
 // https://www.youtube.com/watch?v=FzWG8jiw4XM&ab_channel=LamaDev
 // Right/Left Arrow UI 
 // https://www.youtube.com/watch?v=FzWG8jiw4XM 
-// https://www.tabnine.com/code/javascript/classes/react-icons/MdChevronRight 
+// https://www.tabnine.com/code/javascript/classes/react-icons/MdChevronRight
+// API comes from
+// https://rapidapi.com/herosAPI/api/netflix-data/ 
 function ShowCard() {
+    // holds the list of any Netflix show grabbed from the API
     const [list, setList] = useState([]);
     // handles how far you scroll through list of shows
     const [listPos, setListPos] = useState(0);
-    const [comList, setComList] = useState([]);
-    const [comPos, setComPos] = useState(0);
-    const [origList, setOrigList] = useState([]);
-    const [origPos, setOrigPos] = useState(0);
+
+    const [seasonList, setSeaList] = useState([]);
+    const [seasonPos, setSeaPos] = useState(0);
+    const [showAList, setShowAList] = useState([]);
+    const [showAPos, setShowAPos] = useState(0);
     // handles updating the position of the shows cards
     const showRef = useRef();
+    const seasonRef = useRef();
+    const showARef = useRef();
     const navigate = useNavigate();
     // function processes click on left and right buttons
-    const handleClick = (direction) => {
+    const handleClickAny = (direction) => {
         // holds the distance to travel between each show card when
         // button is clicked
         let distance = showRef.current.getBoundingClientRect().x - 50;
         if (direction === "left" && listPos > 0) {
             setListPos(listPos - 1);
-            showRef.current.style.transform = `translateX(${230 + distance}px)`
+            showRef.current.style.transform = `translateX(${275 + distance}px)`
         }
         if (direction === "right" && listPos < 5) {
             setListPos(listPos + 1);
-            showRef.current.style.transform = `translateX(${-230 + distance}px)`
+            showRef.current.style.transform = `translateX(${-275 + distance}px)`
+        }
+    }
+    const handleClickMSeason = (direction) => {
+        // holds the distance to travel between each show card when
+        // button is clicked
+        let distance = seasonRef.current.getBoundingClientRect().x - 50;
+        if (direction === "left" && seasonPos > 0) {
+            setSeaPos(seasonPos - 1);
+            seasonRef.current.style.transform = `translateX(${275 + distance}px)`
+        }
+        if (direction === "right" && seasonPos < 2) {
+            setSeaPos(seasonPos + 1);
+            seasonRef.current.style.transform = `translateX(${-275 + distance}px)`
+        }
+    }
+    const handleClickAShow = (direction) => {
+        // holds the distance to travel between each show card when
+        // button is clicked
+        let distance = showARef.current.getBoundingClientRect().x - 50;
+        if (direction === "left" && showAPos > 0) {
+            setShowAPos(showAPos - 1);
+            showARef.current.style.transform = `translateX(${275 + distance}px)`
+        }
+        if (direction === "right" && showAPos < 5) {
+            setShowAPos(showAPos + 1);
+            showARef.current.style.transform = `translateX(${-275 + distance}px)`
         }
     }
     // useEffect is used to get the shows but not repeatedly unless this page
     // is navigated to
+    // updates list with random Netflix shows and shows that have > 1 season
     useEffect(() => {
         // fetches random shows from Netflix API
-        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=15&limit_suggestions=1', {
+        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=18&limit_suggestions=1', {
             "method": "GET",
             "headers": {
             'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
@@ -52,14 +85,14 @@ function ShowCard() {
         .then((json) => {
             const convert_list = json.titles;
             setList(convert_list);
+            setSeaList(convert_list);
         })
         .catch(err => {
             console.log(err);
         })
     }, []);
-
+    // used to grab the shows that have A in their name
     useEffect(() => {
-        // fetches random shows from Netflix API
         fetch('https://netflix-data.p.rapidapi.com/search/?query=A&limit_titles=15&limit_suggestions=1', {
             "method": "GET",
             "headers": {
@@ -71,27 +104,7 @@ function ShowCard() {
         // sets the
         .then((json) => {
             const convert_list = json.titles;
-            setOrigList(convert_list);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }, []);
-
-    useEffect(() => {
-        // fetches random shows from Netflix API
-        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=15&limit_suggestions=1', {
-            "method": "GET",
-            "headers": {
-            'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
-            'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
-            }
-        })
-        .then(response => response.json())
-        // sets the
-        .then((json) => {
-            const convert_list = json.titles;
-            setComList(convert_list);
+            setShowAList(convert_list);
         })
         .catch(err => {
             console.log(err);
@@ -106,8 +119,8 @@ function ShowCard() {
             <br></br>
             <div className="wrapper">
                 {/* Left arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxleft" onClick={()=>handleClick("left")}>
-                    <ArrowBackIosOutlined className="slider leftarrow" onClick={()=>handleClick("left")}/>
+                <div className="slider arrowboxleft" onClick={()=>handleClickAny("left")}>
+                    <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
                 <div className="container" ref={showRef} >
                     {list.map((show) => (
@@ -143,8 +156,8 @@ function ShowCard() {
                     ))}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxright" onClick={()=>handleClick("right")}>
-                    <ArrowForwardIosOutlined className="slider rightarrow" onClick={()=>handleClick("right")}/>
+                <div className="slider arrowboxright" onClick={()=>handleClickAny("right")}>
+                    <ArrowForwardIosOutlined className="slider rightarrow"/>
                 </div>
             </div>
             <br></br>
@@ -153,12 +166,12 @@ function ShowCard() {
             <br></br>
             <div className="wrapper">
                 {/* Left arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxleft" onClick={()=>handleClick("left")}>
-                    <ArrowBackIosOutlined className="slider leftarrow" onClick={()=>handleClick("left")}/>
+                <div className="slider arrowboxleft" onClick={()=>handleClickMSeason("left")}>
+                    <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
-                <div className="container" >
-                    {comList.map((show) => (
-                        show.summary.type === 'show' && show.jawSummary.seasonCount > 2 ?
+                <div className="container" ref={seasonRef}>
+                    {seasonList.map((show) => (
+                        show.summary.type === 'show' && show.jawSummary.seasonCount > 1 ?
                         <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
                                 <CardActionArea onClick={ () => {
@@ -190,22 +203,21 @@ function ShowCard() {
                     ))}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxright" onClick={()=>handleClick("right")}>
-                    <ArrowForwardIosOutlined className="slider rightarrow" onClick={()=>handleClick("right")}/>
+                <div className="slider arrowboxright" onClick={()=>handleClickMSeason("right")}>
+                    <ArrowForwardIosOutlined className="slider rightarrow"/>
                 </div>
             </div>
-
             <br></br>
             <br></br>
             <div className="recommend"><b>Shows A in the Name</b></div>
             <br></br>
             <div className="wrapper">
                 {/* Left arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxleft" onClick={()=>handleClick("left")}>
-                    <ArrowBackIosOutlined className="slider leftarrow" onClick={()=>handleClick("left")}/>
+                <div className="slider arrowboxleft" onClick={()=>handleClickAShow("left")}>
+                    <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
-                <div className="container" >
-                    {origList.map((show) => (
+                <div className="container" ref={showARef} >
+                    {showAList.map((show) => (
                         show.summary.type === 'show' ?
                         <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
@@ -238,8 +250,8 @@ function ShowCard() {
                     ))}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxright" onClick={()=>handleClick("right")}>
-                    <ArrowForwardIosOutlined className="slider rightarrow" onClick={()=>handleClick("right")}/>
+                <div className="slider arrowboxright" onClick={()=>handleClickAShow("right")}>
+                    <ArrowForwardIosOutlined className="slider rightarrow"/>
                 </div>
             </div>
         </div>
