@@ -17,6 +17,9 @@ const db = mysql.createConnection({
     database: 'LoginSystem',
 });
 
+// Credit for the password encryption logic found here:
+// https://www.youtube.com/watch?v=Ud5xKCYQTjM
+
 app.post("/register", async (req, res) => {
     try {
         const username = req.body.username;
