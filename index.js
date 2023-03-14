@@ -48,7 +48,6 @@ app.post("/login", async (req, res) => {
         'SELECT * FROM users WHERE email = ?',
         [email],
         async (err, result) => {
-        async (err, result) => {
             if(err) {
                 res.send({err:err});
             }
