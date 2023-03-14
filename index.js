@@ -53,7 +53,7 @@ app.post("/login", async (req, res) => {
             }
             console.log(result)
             if (result.length > 0) {
-                if(await bycrypt.compare(password, result[0].password)){
+                if(await bcrypt.compare(password, result[0].password)){
                     res.send(result);
                 } else {
                     res.send({message: "Wrong username/password combination!"});
@@ -193,9 +193,10 @@ app.post("/buttonStatus", async (req, res) => {
     try {
         const forum_id = req.body.forum_id
         const post_id = req.body.post_id
+        const user_id = req.body.user_id
         db.query(
-            'SELECT liked, disliked FROM post_likes WHERE forum_id = ? AND post_id = ?',
-            [forum_id, post_id],
+            'SELECT liked, disliked FROM post_likes WHERE forum_id = ? AND post_id = ? AND user_id = ?',
+            [forum_id, post_id, user_id],
             (err, result) => {
                 if(err) {
                     // if the post_id isn't there, then there should be an error
