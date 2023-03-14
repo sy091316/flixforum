@@ -28,7 +28,7 @@ function ShowCard() {
     const seasonRef = useRef();
     const showARef = useRef();
     const navigate = useNavigate();
-    // function processes click on left and right buttons
+    // handles the arrow buttons for the first row of shows
     const handleClickAny = (direction) => {
         // holds the distance to travel between each show card when
         // button is clicked
@@ -42,6 +42,7 @@ function ShowCard() {
             showRef.current.style.transform = `translateX(${-275 + distance}px)`
         }
     }
+    // handles the arrow buttons for the second row of shows
     const handleClickMSeason = (direction) => {
         // holds the distance to travel between each show card when
         // button is clicked
@@ -55,6 +56,7 @@ function ShowCard() {
             seasonRef.current.style.transform = `translateX(${-275 + distance}px)`
         }
     }
+    // handles the arrow buttons for the third row of shows
     const handleClickAShow = (direction) => {
         // holds the distance to travel between each show card when
         // button is clicked
@@ -73,7 +75,7 @@ function ShowCard() {
     // updates list with random Netflix shows and shows that have > 1 season
     useEffect(() => {
         // fetches random shows from Netflix API
-        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=18&limit_suggestions=1', {
+        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=25&limit_suggestions=1', {
             "method": "GET",
             "headers": {
             'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
@@ -93,7 +95,7 @@ function ShowCard() {
     }, []);
     // used to grab the shows that have A in their name
     useEffect(() => {
-        fetch('https://netflix-data.p.rapidapi.com/search/?query=A&limit_titles=15&limit_suggestions=1', {
+        fetch('https://netflix-data.p.rapidapi.com/search/?query=A&limit_titles=18&limit_suggestions=1', {
             "method": "GET",
             "headers": {
             'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
