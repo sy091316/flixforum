@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+## User Guide 
+### *NOTE*
+To see posts under forums, choose a season and episode of a TV show then click the GO button. 
+To see the new post a user made under a forum, click go after clicking submit in the new post modal. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Installation Guide 
+- First, go to the Flix Forum repository  
+- Clone from the remote repository  
+- Use your choice of IDE to open the files  
+### Packages to install
+- Node
+  - Download the installer from NodeJS WebSite.
+  - Run the installer.
+  - Follow the installer steps, agree the license agreement and click the next button.
+  - Restart your system/machine.
+- Materials UI
+  - npm install @mui/material @emotion/react @emotion/styled
+  - npm install -f @material-ui/icons
+  - npm install -f @material-ui/core
+  - npm install @material/card (if card fails to import)
+- UseNavigate 
+  - npm install react-use-navigate
+- Axios  
+  - npm install axios
+- mySQL (incase installing node isn’t enough to run the database)
+  - homebrew install mysql
 
-## Available Scripts
+## To start the server
+- type 'npm start' 
+- user should see a localhost server open and see the homepage of FlixForum
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## To start the database 
+- type in a new terminal 'node index.js'
+- user should now be able to login and see posts under the forums
