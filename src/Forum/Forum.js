@@ -72,6 +72,7 @@ function Forum() {
             }
         })
         .then(response => {
+            // updates the forum list to have all posts
             setForumList(response.data);
         })
     }
@@ -88,6 +89,7 @@ function Forum() {
         })
         .then(response => response.json())
         .then((json) => {
+            // sets the season list of the show
             const convert_season = json[0];
             setSeasonList(convert_season.seasons);
         })
@@ -107,6 +109,7 @@ function Forum() {
         })
         .then(response => response.json())
         .then((json) => {
+            // sets the episode list of the season
             const convert_epi = json[0].episodes;
             setEpisodeList(convert_epi);
         })
@@ -130,6 +133,7 @@ function Forum() {
             <br></br>
             <div className = "show-title">{Title && <div>{Title}</div>}</div>
             <br></br>
+                {/* handles dropdown menu for picking the season of a show*/}
                 <div className="dropdownSeason">
                     <Box sx={{minWidth: 20}}>
                     <FormControl fullWidth>
@@ -140,6 +144,7 @@ function Forum() {
                         style={{backgroundColor: '#43465e', color: '#FFFFFF', width: 175}}
                         onChange={e => {setCurrSeason(e.target.value);localStorage.setItem('season', JSON.stringify(e.target.value))}}
                         >
+                        {/* maps the seasons to dropdown*/}
                         {seasonList.map((season) => (
                             <MenuItem 
                                 style={{backgroundColor: '#43465e', color:'#FFFFFF'}}
@@ -154,6 +159,7 @@ function Forum() {
                     </Box>
                 </div>
             <br></br>
+            {/* handles the episode dropdown menu to pick episode*/}
             <div className = "go-episode-menu-newpost">
                 <div className="dropdownEpisode">
                     <Box sx={{minWidth: 20}}>
@@ -165,6 +171,7 @@ function Forum() {
                                 style={{backgroundColor: '#43465e', color: '#FFFFFF', width: 400}}
                                 onChange={e =>{setCurrEp(e.target.value); localStorage.setItem('episode', JSON.stringify(e.target.value))}}
                             >
+                            {/* maps the episodes to dropdown*/}
                             {episodeList.map((episode) => (
                                 <MenuItem 
                                     style={{backgroundColor: '#43465e', color:'#FFFFFF'}}
@@ -177,6 +184,7 @@ function Forum() {
                             </Select>
                         </FormControl>
                     </Box>
+                    {/* button that will grab forum posts with selected season and episode*/}
                     <button onClick = {forum} className="button-go">GO</button>
                     {
                         (episode_number_forum) ? 
@@ -201,6 +209,7 @@ function Forum() {
                     }
                 </div>
             </div>
+            {/* loops over the forum list and displays all the posts related to the current season and episode*/}
             <div className = "forum-posts">
                 {forumList && forumList.slice(1).map((comments) => (
                     <Card className = "post-cards"sx={{width:750, height: 153, ml: 1}} key={comments.user_name}>
