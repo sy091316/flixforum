@@ -120,8 +120,8 @@ function Forum() {
 
     return (
         <>
-        <div className="forumspage">
         <Logo/>
+        <div className="forumspage">
             <div className="tvshowpicture">
                 {Image && <img 
                 src={Image}
@@ -130,10 +130,9 @@ function Forum() {
                 width='750'
                 ></img>}
             </div>
-            <br></br>
             <div className = "show-title">{Title && <div>{Title}</div>}</div>
             <br></br>
-                {/* handles dropdown menu for picking the season of a show*/}
+            <div className="selections">
                 <div className="dropdownSeason">
                     <Box sx={{minWidth: 20}}>
                     <FormControl fullWidth>
@@ -144,7 +143,6 @@ function Forum() {
                         style={{backgroundColor: '#43465e', color: '#FFFFFF', width: 175}}
                         onChange={e => {setCurrSeason(e.target.value);localStorage.setItem('season', JSON.stringify(e.target.value))}}
                         >
-                        {/* maps the seasons to dropdown*/}
                         {seasonList.map((season) => (
                             <MenuItem 
                                 style={{backgroundColor: '#43465e', color:'#FFFFFF'}}
@@ -158,9 +156,7 @@ function Forum() {
                     </FormControl>
                     </Box>
                 </div>
-            <br></br>
-            {/* handles the episode dropdown menu to pick episode*/}
-            <div className = "go-episode-menu-newpost">
+                <br></br>
                 <div className="dropdownEpisode">
                     <Box sx={{minWidth: 20}}>
                         <FormControl fullWidth>
@@ -168,10 +164,9 @@ function Forum() {
                             <Select
                                 value={currEp}
                                 label="episodeSelector"
-                                style={{backgroundColor: '#43465e', color: '#FFFFFF', width: 400}}
+                                style={{backgroundColor: '#43465e', color: '#FFFFFF', width: 300}}
                                 onChange={e =>{setCurrEp(e.target.value); localStorage.setItem('episode', JSON.stringify(e.target.value))}}
                             >
-                            {/* maps the episodes to dropdown*/}
                             {episodeList.map((episode) => (
                                 <MenuItem 
                                     style={{backgroundColor: '#43465e', color:'#FFFFFF'}}
@@ -184,32 +179,25 @@ function Forum() {
                             </Select>
                         </FormControl>
                     </Box>
-                    {/* button that will grab forum posts with selected season and episode*/}
-                    <button onClick = {forum} className="button-go">GO</button>
-                    {
-                        (episode_number_forum) ? 
-                            <div className="newpost-logic">
-                                {
-                                    (curr) ? 
-                                    <div className="newpost">
-                                        <br></br>
-                                        <br></br>
-                                        <br></br>
-                                        <button className="newpost-button" onClick={() => setShow(true)}><b>New Post</b></button>
-                                        <Modal onClose = {() => setShow(false)} show={show}/>
-                                    </div> :
-                                    <div className="newpost">
-                                        <br></br>
-                                        <button type ="button" class = "newpost-button" onClick={() => navigate("/login")}><b>New Post</b></button>
-                                    </div> 
-                                }
-                            </div>
-                        :
-                        null
-                    }
                 </div>
+                <button onClick = {forum} className="button-go">GO</button>
+                    {
+                        <div className="newpost-logic">
+                            {
+                                (curr) ? 
+                                <div className="newpost">
+                                    <button className="newpost-button" onClick={() => setShow(true)}><b>New Post</b></button>
+                                    <Modal onClose = {() => setShow(false)} show={show}/>
+                                </div> 
+                                :
+                                <div className="newpost">
+                                    <br></br>
+                                    <button type ="button" class = "newpost-button" onClick={() => navigate("/login")}><b>New Post</b></button>
+                                </div> 
+                            }
+                        </div> 
+                    }                
             </div>
-            {/* loops over the forum list and displays all the posts related to the current season and episode*/}
             <div className = "forum-posts">
                 {forumList && forumList.slice(1).map((comments) => (
                     <Card className = "post-cards"sx={{width:750, height: 153, ml: 1}} key={comments.user_name}>
