@@ -1,76 +1,58 @@
 .forumspage{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
    overflow: hidden;
 }
 
 .show-title {
-   display: inline-block;
-   margin-left: 350px;
-   padding-top: 5px;
    font-family: "Arial";
    font-weight: 800;
    font-size: 30px;
    color: white;
 }
 
-.go-episode-menu-newpost {
-   display: inline-block;
-   margin-left: 344px;
-}
-
-.dropdownSeason {
-   display: inline-block;
-   margin-left: 344px;
-   padding-top: 5px;
-   padding-bottom: 8px;
-}
-
-.dropdownEpisode {
+.selections {
    display: flex;
-   justify-content: center;
-   padding-top: 5px;
+   padding-right: 10px;
 }
 
-.tvshowpicture{
-    margin-left: 344px;
-    display: inline-block;
-    position: relative;
-    padding-top: 10px;
+.dropdownSeason, .dropdownEpisode {
+   margin-right: 10px;
 }
 
 .newpost-logic {
    display:flex;
-   margin-left: 20px;
+   margin-left: 10px;
 }
 
 .newpost {
   display:flex;
 }
 
-.newpost-button {
-      border: 2px solid black;
-      color: black;
-      padding: 14px 28px;
-      font-size: 16px;
-      cursor: pointer;
-      border-color: #D81F26;
-      color: #D81F26;
-      background-color: transparent;
+.button-go {
+   display: flex;
+   align-items: center;
+   border: 2px solid black;
+   color: black;
+   padding: 14px 28px;
+   font-size: 16px;
+   cursor: pointer;
+   border-color: #D81F26;
+   color: #D81F26;
+   background-color: transparent;
 }
 
-.button-go {
-      background-color: #43465e;
-      color: white;
-      font-size: 16px;
-      float: right;
-      height: 55px;
-      display: flex;
-      align-items: center;
-      font-weight: 600;
-      margin-left: 30px;
-      margin-top: 1px;
-      border-radius: 3px;
-      border: 2px solid black;
-      border-color:#dedede;
+.newpost-button {
+   border: 2px solid black;
+   color: black;
+   padding: 14px 28px;
+   font-size: 16px;
+   cursor: pointer;
+   border-color: #D81F26;
+   color: #D81F26;
+   background-color: transparent;
 }
 
 .post-cards {
@@ -102,6 +84,5 @@
 }
 
 .forum-posts {
-   /* padding-left: 15px; */
    justify-content: center;
 }
