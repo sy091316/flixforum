@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import Search from '../Searchbar/searchbar';
-import './Home.css';
+import ShowCard from "../ShowCard/ShowCard";
 import Logo from "../Logo/logo";
+import './Home.css';
 
 /** Citations
  * Frontend Login Page: https://www.youtube.com/watch?v=Y-XW9m8qOis
@@ -41,6 +42,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <ShowCard/>
     </>
   );
 };

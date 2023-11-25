@@ -9,7 +9,6 @@ import Forum from './Forum/Forum';
 import SearchResult from "./Searchbar/searchResult";
 import Newpostmodal from './Newpostmodal/Newpostmodal';
 import LikeButton from "./LikeButton/LikeButton";
-import ShowCard from "./ShowCard/ShowCard";
 import './App.css';
 
 function App() {
@@ -17,46 +16,26 @@ function App() {
   const [selectedShow, setSingleShow] = useState([]);
   return (
     <>
-    {/* This is the alias of BrowserRouter i.e. Router */}
-    <Router>
-      <Routes>
-          {/* This route is for home component 
-          with exact path "/", in component props 
-          we passes the imported component*/}
-          <Route exact path='/' element={
-            <CategoryContext.Provider value={{loginStatus, setLoginStatus, selectedShow, setSingleShow}}>
-              <div className="main">
-                <Home/>
-                <ShowCard/>
-              </div>
-            </CategoryContext.Provider>}>
-          </Route>
-          <Route exact path='/login' element={
-            <CategoryContext.Provider value={{loginStatus, setLoginStatus}}>
-              <Login/>
-            </CategoryContext.Provider>}>
-          </Route>
-          <Route exact path='/register' element={<Register/>}></Route>
-          <Route exact path='/forum' element={
-            <CategoryContext.Provider value={{loginStatus, setLoginStatus, selectedShow, setSingleShow}}>
-              <Forum/>
-            </CategoryContext.Provider>}>
-          </Route>
-          <Route exact path='/newpostmodal' element={<Newpostmodal/>}></Route>
-          <Route exact path='/totalLikes' element={<LikeButton/>}></Route>
-          <Route exact path='/totalDisikes' element={<LikeButton/>}></Route>
-          <Route exact path='/buttonStatus' element={<LikeButton/>}></Route>
-          <Route exact path='/updatePostsLikes' element={<LikeButton/>}></Route>
-          <Route exact path='/insertPost' element={<LikeButton/>}></Route>
-          <Route exact path='/addLike' element={<LikeButton/>}></Route>
-          <Route exact path='/subLike' element={<LikeButton/>}></Route>
-          <Route exact path='/addDisike' element={<LikeButton/>}></Route>
-          <Route exact path='/subDisike' element={<LikeButton/>}></Route>
-          <Route exact path='/searchResult' element={<CategoryContext.Provider value ={{selectedShow, setSingleShow}}> 
-            <SearchResult/>
-            </CategoryContext.Provider>}>
-          </Route>
-        </Routes>
+      <Router>
+        <CategoryContext.Provider value={{loginStatus, setLoginStatus, selectedShow, setSingleShow}}>
+          <Routes>
+            <Route exact path='/' element={<Home/>}/>
+            <Route exact path='/login' element={<Login/>}/>
+            <Route exact path='/register' element={<Register/>}/>
+            <Route exact path='/forum' element={<Forum/>}/>
+            <Route exact path='/searchResult' element={<SearchResult/>}/>
+            <Route exact path='/newpostmodal' element={<Newpostmodal/>}/>
+            <Route exact path='/totalLikes' element={<LikeButton/>}/>
+            <Route exact path='/totalDisikes' element={<LikeButton/>}/>
+            <Route exact path='/buttonStatus' element={<LikeButton/>}/>
+            <Route exact path='/updatePostsLikes' element={<LikeButton/>}/>
+            <Route exact path='/insertPost' element={<LikeButton/>}/>
+            <Route exact path='/addLike' element={<LikeButton/>}/>
+            <Route exact path='/subLike' element={<LikeButton/>}/>
+            <Route exact path='/addDisike' element={<LikeButton/>}/>
+            <Route exact path='/subDisike' element={<LikeButton/>}/>
+          </Routes>
+        </CategoryContext.Provider>
       </Router>
     </>
   );
