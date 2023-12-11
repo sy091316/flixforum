@@ -32,6 +32,23 @@ function ShowCard() {
     const showARef = useRef();
     // navigates to different pages of the application
     const navigate = useNavigate();
+
+    const handleClick = (direction, pos, setPos, ref) => {
+        // holds the distance to travel between each show card when
+        // button is clicked
+        let distance = ref.current.getBoundingClientRect().x - 50;
+        // if left move to shows going left
+        if (direction === "left" && pos > 0) {
+          setPos(pos - 1);
+          ref.current.style.transform = `translateX(${275 + distance}px)`;
+        }
+        // if right move to shows going right
+        if (direction === "right" && pos < 5) {
+          setPos(pos + 1);
+          ref.current.style.transform = `translateX(${-275 + distance}px)`;
+        }
+      };
+
     // handles the arrow buttons for the first row of shows
     const handleClickAny = (direction) => {
         // holds the distance to travel between each show card when
@@ -104,24 +121,24 @@ function ShowCard() {
         })
     }, []);
     // used to grab the shows that have A in their name
-    useEffect(() => {
-        fetch('https://netflix-data.p.rapidapi.com/search/?query=A&limit_titles=18&limit_suggestions=1', {
-            "method": "GET",
-            "headers": {
-            'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
-            'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
-            }
-        })
-        .then(response => response.json())
-        .then((json) => {
-            const convert_list = json.titles;
-            // sets the list of Netflix shows with A in title from API
-            setShowAList(convert_list);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }, []);
+    // useEffect(() => {
+    //     fetch('https://netflix-data.p.rapidapi.com/search/?query=A&limit_titles=18&limit_suggestions=1', {
+    //         "method": "GET",
+    //         "headers": {
+    //         'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+    //         'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then((json) => {
+    //         const convert_list = json.titles;
+    //         // sets the list of Netflix shows with A in title from API
+    //         setShowAList(convert_list);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
+    // }, []);
 
     return(
         <div className="list">
@@ -129,7 +146,7 @@ function ShowCard() {
             <br></br>
             <div className="wrapper">
                 {/* Left arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxleft" onClick={()=>handleClickAny("left")}>
+                <div className="slider arrowboxleft" onClick={()=> handleClickAny("left", "default")}>
                     <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
                 {/* Maps out all the shows from the Netflix API into row of cards*/}
@@ -138,7 +155,6 @@ function ShowCard() {
                         show.summary.type === 'show' ?
                         <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
-                                {/* sets the data that will passed to forum page*/}
                                 <CardActionArea key={show.summary.id} onClick={ () => {
                                             localStorage.setItem('showID', JSON.stringify(show.summary.id));
                                             localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
@@ -163,13 +179,12 @@ function ShowCard() {
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                        {/* if nothing is retrieved from API, show nothing*/}
                         </div>
                         : null
                     ))}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxright" onClick={()=>handleClickAny("right")}>
+                <div className="slider arrowboxright" onClick={() => handleClick("right", listPos, setListPos, showRef)}>
                     <ArrowForwardIosOutlined className="slider rightarrow"/>
                 </div>
             </div>
@@ -178,16 +193,15 @@ function ShowCard() {
             <br></br>
             <div className="wrapper">
                 {/* Left arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxleft" onClick={()=>handleClickMSeason("left")}>
+                <div className="slider arrowboxleft" onClick={()=>handleClickMSeason("left", "mseasons")}>
                     <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
                 {/* Maps out all the shows from the Netflix API with > 1 season into row of cards*/}
                 <div className="container" ref={seasonRef}>
-                    {seasonList.map((show) => (
+                    {/* {seasonList.map((show) => (
                         show.summary.type === 'show' && show.jawSummary.seasonCount > 1 ?
                         <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
-                                {/* sets the data that will passed to forum page*/}
                                 <CardActionArea onClick={ () => {
                                             localStorage.setItem('showID', JSON.stringify(show.summary.id));
                                             localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
@@ -212,13 +226,12 @@ function ShowCard() {
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                        {/* if nothing is retrieved from API, show nothing*/}
                         </div>
                         : null
-                    ))}
+                    ))} */}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxright" onClick={()=>handleClickMSeason("right")}>
+                <div className="slider arrowboxright" onClick={()=>handleClickMSeason("right", "mseaons")}>
                     <ArrowForwardIosOutlined className="slider rightarrow"/>
                 </div>
             </div>
@@ -232,11 +245,10 @@ function ShowCard() {
                 </div>
                 {/* Maps out all the shows from the Netflix API with A in the title into row of cards*/}
                 <div className="container" ref={showARef} >
-                    {showAList.map((show) => (
+                    {/* {showAList.map((show) => (
                         show.summary.type === 'show' ?
                         <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
-                                {/* sets the data that will passed to forum page*/}
                                 <CardActionArea onClick={ () => {
                                             localStorage.setItem('showID', JSON.stringify(show.summary.id));
                                             localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
@@ -261,10 +273,9 @@ function ShowCard() {
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                        {/* if nothing is retrieved from API, show nothing*/}
                         </div>
                         : null
-                    ))}
+                    ))} */}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={()=>handleClickAShow("right")}>
