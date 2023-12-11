@@ -70,24 +70,24 @@ function ShowCard() {
         })
     }, []);
     // used to grab the shows that have A in their name
-    // useEffect(() => {
-    //     fetch('https://netflix-data.p.rapidapi.com/search/?query=A&limit_titles=18&limit_suggestions=1', {
-    //         "method": "GET",
-    //         "headers": {
-    //         'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
-    //         'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
-    //         }
-    //     })
-    //     .then(response => response.json())
-    //     .then((json) => {
-    //         const convert_list = json.titles;
-    //         // sets the list of Netflix shows with A in title from API
-    //         setShowAList(convert_list);
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     })
-    // }, []);
+    useEffect(() => {
+        fetch('https://netflix-data.p.rapidapi.com/search/?query=A&limit_titles=18&limit_suggestions=1', {
+            "method": "GET",
+            "headers": {
+            'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+            'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+            }
+        })
+        .then(response => response.json())
+        .then((json) => {
+            const convert_list = json.titles;
+            // sets the list of Netflix shows with A in title from API
+            setShowAList(convert_list);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }, []);
 
     return(
         <div className="list">
@@ -147,7 +147,7 @@ function ShowCard() {
                 </div>
                 {/* Maps out all the shows from the Netflix API with > 1 season into row of cards*/}
                 <div className="container" ref={seasonRef}>
-                    {/* {seasonList.map((show) => (
+                    {seasonList.map((show) => (
                         show.summary.type === 'show' && show.jawSummary.seasonCount > 1 ?
                         <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
@@ -177,7 +177,7 @@ function ShowCard() {
                             </Card>
                         </div>
                         : null
-                    ))} */}
+                    ))}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={() => handleClick("right", seasonPos, setSeaPos, seasonRef)}>
@@ -194,7 +194,7 @@ function ShowCard() {
                 </div>
                 {/* Maps out all the shows from the Netflix API with A in the title into row of cards*/}
                 <div className="container" ref={showARef} >
-                    {/* {showAList.map((show) => (
+                    {showAList.map((show) => (
                         show.summary.type === 'show' ?
                         <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
@@ -224,7 +224,7 @@ function ShowCard() {
                             </Card>
                         </div>
                         : null
-                    ))} */}
+                    ))}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={() => handleClick("right", showAPos, setShowAPos, showARef)}>
