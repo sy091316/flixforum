@@ -33,72 +33,21 @@ function ShowCard() {
     // navigates to different pages of the application
     const navigate = useNavigate();
 
+    // handles the arrow usage for moving show card
     const handleClick = (direction, pos, setPos, ref) => {
-        // holds the distance to travel between each show card when
-        // button is clicked
+        // holds the distance to travel between each show card when button is clicked
         let distance = ref.current.getBoundingClientRect().x - 50;
-        // if left move to shows going left
         if (direction === "left" && pos > 0) {
           setPos(pos - 1);
           ref.current.style.transform = `translateX(${275 + distance}px)`;
         }
-        // if right move to shows going right
         if (direction === "right" && pos < 5) {
           setPos(pos + 1);
           ref.current.style.transform = `translateX(${-275 + distance}px)`;
         }
-      };
+    };
 
-    // handles the arrow buttons for the first row of shows
-    const handleClickAny = (direction) => {
-        // holds the distance to travel between each show card when
-        // button is clicked
-        let distance = showRef.current.getBoundingClientRect().x - 50;
-        // if left move to shows going left
-        if (direction === "left" && listPos > 0) {
-            setListPos(listPos - 1);
-            showRef.current.style.transform = `translateX(${275 + distance}px)`
-        }
-        // if right move to shows going right
-        if (direction === "right" && listPos < 5) {
-            setListPos(listPos + 1);
-            showRef.current.style.transform = `translateX(${-275 + distance}px)`
-        }
-    }
-    // handles the arrow buttons for the second row of shows
-    const handleClickMSeason = (direction) => {
-        // holds the distance to travel between each show card when
-        // button is clicked
-        let distance = seasonRef.current.getBoundingClientRect().x - 50;
-        // if left move to shows going left
-        if (direction === "left" && seasonPos > 0) {
-            setSeaPos(seasonPos - 1);
-            seasonRef.current.style.transform = `translateX(${275 + distance}px)`
-        }
-        // if right move to shows going right
-        if (direction === "right" && seasonPos < 5) {
-            setSeaPos(seasonPos + 1);
-            seasonRef.current.style.transform = `translateX(${-275 + distance}px)`
-        }
-    }
-    // handles the arrow buttons for the third row of shows
-    const handleClickAShow = (direction) => {
-        // holds the distance to travel between each show card when
-        // button is clicked
-        let distance = showARef.current.getBoundingClientRect().x - 50;
-        // if left move to shows going left
-        if (direction === "left" && showAPos > 0) {
-            setShowAPos(showAPos - 1);
-            showARef.current.style.transform = `translateX(${275 + distance}px)`
-        }
-        // if right move to shows going right
-        if (direction === "right" && showAPos < 5) {
-            setShowAPos(showAPos + 1);
-            showARef.current.style.transform = `translateX(${-275 + distance}px)`
-        }
-    }
-    // useEffect is used to get the shows but not repeatedly unless this page
-    // is navigated to
+    // useEffect is used to get the shows but not repeatedly unless this page is navigated to
     // updates list with random Netflix shows and shows that have > 1 season
     useEffect(() => {
         // fetches random shows from Netflix API
