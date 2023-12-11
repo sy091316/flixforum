@@ -278,7 +278,7 @@ function ShowCard() {
                     ))} */}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxright" onClick={()=>handleClickAShow("right", showAPos, setShowAPos, showARef)}>
+                <div className="slider arrowboxright" onClick={() => handleClick("right", showAPos, setShowAPos, showARef)}>
                     <ArrowForwardIosOutlined className="slider rightarrow"/>
                 </div>
             </div>
