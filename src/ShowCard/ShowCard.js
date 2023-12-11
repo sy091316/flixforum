@@ -146,7 +146,7 @@ function ShowCard() {
             <br></br>
             <div className="wrapper">
                 {/* Left arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxleft" onClick={()=> handleClickAny("left", "default")}>
+                <div className="slider arrowboxleft" onClick={()=> handleClick("left", listPos, setListPos, showRef)}>
                     <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
                 {/* Maps out all the shows from the Netflix API into row of cards*/}
@@ -193,7 +193,7 @@ function ShowCard() {
             <br></br>
             <div className="wrapper">
                 {/* Left arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxleft" onClick={()=>handleClickMSeason("left", "mseasons")}>
+                <div className="slider arrowboxleft" onClick={() => handleClick("left", seasonPos, setSeaPos, seasonRef)}>
                     <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
                 {/* Maps out all the shows from the Netflix API with > 1 season into row of cards*/}
@@ -231,7 +231,7 @@ function ShowCard() {
                     ))} */}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxright" onClick={()=>handleClickMSeason("right", "mseaons")}>
+                <div className="slider arrowboxright" onClick={() => handleClick("right", seasonPos, setSeaPos, seasonRef)}>
                     <ArrowForwardIosOutlined className="slider rightarrow"/>
                 </div>
             </div>
@@ -240,7 +240,7 @@ function ShowCard() {
             <br></br>
             <div className="wrapper">
                 {/* Left arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxleft" onClick={()=>handleClickAShow("left")}>
+                <div className="slider arrowboxleft" onClick={() => handleClick("left", showAPos, setShowAPos, showARef)}>
                     <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
                 {/* Maps out all the shows from the Netflix API with A in the title into row of cards*/}
@@ -278,7 +278,7 @@ function ShowCard() {
                     ))} */}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
-                <div className="slider arrowboxright" onClick={()=>handleClickAShow("right")}>
+                <div className="slider arrowboxright" onClick={()=>handleClickAShow("right", showAPos, setShowAPos, showARef)}>
                     <ArrowForwardIosOutlined className="slider rightarrow"/>
                 </div>
             </div>
