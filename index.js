@@ -2,11 +2,8 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
-
 const app = express();
-
 app.use(express.json());
-
 app.use(cors());
 
 const db = mysql.createConnection({
@@ -25,12 +22,11 @@ app.post("/register", async (req, res) => {
         const username = req.body.username;
         const email = req.body.email;
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
         db.query(
         "INSERT INTO users (username, email, password) VALUES (?, ?, ?)", 
         [username, email, hashedPassword], 
         (err, result) => {
-            if(err) {
+            if (err) {
                 console.log(err);
             }
             res.status(201).send(result);
@@ -43,20 +39,18 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
     try {
-        // console.log("inside of login of /login");
         const email = req.body.email;
         const password = req.body.password;
-
         db.query(
         'SELECT * FROM users WHERE email = ?',
         [email],
         async (err, result) => {
-            if(err) {
+            if (err) {
                 res.send({err:err});
             }
             console.log(result)
             if (result.length > 0) {
-                if(await bcrypt.compare(password, result[0].password)){
+                if (await bcrypt.compare(password, result[0].password)){
                     res.send(result);
                 } else {
                     res.send({message: "Wrong username/password combination!"});
@@ -73,19 +67,17 @@ app.post("/login", async (req, res) => {
 // retrieves the total amount of likes or dislikes for a specific post
 app.post("/totalLikes", async (req, res) => {
     try {
-        // console.log("inside of /totalLikes");
         const post_id = req.body.post_id;
         db.query(
         'SELECT likes FROM posts WHERE post_id = ?',
         [post_id],
         (err, result) => {
-            if(err) {
+            if (err) {
                 res.send({err:err});
             }
             if (result.length > 0) {
                 res.send(result);
             } else {
-                //console.log(result.length)
                 res.send({message: "Couldn't retrieve likes"});
             }
         });
@@ -95,19 +87,17 @@ app.post("/totalLikes", async (req, res) => {
 });
 app.post("/totalDislikes", async (req, res) => {
     try {
-        // console.log("inside of /totalDisikes");
         const post_id = req.body.post_id
         db.query(
         'SELECT dislikes FROM posts WHERE post_id = ?',
         [post_id],
         (err, result) => {
-            if(err) {
+            if (err) {
                 res.send({err:err});
             }
             if (result.length > 0) {
                 res.send(result);
             } else {
-                //console.log(result.length)
                 res.send({message: "Couldn't retrieve dislikes"});
             }
         });
@@ -118,13 +108,12 @@ app.post("/totalDislikes", async (req, res) => {
 
 app.post("/addLike", async (req, res) => {
     try {
-        // console.log('inside of addLike')
         const post_id = req.body.post_id;
         db.query(
         "UPDATE posts SET likes = likes + 1 WHERE post_id = ?", 
         [post_id], 
         (err, result) => {
-            if(err) {
+            if (err) {
                 console.log(err)
             }
             console.log(result)
@@ -142,7 +131,7 @@ app.post("/subLike", async (req, res) => {
             "UPDATE posts SET likes = likes - 1 WHERE post_id = ?", 
             [post_id], 
             (err, result) => {
-                if(err) {
+                if (err) {
                     console.log(err)
                 }
         });
@@ -159,7 +148,7 @@ app.post("/addDislike", async (req, res) => {
             "UPDATE posts SET dislikes = dislikes + 1 WHERE post_id = ?", 
             [post_id], 
             (err, result) => {
-                if(err) {
+                if (err) {
                     console.log(err)
                 }
                 console.log(result)
@@ -196,14 +185,13 @@ app.post("/buttonStatus", async (req, res) => {
             'SELECT liked, disliked FROM post_likes WHERE forum_id = ? AND post_id = ? AND user_id = ?',
             [forum_id, post_id, user_id],
             (err, result) => {
-                if(err) {
+                if (err) {
                     // if the post_id isn't there, then there should be an error
                     res.send({message: "Couldn't retrieve information"});
                 }
                 else if (result.length > 0) {
                     res.send(result);
                 } else {
-                    //console.log(result.length)
                     res.send({message: "Couldn't retrieve information"});
                 }
             });
@@ -234,7 +222,6 @@ app.post("/updatePostsLikes", async (req, res) => {
 
 app.post("/insertPost", async (req, res) => {
     try {
-        // console.log('inside insertPost')
         const post_id = req.body.post_id
         const user_id = req.body.user_id
         const forum_id = req.body.forum_id
@@ -245,7 +232,7 @@ app.post("/insertPost", async (req, res) => {
         "INSERT IGNORE INTO post_likes (forum_id, post_id, user_id, liked, disliked) VALUES (?, ?, ?, ?, ?)", 
         [forum_id, post_id, user_id, like_value, dislike_value], 
         (err, result) => {
-            if(err) {
+            if (err) {
                 console.log(err);
             }
             res.status(201).send(result);
@@ -274,7 +261,7 @@ app.post("/newpostmodal", async (req, res) => {
             "SELECT forum_id FROM forums WHERE title = ? AND season = ? AND episode = ?",
             [showtitle, season, episode], 
             (err, result) => {
-                if(err) {
+                if (err) {
                     console.log(err);
                 }
                 else {
@@ -288,7 +275,6 @@ app.post("/newpostmodal", async (req, res) => {
                                 if(err) {
                                     console.log(err);
                                 }
-                                //console.log(result);
                             });
                         // grab from the forums table the newly added forum_id
                         db.query(
@@ -307,7 +293,6 @@ app.post("/newpostmodal", async (req, res) => {
                                         if(err) {
                                             console.log(err);
                                         }
-                                        //console.log(result);
                                     }
                                 );
                             }
@@ -324,7 +309,6 @@ app.post("/newpostmodal", async (req, res) => {
                             if(err) {
                                 console.log(err);
                             }
-                            // console.log(result);
                         });
                     }
                 }
@@ -350,8 +334,7 @@ app.get("/forum", async (req, res) => {
             "SELECT forum_id FROM forums WHERE title = ? AND season = ? AND episode = ?",
             [showtitle, season, episode], 
             (err, result) => {
-                //console.log("result: ", result);
-                if(err) {
+                if (err) {
                     console.log("sth went wrong in the first if ");
                 }
                 else {
@@ -360,7 +343,6 @@ app.get("/forum", async (req, res) => {
                         return;
                     }
                     const result_forum_id = result[0].forum_id;
-
                     db.query(
                         "SELECT title, post_id, content, user_id FROM posts WHERE forum_id = ?",
                         [result_forum_id],
@@ -389,19 +371,16 @@ app.get("/forum", async (req, res) => {
                                                     }
                                                 }
                                             }
-                                            // console.log("updated Posts_list: ", posts_list)
                                         }
                                         res.status(200).send(posts_list);
                                     } 
                                 )
                             }
-
                         }
                     )
                 }
             }
         )
-        
     } 
     catch {
         res.status(500).send();
