@@ -47,6 +47,38 @@ function ShowCard() {
         }
     };
 
+    const renderShowCards = (shows) => {
+        return (
+            <div className="list-cards" key={shows.summary.id}>
+                <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
+                    <CardActionArea key={shows.summary.id} onClick={ () => {
+                                localStorage.setItem('showID', JSON.stringify(shows.summary.id));
+                                localStorage.setItem('title', JSON.stringify(shows.jawSummary.title));
+                                localStorage.setItem('showImage', shows.jawSummary.backgroundImage.url);
+                                localStorage.setItem('season', "");
+                                localStorage.setItem('episode', "");
+                                navigate("/forum");
+                            }
+                        }>
+                        <CardMedia
+                            component="img"
+                            image={shows.jawSummary.backgroundImage.url}
+                            height='120'
+                            alt="show image"
+                        />
+                        <CardContent>
+                            <Typography 
+                                gutterBottom variant="subtitle1"
+                                sx={{color: "white", fontSize: "18px", fontWeight:700, align:'left', fontFamily:"Arial"}}>
+                                {shows.jawSummary.title}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            </div>
+        )
+    }
+
     // useEffect is used to get the shows but not repeatedly unless this page is navigated to
     // updates list with random Netflix shows and shows that have > 1 season
     useEffect(() => {
@@ -101,6 +133,9 @@ function ShowCard() {
                 {/* Maps out all the shows from the Netflix API into row of cards*/}
                 <div className="container" ref={showRef} >
                     {list.map((show) => (
+                        show.summary.type === 'show' ? renderShowCards(show) : null
+                    ))}
+                    {/* {list.map((show) => (
                         show.summary.type === 'show' ?
                         <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
@@ -130,7 +165,7 @@ function ShowCard() {
                             </Card>
                         </div>
                         : null
-                    ))}
+                    ))} */}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={() => handleClick("right", listPos, setListPos, showRef)}>
