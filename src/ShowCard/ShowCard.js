@@ -46,7 +46,8 @@ function ShowCard() {
           ref.current.style.transform = `translateX(${-275 + distance}px)`;
         }
     };
-
+    
+    // use this function to render new rows of shows (or movies will need to readjust if so)
     const renderShowCards = (shows) => {
         return (
             <div className="list-cards" key={shows.summary.id}>
@@ -135,37 +136,6 @@ function ShowCard() {
                     {list.map((show) => (
                         show.summary.type === 'show' ? renderShowCards(show) : null
                     ))}
-                    {/* {list.map((show) => (
-                        show.summary.type === 'show' ?
-                        <div className="list-cards" key={show.summary.id}>
-                            <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
-                                <CardActionArea key={show.summary.id} onClick={ () => {
-                                            localStorage.setItem('showID', JSON.stringify(show.summary.id));
-                                            localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
-                                            localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
-                                            localStorage.setItem('season', "");
-                                            localStorage.setItem('episode', "");
-                                            navigate("/forum");
-                                        }
-                                    }>
-                                    <CardMedia
-                                        component="img"
-                                        image={show.jawSummary.backgroundImage.url}
-                                        height='120'
-                                        alt="show image"
-                                    />
-                                    <CardContent>
-                                        <Typography 
-                                            gutterBottom variant="subtitle1"
-                                            sx={{color: "white", fontSize: "18px", fontWeight:700, align:'left', fontFamily:"Arial"}}>
-                                            {show.jawSummary.title}
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </div>
-                        : null
-                    ))} */}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={() => handleClick("right", listPos, setListPos, showRef)}>
@@ -185,37 +155,6 @@ function ShowCard() {
                     {seasonList.map((show) => (
                             show.summary.type === 'show' ? renderShowCards(show) : null
                     ))}
-                    {/* {seasonList.map((show) => (
-                        show.summary.type === 'show' && show.jawSummary.seasonCount > 1 ?
-                        <div className="list-cards" key={show.summary.id}>
-                            <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
-                                <CardActionArea onClick={ () => {
-                                            localStorage.setItem('showID', JSON.stringify(show.summary.id));
-                                            localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
-                                            localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
-                                            localStorage.setItem('season', "");
-                                            localStorage.setItem('episode', "");
-                                            navigate("/forum");
-                                        }
-                                    }>
-                                    <CardMedia
-                                        component="img"
-                                        image={show.jawSummary.backgroundImage.url}
-                                        height='120'
-                                        alt="show image"
-                                    />
-                                    <CardContent>
-                                        <Typography 
-                                            gutterBottom variant="subtitle1"
-                                            sx={{color: "white", fontSize: "18px", fontWeight:700, align:'left', fontFamily:"Arial"}}>
-                                            {show.jawSummary.title}
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </div>
-                        : null
-                    ))} */}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={() => handleClick("right", seasonPos, setSeaPos, seasonRef)}>
@@ -235,37 +174,6 @@ function ShowCard() {
                     {showAList.map((show) => (
                         show.summary.type === 'show' ? renderShowCards(show) : null
                     ))}
-                    {/* {showAList.map((show) => (
-                        show.summary.type === 'show' ?
-                        <div className="list-cards" key={show.summary.id}>
-                            <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
-                                <CardActionArea onClick={ () => {
-                                            localStorage.setItem('showID', JSON.stringify(show.summary.id));
-                                            localStorage.setItem('title', JSON.stringify(show.jawSummary.title));
-                                            localStorage.setItem('showImage', show.jawSummary.backgroundImage.url);
-                                            localStorage.setItem('season', "");
-                                            localStorage.setItem('episode', "");
-                                            navigate("/forum");
-                                        }
-                                    }>
-                                    <CardMedia
-                                        component="img"
-                                        image={show.jawSummary.backgroundImage.url}
-                                        height='120'
-                                        alt="show image"
-                                    />
-                                    <CardContent>
-                                        <Typography 
-                                            gutterBottom variant="subtitle1"
-                                            sx={{color: "white", fontSize: "18px", fontWeight:700, align:'left', fontFamily:"Arial"}}>
-                                            {show.jawSummary.title}
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </div>
-                        : null
-                    ))} */}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={() => handleClick("right", showAPos, setShowAPos, showARef)}>
