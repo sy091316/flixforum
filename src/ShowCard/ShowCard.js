@@ -183,6 +183,9 @@ function ShowCard() {
                 {/* Maps out all the shows from the Netflix API with > 1 season into row of cards*/}
                 <div className="container" ref={seasonRef}>
                     {seasonList.map((show) => (
+                            show.summary.type === 'show' ? renderShowCards(show) : null
+                    ))}
+                    {/* {seasonList.map((show) => (
                         show.summary.type === 'show' && show.jawSummary.seasonCount > 1 ?
                         <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
@@ -212,7 +215,7 @@ function ShowCard() {
                             </Card>
                         </div>
                         : null
-                    ))}
+                    ))} */}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={() => handleClick("right", seasonPos, setSeaPos, seasonRef)}>
@@ -228,8 +231,11 @@ function ShowCard() {
                     <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
                 {/* Maps out all the shows from the Netflix API with A in the title into row of cards*/}
-                <div className="container" ref={showARef} >
+                <div className="container" ref={showARef}>
                     {showAList.map((show) => (
+                        show.summary.type === 'show' ? renderShowCards(show) : null
+                    ))}
+                    {/* {showAList.map((show) => (
                         show.summary.type === 'show' ?
                         <div className="list-cards" key={show.summary.id}>
                             <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
@@ -259,7 +265,7 @@ function ShowCard() {
                             </Card>
                         </div>
                         : null
-                    ))}
+                    ))} */}
                 </div>
                 {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={() => handleClick("right", showAPos, setShowAPos, showARef)}>
