@@ -26,10 +26,13 @@ function ShowCard() {
     const [showAList, setShowAList] = useState([]);
     // handles the positioning of the shows when navigating shows with A
     const [showAPos, setShowAPos] = useState(0);
+    const [movieList, setMovieList] = useState([]);
+    const [moviePos, setMoviePos] = useState(0);
     // handles updating the position of the shows cards
     const showRef = useRef();
     const seasonRef = useRef();
     const showARef = useRef();
+    const movieRef = useRef();
     // navigates to different pages of the application
     const navigate = useNavigate();
 
@@ -97,6 +100,7 @@ function ShowCard() {
             // sets list of Netflix shows grabbed from API
             setList(convert_list);
             setSeaList(convert_list);
+            setMovieList(convert_list);
         })
         .catch(err => {
             console.log(err);
@@ -124,59 +128,55 @@ function ShowCard() {
 
     return(
         <div className="list">
-            <div className="recommend"><b>Popular on Netflix</b></div>
-            <br></br>
+            <div className="recommend"><b>Popular Shows on Netflix</b></div>
             <div className="wrapper">
-                {/* Left arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxleft" onClick={()=> handleClick("left", listPos, setListPos, showRef)}>
                     <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
-                {/* Maps out all the shows from the Netflix API into row of cards*/}
                 <div className="container" ref={showRef} >
-                    {list.map((show) => (
-                        show.summary.type === 'show' ? renderShowCards(show) : null
-                    ))}
+                    {list.map((show) => (show.summary.type === 'show' ? renderShowCards(show) : null))}
                 </div>
-                {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={() => handleClick("right", listPos, setListPos, showRef)}>
                     <ArrowForwardIosOutlined className="slider rightarrow"/>
                 </div>
             </div>
             <br></br>
             <div className="recommend"><b>Shows With More than One Season</b></div>
-            <br></br>
             <div className="wrapper">
-                {/* Left arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxleft" onClick={() => handleClick("left", seasonPos, setSeaPos, seasonRef)}>
                     <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
-                {/* Maps out all the shows from the Netflix API with > 1 season into row of cards*/}
                 <div className="container" ref={seasonRef}>
-                    {seasonList.map((show) => (
-                            show.summary.type === 'show' ? renderShowCards(show) : null
-                    ))}
+                    {seasonList.map((show) => (show.summary.type === 'show' ? renderShowCards(show) : null))}
                 </div>
-                {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={() => handleClick("right", seasonPos, setSeaPos, seasonRef)}>
                     <ArrowForwardIosOutlined className="slider rightarrow"/>
                 </div>
             </div>
             <br></br>
             <div className="recommend"><b>Shows A in the Name</b></div>
-            <br></br>
             <div className="wrapper">
-                {/* Left arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxleft" onClick={() => handleClick("left", showAPos, setShowAPos, showARef)}>
                     <ArrowBackIosOutlined className="slider leftarrow"/>
                 </div>
-                {/* Maps out all the shows from the Netflix API with A in the title into row of cards*/}
                 <div className="container" ref={showARef}>
-                    {showAList.map((show) => (
-                        show.summary.type === 'show' ? renderShowCards(show) : null
-                    ))}
+                    {showAList.map((show) => (show.summary.type === 'show' ? renderShowCards(show) : null))}
                 </div>
-                {/* Right arrow button for scrolling a list of tv shows */}
                 <div className="slider arrowboxright" onClick={() => handleClick("right", showAPos, setShowAPos, showARef)}>
+                    <ArrowForwardIosOutlined className="slider rightarrow"/>
+                </div>
+            </div>
+            <br></br>
+            {/* ADDED MOVIE SECTION, WILL NEED TO UPDATE FORUM PAGE FOR IT TO WORK*/}
+            <div className="recommend"><b>Movies</b></div>
+            <div className="wrapper">
+                <div className="slider arrowboxleft" onClick={()=> handleClick("left", moviePos, setMoviePos, movieRef)}>
+                    <ArrowBackIosOutlined className="slider leftarrow"/>
+                </div>
+                <div className="container" ref={movieRef} >
+                    {movieList.map((show) => (show.summary.type === 'movie' ? renderShowCards(show) : null))}
+                </div>
+                <div className="slider arrowboxright" onClick={() => handleClick("right", moviePos, setMoviePos, movieRef)}>
                     <ArrowForwardIosOutlined className="slider rightarrow"/>
                 </div>
             </div>
