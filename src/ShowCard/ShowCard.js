@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import { CardActionArea, CardContent, CardMedia } from "@mui/material";
 import "./ShowCard.css";
-import {ArrowBackIosOutlined, ArrowForwardIosOutlined} from "@material-ui/icons";
+import {ArrowBackIosOutlined, ArrowForwardIosOutlined} from "@mui/icons-material";
 
 // MAJORITY OF CODE COMES FROM THIS VIDEO FOR DISPLAYING THE SHOWS
 // https://www.youtube.com/watch?v=FzWG8jiw4XM&ab_channel=LamaDev
