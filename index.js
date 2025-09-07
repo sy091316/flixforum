@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-let db;
+let db; 
 
 if(process.env.JAWSDB_URL) {
     console.log("Connected to JawsDB (Heroku)");
