@@ -84,46 +84,46 @@ function ShowCard() {
 
     // useEffect is used to get the shows but not repeatedly unless this page is navigated to
     // updates list with random Netflix shows and shows that have > 1 season
-    useEffect(() => {
-        // fetches random shows from Netflix API
-        fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=25&limit_suggestions=1', {
-            "method": "GET",
-            "headers": {
-            'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
-            'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
-            }
-        })
-        .then(response => response.json())
-        .then((json) => {
-            const convert_list = json.titles;
-            // sets list of Netflix shows grabbed from API
-            setList(convert_list);
-            setSeaList(convert_list);
-            setMovieList(convert_list);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }, []);
-    // used to grab the shows that have A in their name
-    useEffect(() => {
-        fetch('https://netflix-data.p.rapidapi.com/search/?query=A&limit_titles=18&limit_suggestions=1', {
-            "method": "GET",
-            "headers": {
-            'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
-            'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
-            }
-        })
-        .then(response => response.json())
-        .then((json) => {
-            const convert_list = json.titles;
-            // sets the list of Netflix shows with A in title from API
-            setShowAList(convert_list);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }, []);
+    // useEffect(() => {
+    //     // fetches random shows from Netflix API
+    //     fetch('https://netflix-data.p.rapidapi.com/search/?query=&limit_titles=25&limit_suggestions=1', {
+    //         "method": "GET",
+    //         "headers": {
+    //         'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+    //         'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then((json) => {
+    //         const convert_list = json.titles;
+    //         // sets list of Netflix shows grabbed from API
+    //         setList(convert_list);
+    //         setSeaList(convert_list);
+    //         setMovieList(convert_list);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
+    // }, []);
+    // // used to grab the shows that have A in their name
+    // useEffect(() => {
+    //     fetch('https://netflix-data.p.rapidapi.com/search/?query=A&limit_titles=18&limit_suggestions=1', {
+    //         "method": "GET",
+    //         "headers": {
+    //         'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+    //         'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then((json) => {
+    //         const convert_list = json.titles;
+    //         // sets the list of Netflix shows with A in title from API
+    //         setShowAList(convert_list);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
+    // }, []);
 
     return(
         <div className="list">

@@ -32,25 +32,25 @@ function SearchResult() {
     const navigate = useNavigate();
     // useEffect is used to get the shows but not repeatedly unless this page
     // is navigated to
-    useEffect(() => {
-        // fetches random shows from Netflix API
-        fetch('https://netflix-data.p.rapidapi.com/search/?query='+ query + '&limit_titles=5&limit_suggestions=1', {
-            "method": "GET",
-            "headers": {
-            'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
-            'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
-            }
-        })
-        .then(response => response.json())
-        // grabs only the titles from the json file
-        .then((json) => {
-            const convert_list = json.titles;
-            setList(convert_list);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }, [query]);
+    // useEffect(() => {
+    //     // fetches random shows from Netflix API
+    //     fetch('https://netflix-data.p.rapidapi.com/search/?query='+ query + '&limit_titles=5&limit_suggestions=1', {
+    //         "method": "GET",
+    //         "headers": {
+    //         'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+    //         'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     // grabs only the titles from the json file
+    //     .then((json) => {
+    //         const convert_list = json.titles;
+    //         setList(convert_list);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
+    // }, [query]);
 
     return(
         <div className="list">
