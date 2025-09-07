@@ -54,7 +54,7 @@ function ShowCard() {
     const renderShowCards = (shows) => {
         return (
             <div className="list-cards" key={shows.summary.id}>
-                <Card sx={{width: 275, height: 200, ml: 1, backgroundColor: "#43465e"}}>
+                <Card sx={{position: "relative", width: 275, height: 180, ml: 1, backgroundColor: "rgba(255,255,255,.2)"}}>
                     <CardActionArea key={shows.summary.id} onClick={ () => {
                                 localStorage.setItem('showID', JSON.stringify(shows.summary.id));
                                 localStorage.setItem('title', JSON.stringify(shows.jawSummary.title));
@@ -67,16 +67,15 @@ function ShowCard() {
                         <CardMedia
                             component="img"
                             image={shows.jawSummary.backgroundImage.url}
-                            height='120'
+                            height='190'
                             alt="show image"
                         />
-                        <CardContent>
-                            <Typography 
-                                gutterBottom variant="subtitle1"
-                                sx={{color: "white", fontSize: "18px", fontWeight:700, align:'left', fontFamily:"Arial"}}>
-                                {shows.jawSummary.title}
-                            </Typography>
-                        </CardContent>
+                        <Typography 
+                            gutterBottom variant="subtitle1"
+                            sx={{position: "absolute", pl: 2, pt: 1, color: "white", bottom: '0%', width: '100%', height: '30%', backgroundColor: "rgba(0,0,0,.5)", backdropFilter: "blur(5px)", fontSize: "18px", fontWeight:700, fontFamily:"Arial"}}>
+                            {shows.jawSummary.title}
+                        </Typography>
+
                     </CardActionArea>
                 </Card>
             </div>
@@ -168,18 +167,6 @@ function ShowCard() {
             </div>
             <br></br>
             {/* ADDED MOVIE SECTION, WILL NEED TO UPDATE FORUM PAGE FOR IT TO WORK*/}
-            <div className="recommend"><b>Movies</b></div>
-            <div className="wrapper">
-                <div className="slider arrowboxleft" onClick={()=> handleClick("left", moviePos, setMoviePos, movieRef)}>
-                    <ArrowBackIosOutlined className="slider leftarrow"/>
-                </div>
-                <div className="container" ref={movieRef} >
-                    {movieList.map((show) => (show.summary.type === 'movie' ? renderShowCards(show) : null))}
-                </div>
-                <div className="slider arrowboxright" onClick={() => handleClick("right", moviePos, setMoviePos, movieRef)}>
-                    <ArrowForwardIosOutlined className="slider rightarrow"/>
-                </div>
-            </div>
             <br></br>
         </div>
     );

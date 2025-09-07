@@ -6,13 +6,20 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const db = mysql.createConnection({
-    user: 'admin',
-    host: 'flixforum-db.cdwyjlv3wddo.us-west-2.rds.amazonaws.com',
-    password: 'FlixForumDB',
-    port: '3306',
-    database: 'LoginSystem',
-});
+let db;
+
+if(process.env.JAWSDB_URL) {
+    db = createConnection.mysql.createConnection(process.env.JAWSDB_URL);
+}else {
+    db = mysql.createConnection({
+        user: 'admin',
+        host: 'flixforum-db.cdwyjlv3wddo.us-west-2.rds.amazonaws.com',
+        password: 'FlixForumDB',
+        port: '3306',
+        database: 'LoginSystem',
+    });
+}
+
 
 // Credit for the password encryption logic found here:
 // https://www.youtube.com/watch?v=Ud5xKCYQTjM

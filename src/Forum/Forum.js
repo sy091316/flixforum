@@ -41,7 +41,7 @@ function Forum() {
     // grabs the member info from the local storage
     const curr = localStorage.getItem('member');
     const ID = localStorage.getItem('showID');
-    const Title = localStorage.getItem('title');
+    const Title = localStorage.getItem('title').replace(/^"(.*)"$/, '$1');;
     const Image = localStorage.getItem('showImage');
 
     //getting the title the user chose on froum page and making it an Int
@@ -76,76 +76,80 @@ function Forum() {
             setForumList(response.data);
         })
     }
-    // fetches the seasons of the selected show
-    const seasonQuery = 'https://netflix-data.p.rapidapi.com/title/seasons/?ids='+ ID +'&offset=0&limit=25';
-    // grabs the seasons of a show
-    useEffect(() => {
-        fetch(seasonQuery, {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
-                'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
-            }
-        })
-        .then(response => response.json())
-        .then((json) => {
-            // sets the season list of the show
-            const convert_season = json[0];
-            setSeasonList(convert_season.seasons);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }, [seasonQuery]);
-    // gets the episodes of the currently selected season of show
-    const episodeQuery = 'https://netflix-data.p.rapidapi.com/season/episodes/?ids='+ currSeason +'&offset=0&limit=25';
-    useEffect(() => {
-        fetch(episodeQuery, {
-            method: 'GET',
-	        headers: {
-                'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
-                'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
-	        }
-        })
-        .then(response => response.json())
-        .then((json) => {
-            // sets the episode list of the season
-            const convert_epi = json[0].episodes;
-            setEpisodeList(convert_epi);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }, [episodeQuery]);
+    // // fetches the seasons of the selected show
+    // const seasonQuery = 'https://netflix-data.p.rapidapi.com/title/seasons/?ids='+ ID +'&offset=0&limit=25';
+    // // grabs the seasons of a show
+    // useEffect(() => {
+    //     fetch(seasonQuery, {
+    //         method: 'GET',
+    //         headers: {
+    //             'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+    //             'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then((json) => {
+    //         // sets the season list of the show
+    //         const convert_season = json[0];
+    //         setSeasonList(convert_season.seasons);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
+    // }, [seasonQuery]);
+    // // gets the episodes of the currently selected season of show
+    // const episodeQuery = 'https://netflix-data.p.rapidapi.com/season/episodes/?ids='+ currSeason +'&offset=0&limit=25';
+    // useEffect(() => {
+    //     fetch(episodeQuery, {
+    //         method: 'GET',
+	//         headers: {
+    //             'X-RapidAPI-Key': '2c0524d1f3msha9fb62d0bf2cad7p11368bjsn299a80d5fc29',
+    //             'X-RapidAPI-Host': 'netflix-data.p.rapidapi.com'
+	//         }
+    //     })
+    //     .then(response => response.json())
+    //     .then((json) => {
+    //         // sets the episode list of the season
+    //         const convert_epi = json[0].episodes;
+    //         setEpisodeList(convert_epi);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
+    // }, [episodeQuery]);
 
     return (
         <>
         <Logo/>
         <div className="forumspage">
             <div className="tvshowpicture">
-                {Image && <img 
-                src={Image}
-                alt={Title}
+            {/* Image && */}
+                { <img 
+                // src={Image}
+                // alt={Title}
                 height='380'
                 width='750'
                 ></img>}
             </div>
+            <br></br>
             <div className = "show-title">{Title && <div>{Title}</div>}</div>
             <br></br>
             <div className="selections">
                 <div className="dropdownSeason">
                     <Box sx={{minWidth: 20}}>
                     <FormControl fullWidth>
-                        <InputLabel id="seasonPicker" style={{color: '#FFFFFF'}}><b>Season</b></InputLabel>
+                        <div id="seasonPicker" style={{color: '#FFFFFF'}}><b>Season</b></div>
+                        {/* <InputLabel id="seasonPicker" style={{color: '#FFFFFF'}}><b>Season</b></InputLabel> */}
                         <Select
                         value={currSeason}
                         label="seasonSelector"
-                        style={{backgroundColor: '#43465e', color: '#FFFFFF', width: 175}}
+                        placeholder="select season"
+                        style={{backgroundColor: '#242323', border: "1px solid", borderColor: "#FFFFFF", color: '#FFFFFF', width: 175}}
                         onChange={e => {setCurrSeason(e.target.value);localStorage.setItem('season', JSON.stringify(e.target.value))}}
                         >
                         {seasonList.map((season) => (
                             <MenuItem 
-                                style={{backgroundColor: '#43465e', color:'#FFFFFF'}}
+                                style={{backgroundColor: '#242323', color:'#FFFFFF', border: "0.5px solid", borderColor: "#FFFFFF"}}
                                 value={season.seasonId}
                                 key={season.seasonId}
                             >
