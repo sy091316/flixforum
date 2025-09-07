@@ -23,6 +23,7 @@
     "express": "^4.18.2",
     "framer-motion": "^9.0.1",
     "mysql": "^2.18.1",
+    "mysql2": "^3.14.4",
     "pg": "^8.9.0",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.10",
@@ -37,6 +38,7 @@
   },
   "scripts": {
     "start": "serve -s build",
+    "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

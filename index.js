@@ -1,5 +1,6 @@
 const express = require("express");
-const mysql = require("mysql");
+const env = require('dotenv').config();
+const mysql = require('mysql2');
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const app = express();
@@ -9,16 +10,26 @@ app.use(cors());
 let db;
 
 if(process.env.JAWSDB_URL) {
-    db = createConnection.mysql.createConnection(process.env.JAWSDB_URL);
+    console.log("Connected to JawsDB (Heroku)");
+    db = mysql.createConnection(process.env.JAWSDB_URL);
 }else {
+    console.log("Connected to local MySQL");
     db = mysql.createConnection({
-        user: 'admin',
-        host: 'flixforum-db.cdwyjlv3wddo.us-west-2.rds.amazonaws.com',
-        password: 'FlixForumDB',
-        port: '3306',
-        database: 'LoginSystem',
+        user: process.env.DB_USER,
+        host: process.env.DB_HOST,
+        password: process.env.DB_PASS,
+        port: process.env.DB_PORT || 3306,
+        database:  process.env.DB_NAME
     });
 }
+
+db.connect(err => {
+  if (err) {
+    console.error('Database connection failed:', err);
+  } else {
+    console.log('Connected to database!');
+  }
+});
 
 
 // Credit for the password encryption logic found here:

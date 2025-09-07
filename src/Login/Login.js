@@ -35,8 +35,8 @@ export const Login = () => {
     // gets user's email and password after they submit/click 'log in' button
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
-        console.log(pass);
+        // console.log(email);
+        // console.log(pass);
     }
  
     return (
