@@ -33,7 +33,7 @@ function ShowCard() {
     const seasonRef = useRef();
     const showARef = useRef();
     const movieRef = useRef();
-    // navigates to different pages of the application 
+    // navigates to different pages of the application
     const navigate = useNavigate();
 
     // handles the arrow usage for moving show card
